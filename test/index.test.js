@@ -2,7 +2,7 @@ import React from 'react';
 import { mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import Index from './index';
+import Index from '../pages/index';
 
 configure({ adapter: new Adapter() });
 
