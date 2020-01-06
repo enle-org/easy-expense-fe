@@ -1,0 +1,16 @@
+.accountWrapper {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+  &__main {
+    margin-left: 15%;
+    background: #F8F8FF;
+    flex: 1;
+    padding: 4rem;
+    padding-top: 2.4rem;
+    padding-bottom: 10rem;
+  }
+  .pageTitle {
+    font-weight: 600;
+  }
+}

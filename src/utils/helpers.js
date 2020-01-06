@@ -14,9 +14,9 @@ const axios = require('axios');
  * @param {Object} self - Refers to the class itself or a member.
  */
 const setClassProps = (arr, self) => {
-	arr.forEach(elem => {
-		self[elem.name] = elem.value;
-	});
+  arr.forEach(elem => {
+    self[elem.name] = elem.value;
+  });
 };
 
 /**
@@ -40,34 +40,34 @@ const renderIf = (condition, content) => {
  * @param {String} serverToken - Auth token retrieved from the server.
  */
 const axiosCore = (verb, urlPart, data = null, serverToken = null) => {
-	const token = serverToken || cookie.get('token');
-	if (!token) {
+  const token = serverToken || cookie.get('token');
+  if (!token) {
     Router.push('/signin', '/signin');
-	}
+  }
 
-	if (verb === 'get') {
-		return axios[verb](
-			`${config.API_URL}/${urlPart}`,
-			token
-			? {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			}
-			: {},
-		);
-	}
-	return axios[verb](
-		`${config.API_URL}/${urlPart}`,
-		data,
-		token
-		? {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		}
-		: {},
-	);
+  if (verb === 'get') {
+    return axios[verb](
+      `${config.API_URL}/${urlPart}`,
+      token
+        ? {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+        : {},
+    );
+  }
+  return axios[verb](
+    `${config.API_URL}/${urlPart}`,
+    data,
+    token
+      ? {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      : {},
+  );
 };
 
 /**
@@ -99,9 +99,9 @@ const patchData = (urlPart, data) => axiosCore('patch', urlPart, data);
  * @param {any} data - Class member value.
  */
 const runInActionUtil = (self, prop, data) => {
-	runInAction(() => {
-		self[prop] = data;
-	});
+  runInAction(() => {
+    self[prop] = data;
+  });
 };
 
 /**
@@ -114,27 +114,27 @@ const runInActionUtil = (self, prop, data) => {
  */
 // eslint-disable-next-line consistent-return
 const getInitialProps = async (ctx, urlPart) => {
-	const { token } = nextCookie(ctx);
+  const { token } = nextCookie(ctx);
   const redirectOnError = () => {
-		if (window !== 'undefined') {
-			Router.push('/signin', '/signin');
-		}
-		else {
-			ctx.res.writeHead(302, {
-				Location: '/signin',
-			});
-			ctx.res.end();
-		}
-	};
+    if (window !== 'undefined') {
+      Router.push('/signin', '/signin');
+    }
+    else {
+      ctx.res.writeHead(302, {
+        Location: '/signin',
+      });
+      ctx.res.end();
+    }
+  };
 
   try {
-		const data = await getData(urlPart, token).then(res => res.data);
+    const data = await getData(urlPart, token).then(res => res.data);
     if (data) {
       return data;
-		}
-		return await redirectOnError();
-	}
-	catch (error) {
+    }
+    return await redirectOnError();
+  }
+  catch (error) {
     redirectOnError();
   }
 };
@@ -155,12 +155,12 @@ const checkAuth = async ctx => {
 };
 
 export {
-	setClassProps,
-	renderIf,
-	getData,
-	postData,
-	patchData,
-	runInActionUtil,
-	getInitialProps,
-	checkAuth,
+  setClassProps,
+  renderIf,
+  getData,
+  postData,
+  patchData,
+  runInActionUtil,
+  getInitialProps,
+  checkAuth,
 };

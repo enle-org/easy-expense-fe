@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap');
+
+body {
+    color: $colorDark;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+p, a, button {
+    font-size: 1.6rem;
+}
+
+button {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+p {
+    color: $colorDark2;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+}
+
+.pageTitle {
+    font-size: 4.8rem;
+    margin: 0;
+}
+
+.accountPageTitle {
+    font-weight: 100;
+    font-size: 1.6rem;
+    color: $colorDark5;
+}
+
+.sectionTitle {
+    font-size: 2.4rem;
+    font-weight: 600;
+}
+
+.sectionTitleSmall {
+    font-size: 1.8rem;
+    font-weight: 600;
+}

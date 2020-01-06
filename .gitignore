@@ -16,6 +16,7 @@
 /build
 
 # misc
+/.sass-cache
 .DS_Store
 .env*
 

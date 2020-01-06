@@ -1,0 +1,39 @@
+.link {
+  list-style-type: none;
+  text-decoration: none;
+  &:hover {
+    color: $colorPrimaryDown1;
+    a {
+      color: $colorPrimaryDown1;
+    }
+  }
+  &:active {
+    a {
+      color: $colorPrimaryUp1;
+    }
+  }
+  &:not(:last-child) {
+      margin-right: 2rem;
+  }
+  a {
+      text-decoration: none;
+  }
+  &__primary {
+    color: $colorPrimary;
+    a {
+      color: $colorPrimary;
+    }
+    &:hover {
+      color: $colorPrimaryDown2;
+      a {
+        color: $colorPrimaryDown2;
+      }
+    }
+    &:active {
+      color: $colorPrimaryUp1;
+      a {
+        color: $colorPrimaryUp1;
+      }
+    }
+  }
+}

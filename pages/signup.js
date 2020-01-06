@@ -1,19 +1,19 @@
 import React from 'react';
 import Head from 'next/head';
-import Home from '../src/components/home/Home';
+import Signup from '../src/components/auth/Signup';
 
-const Index = () => (
+const SignupPage = () => (
   <div>
     <Head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
-      <title>Easy Expense</title>
+      <title>Signup | Easy Expense</title>
       <link rel="icon" href="/favicon.ico" />
     </Head>
 
-    <Home />
+    <Signup />
   </div>
 );
 
-export default Index;
+export default SignupPage;

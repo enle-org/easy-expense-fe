@@ -36,11 +36,6 @@
       "\\.(css|less|scss)$": "identity-obj-proxy"
     }
   },
-  "husky": {
-    "hooks": {
-      "pre-push": "yarn lint && yarn test"
-    }
-  },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "7.1.0",
     "@babel/plugin-proposal-decorators": "7.1.0",

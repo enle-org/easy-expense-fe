@@ -1,0 +1,52 @@
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .brand {
+        line-height: 0;
+    }
+
+    nav {
+        .authLinks {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin: 0;
+            &__link {
+                list-style-type: none;
+                &:not(:last-child) {
+                    margin-right: 2rem;
+                }
+            }
+            @include respond(phone) {
+                display: none;
+            }
+        }
+        .mobileAuthLinks {
+            padding: 0;
+            @include flexCentered;
+            &__link {
+                width: 90%;
+                @include flexCentered;
+                padding: 1rem;
+                border-radius: 0;
+                &:not(:last-child) {
+                    margin-bottom: 1rem;
+                }
+            }
+        }
+    }
+
+    @include respond(phone) {
+        position: fixed;
+        background: $colorWhite;
+        width: 100%;
+        top: 0;
+        left: 0;
+        padding: 2rem;
+        z-index: 1;
+        box-shadow: $primaryShadow;
+    }
+}

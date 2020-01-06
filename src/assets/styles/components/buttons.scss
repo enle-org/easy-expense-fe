@@ -1,0 +1,74 @@
+
+.button {
+    display: inline-flex;
+    border-radius: 2rem;
+    color: $colorWhite;
+    cursor: pointer;
+    &.u_fullWidth {
+        @include flexCentered;
+    }
+    a, button {
+        color: $colorWhite;
+        padding: 0.7rem 3rem;
+        text-decoration: none;
+    }
+
+    &__largePadding { //Used for buttons that has very small text like 'Done', so the button doesn't look too small
+        padding-left: 5rem !important;
+        padding-right: 5rem !important;
+    }
+
+    &__primary {
+        background: $colorPrimary;
+        &:hover {
+            background: $colorPrimaryDown1;
+        }
+        &:active {
+            background: $colorPrimaryUp1;
+        }
+    }
+
+    &__danger {
+        background: $colorDanger;
+        &:hover {
+            background: $colorDangerDown1;
+        }
+        &:active {
+            background: $colorDangerUp1;
+        }
+    }
+
+    &__outline {
+        background: none;
+        color: $colorDark;
+        border: 0.1rem solid $colorDark;
+        &:hover, &:active {
+            color: $colorWhite;
+            border: 0;
+            a {
+                color: $colorWhite;
+            }
+        }
+        &:hover {
+            background: $colorDark;
+            border: 0.1rem solid $colorDark;
+        }
+        &:active {
+            background: $colorDarkUp1;
+        }
+        a {
+            color: $colorDark;
+        }
+    }
+
+    &__google {
+        background: $colorGoogleRed;
+        color: $colorWhite;
+        &:hover {
+            background: $colorGoogleRedDown1;
+        }
+        &:active {
+            background: $colorGoogleRedDown2;
+        }
+    }
+}

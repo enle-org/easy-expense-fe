@@ -3,6 +3,7 @@ import App from 'next/app';
 import { Provider } from 'mobx-react';
 
 import Stores from '../src/stores';
+import '../src/assets/styles/main.scss';
 
 class MyApp extends App {
   render() {
