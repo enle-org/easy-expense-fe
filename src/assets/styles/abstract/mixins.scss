@@ -1,0 +1,52 @@
+@mixin respond($breakpoint) {
+  @if $breakpoint == phone {
+    @media only screen and (max-width:37.49em) { @content }; //600px
+  }
+
+  @if $breakpoint == phonePlus {
+    @media only screen and (min-width:37.5em) { @content }; //576px
+  }
+
+  @if $breakpoint == tabPort {
+    @media only screen and (max-width:56.24em) { @content }; // 900px
+  }
+
+  @if $breakpoint == tabPortPlus {
+    @media only screen and (min-width:56.25em) { @content }; //576px
+  }
+
+  @if $breakpoint == tabLand {
+    @media only screen and (max-width:69.9em) { @content }; //1200px
+  }
+
+  @if $breakpoint == tabLandPlus {
+    @media only screen and (min-width:75em) { @content }; //576px
+  }
+
+  @if $breakpoint == bigDesktop {
+    @media only screen and (min-width:112.5em) { @content }; //1800px
+  }
+
+}
+
+@mixin flexCentered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+// Temporary mix for auth recovery wrapper
+@mixin tempWrapperSize {
+  @include respond(tabLand) {
+    width: calc(100%/2);
+  }
+  @include respond(tabPort) {
+    width: 80%;
+  }
+  @include respond(phone) {
+    padding: 2rem;
+    background: unset;
+    width: 90%;
+  }
+}

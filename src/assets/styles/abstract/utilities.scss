@@ -1,0 +1,16 @@
+.u_section {
+  &:not(:last-child) {
+    margin-bottom: 4rem;
+  }
+}
+
+.u_card {
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  background: $colorWhite;
+  padding: 2rem 3rem;
+}
+
+.u_fullWidth {
+  width: 100%;
+}

@@ -1,0 +1,14 @@
+.eERow2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.eERow3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.eERow4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}

@@ -1,0 +1,73 @@
+.eEForm {
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid $colorDark4;
+    padding: 1rem;
+    &:not(:first-child) {
+      border-top: unset;
+    }
+    &:last-of-type {
+      margin-bottom: 2rem;
+    }
+    &.activeFormGroup {
+      border-right: 0.4rem solid $colorPrimary;
+    }
+  }
+  .singleColumnFormGroup {
+    margin-top: 2rem;
+  }
+  input {
+    border: unset;
+    outline: unset;
+    font-size: 1.8rem;
+    font-weight: 100;
+    color: $colorPrimary;
+    &::placeholder {
+      color: $colorDark4;
+    }
+  }
+  label {
+    padding-bottom: 1rem;
+    font-size: 1.4rem;
+  }
+  button {
+    // background: $colorPrimary;
+    margin-bottom: 2rem;
+  }
+  &__row {
+    .eERow2 {
+      grid-gap: $gutterGap;
+      grid-row-gap: $gutterGap2;
+    }
+    .formGroup {
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+      &:not(:first-child) {
+        border-top: 1px solid $colorDark4;
+      }
+    }
+  }
+  &__account {
+    .buttonWrapper {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      &__group {
+        justify-content: space-between;
+        .right > *:not(:last-child) {
+          margin-right: 2rem;
+        }
+      }
+    }
+    .button {
+      padding: 1rem 2rem;
+      border-radius: 0;
+      font-size: 1.6rem;
+      font-weight: 100;
+      margin-bottom: 0;
+    }
+  }
+}

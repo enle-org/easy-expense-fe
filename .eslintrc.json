@@ -23,7 +23,7 @@
         "react"
     ],
     "rules": {
-        "indent": 0,
+        "indent": ["error", 2],
         "no-tabs": 0,
         "react/prop-types": 0,
         "linebreak-style": [

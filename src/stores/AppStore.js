@@ -9,7 +9,7 @@ import { setClassProps } from '../utils/helpers';
 export default class AppStore {
 	@observable
 	example = {
-		name: 'example',
+	  name: 'example',
 	};
 
 	/**

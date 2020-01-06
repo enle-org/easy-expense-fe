@@ -1,0 +1,87 @@
+.authWrapper {
+  background: $colorSecondary;
+  display: flex;
+  margin: auto;
+  min-height: 100vh;
+  @include respond(phone) {
+    background: $colorWhite;
+  }
+
+  main {
+    width: calc(100%/3);
+    background: $colorWhite;
+    margin: auto;
+    border-radius: $border-radius;
+    padding: 5rem;
+    box-sizing: border-box;
+    &.recoveryWrapper {
+      width: calc(100% * (2/5));
+      @include tempWrapperSize;
+    }
+    @include tempWrapperSize;
+  }
+
+  button {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: $colorWhite;
+    padding: 1.4rem;
+    font-size: 1.4rem;
+    border-radius: 0.2rem;
+  }
+}
+
+.brand {
+  margin-bottom: 2rem;
+}
+
+.pageContent {
+  margin-bottom: 2rem;
+  h1 {
+    margin-bottom: 1rem;
+  }
+  p {
+    margin: 0;
+    font-size: 1.4rem;
+    color: $colorDark3;
+  }
+}
+
+.eEForm {
+  .formGroups {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    .checkBoxGroup {
+      display: flex;
+      flex-direction: row-reverse;
+      input[type="checkbox"] {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+.socialSignup {
+  button {
+    span {
+      margin-right: 1rem;
+    }
+  }
+}
+
+.toggleAuthPage {
+  text-align: center;
+  p, a {
+    font-size: 1.4rem;
+  }
+  a {
+    text-decoration: none;
+    color: $colorPrimary;
+  }
+}
