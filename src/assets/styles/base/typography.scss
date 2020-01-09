@@ -30,6 +30,9 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 100;
     font-size: 1.6rem;
     color: $colorDark5;
+    @include respond(phone) {
+        margin-top: 1rem;
+    }
 }
 
 .sectionTitle {

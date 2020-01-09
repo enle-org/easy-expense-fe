@@ -6,6 +6,9 @@
     flex-direction: column;
     position: fixed;
     height: 100vh;
+    @include respond(tabLand) {
+        display: none;
+    }
     .brand {
         padding-top: 3rem;
         padding-bottom: 1rem;

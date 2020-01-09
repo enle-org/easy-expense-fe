@@ -2,6 +2,12 @@
   display: flex;
   flex-direction: row;
   min-height: 100vh;
+  header.u_section {
+    display: none;
+    @include respond(phone) {
+      display: block;
+    }
+  }
   &__main {
     margin-left: 15%;
     background: #F8F8FF;
@@ -9,14 +15,26 @@
     padding: 4rem;
     padding-top: 2.4rem;
     padding-bottom: 10rem;
+    form {
+      > .buttonWrapper {
+        @include respond(phone) {
+          width: 100%;
+          button {
+            width: 100%;
+            @include flexCentered;
+          }
+        }
+      }
+    }
+    @include respond(tabLand) {
+      width: 100%;
+      margin-left: 0;
+    }
+    @include respond(phone) {
+      padding: 2rem;
+    }
   }
   .pageTitle {
     font-weight: 600;
-  }
-  .remove_member {
-    div.ReactTags__tagInput input.ReactTags__tagInputField,
-    div.ReactTags__tagInput input.ReactTags__tagInputField:focus {
-      display: none;
-    }
   }
 }
