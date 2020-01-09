@@ -1,20 +1,27 @@
 import React from 'react';
+import Link from 'next/link';
 import Icons from '../common/icons';
 
 const Home = () => (
   <div className="homepageWrapper">
     <header className="u_section">
       <div className="brand">
-        <img src="/logo.png" alt="Easy Expense logo" />
+        <Link href="/" as="/">
+          <img src="/logo.png" alt="Easy Expense logo" />
+        </Link>
       </div>
       {/* Navigation menu not visibile on mobile device begins here */}
       <nav>
         <ul className="authLinks">
           <li className="button button__primary authLinks__link">
-            <a href="pages/website/auth/index.html">Sign up</a>
+            <Link href="/signup" as="/signup">
+              <a href="pages/website/auth/index.html">Sign up</a>
+            </Link>
           </li>
           <li className="authLinks__link link">
-            <a href="#">Login</a>
+            <Link href="/login" as="/login">
+              <a href="#">Login</a>
+            </Link>
           </li>
         </ul>
       </nav>

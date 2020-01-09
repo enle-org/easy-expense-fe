@@ -13,4 +13,10 @@
   .pageTitle {
     font-weight: 600;
   }
+  .remove_member {
+    div.ReactTags__tagInput input.ReactTags__tagInputField,
+    div.ReactTags__tagInput input.ReactTags__tagInputField:focus {
+      display: none;
+    }
+  }
 }
