@@ -1,10 +1,13 @@
 import React from 'react';
+import Link from 'next/link';
 
 const Login = () => (
   <div className="authWrapper">
     <main className="recoveryWrapper">
       <div className="brand">
-        <img src="/logo.svg" alt="Easy Expense logo" />
+        <Link href="/" as="/">
+          <img src="/logo.png" alt="Easy Expense logo" />
+        </Link>
       </div>
       <div className="pageContent">
         <h1 className="pageTitle">Password Recovery</h1>
@@ -21,17 +24,19 @@ const Login = () => (
             name="email"
             id="recoveryEmail"
             placeholder="Enter email"
-            onBlur="resetFormGroupState()"
-            onFocus="focusFormGroup(event)"
           />
         </div>
-        <button type="submit" className="button button__primary">
-          Submit
-        </button>
+        <Link href="/login" as="/login">
+          <button type="submit" className="button button__primary">
+            Submit
+          </button>
+        </Link>
       </form>
       <div className="toggleAuthPage">
         <p>
-          <a href="#">Back to login</a>
+          <Link href="/login" as="/login">
+            <a href="#">Back to login</a>
+          </Link>
         </p>
       </div>
     </main>

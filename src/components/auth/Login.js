@@ -1,10 +1,13 @@
 import React from 'react';
+import Link from 'next/link';
 
 const Login = () => (
   <div className="authWrapper authWrapper__signin">
     <main>
       <div className="brand">
-        <img src="/logo.svg" alt="Easy Expense logo" />
+        <Link href="/" as="/">
+          <img src="/logo.png" alt="Easy Expense logo" />
+        </Link>
       </div>
       <div className="pageContent">
         <h1 className="pageTitle">Login</h1>
@@ -21,8 +24,6 @@ const Login = () => (
             name="email"
             id="loginEmail"
             placeholder="Enter email"
-            onBlur="resetFormGroupState()"
-            onFocus="focusFormGroup(event)"
           />
         </div>
         <div className="formGroup">
@@ -32,8 +33,6 @@ const Login = () => (
             name="password"
             id="loginPassword"
             placeholder="Enter password"
-            onBlur="resetFormGroupState()"
-            onFocus="focusFormGroup(event)"
           />
         </div>
         <div className="formGroups">
@@ -42,14 +41,18 @@ const Login = () => (
             <input type="checkbox" name="rememberMe" id="rememberMe" />
           </div>
           <div className="forgotPasswordLink">
-            <a href="#" className="link link__primary">
-              Forgotten password?
-            </a>
+            <Link href="/recovery" as="/recovery">
+              <a href="#" className="link link__primary">
+                Forgotten password?
+              </a>
+            </Link>
           </div>
         </div>
-        <button type="submit" className="button button__primary">
-          Log in
-        </button>
+        <Link href="/dashboard" as="/dashboard">
+          <button type="submit" className="button button__primary">
+            Log in
+          </button>
+        </Link>
       </form>
       <div className="socialSignup">
         <button type="button" className="button__google">
@@ -60,7 +63,9 @@ const Login = () => (
       <div className="toggleAuthPage">
         <p>
           Don&apos;t have an account?
-          <a href="#"> Sign up</a>
+          <Link href="/signup" as="/signup">
+            <a href="#"> Sign up</a>
+          </Link>
         </p>
       </div>
     </main>

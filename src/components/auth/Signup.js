@@ -1,10 +1,13 @@
 import React from 'react';
+import Link from 'next/link';
 
 const Signup = () => (
   <div className="authWrapper authWrapper__signup">
     <main>
       <div className="brand">
-        <img src="/logo.svg" alt="Easy Expense logo" />
+        <Link href="/" as="/">
+          <img src="/logo.png" alt="Easy Expense logo" />
+        </Link>
       </div>
       <div className="pageContent">
         <h1 className="pageTitle">Sign Up</h1>
@@ -21,8 +24,6 @@ const Signup = () => (
             name="email"
             id="email"
             placeholder="Enter email"
-            onBlur="resetFormGroupState()"
-            onFocus="focusFormGroup(event)"
           />
         </div>
         <div className="formGroup">
@@ -32,8 +33,6 @@ const Signup = () => (
             name="password"
             id="password"
             placeholder="Enter password"
-            onBlur="resetFormGroupState()"
-            onFocus="focusFormGroup(event)"
           />
         </div>
         <div className="formGroup">
@@ -43,13 +42,13 @@ const Signup = () => (
             name="confirmPassword"
             id="confirmPassword"
             placeholder="Confirm Password"
-            onBlur="resetFormGroupState()"
-            onFocus="focusFormGroup(event)"
           />
         </div>
-        <button type="submit" className="button button__primary">
-          Sign up
-        </button>
+        <Link href="/dashboard" as="/dashboard">
+          <button type="submit" className="button button__primary">
+            Sign up
+          </button>
+        </Link>
       </form>
       <div className="socialSignup">
         <button type="button" className="button__google">
@@ -60,7 +59,9 @@ const Signup = () => (
       <div className="toggleAuthPage">
         <p>
           Already have an account?
-          <a href="#"> Sign in</a>
+          <Link href="/login" as="/login">
+            <a href="#"> Sign in</a>
+          </Link>
         </p>
       </div>
     </main>

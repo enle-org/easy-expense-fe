@@ -1,0 +1,48 @@
+.settingsWrapper {
+  &__main {
+    .body {
+      .sectionTitle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        span.icon {
+          display: none;
+          cursor: pointer;
+          @include respond(phone) {
+            display: inline-flex;
+          }
+        }
+      }
+    }
+    .buttonWrapper {
+      &__group {
+        @include respond(tabPort) { 
+          .left {
+            display: none;
+          }
+          .right {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            > * {
+              width: 50%;
+              @include flexCentered;
+            }
+          }
+        }
+        @include respond(phone) {
+          .right {
+            flex-direction: column-reverse;
+          > * {
+            width: 100%;
+            @include flexCentered;
+              &:not(:first-child) {
+                margin-bottom: 1rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
