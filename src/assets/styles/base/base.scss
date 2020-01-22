@@ -23,6 +23,48 @@ button {
   cursor: pointer;
   border: unset;
   &:active {
-      outline: none; //removes default outline from button when it is being clicked
+    outline: none; //removes default outline from button when it is being clicked
   }
+}
+
+.error-text {
+  color: $colorDanger;
+}
+
+.close-btn {
+  color: white;
+  width: 100%;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.login-loader {
+  display: inline-block;
+  margin: 0 10px;
+  border: 2px solid $colorPrimary;
+  border-radius: 50%;
+  border-top: 3px solid white;
+  width: 17px;
+  height: 17px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 0.7s linear infinite;
+}
+.content-loader {
+  display: flex;
+  min-height: 300px;
+  align-items: center;
+  justify-content: center;
+}
+.loader {
+  @extend .login-loader;
+  width: 60px;
+  height: 60px;
+  border: 5px solid white;
+  border-top: 5px solid $colorPrimary;
 }

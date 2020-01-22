@@ -1,12 +1,22 @@
+const commonEnvs = {
+  SENTRY_DSN: process.env.SENTRY_DSN,
+  ENVIRONMENT: process.env.ENVIRONMENT,
+  OAUTH_GOOGLE_CLIENT_ID: process.env.OAUTH_GOOGLE_CLIENT_ID,
+};
+
 const config = Object.freeze({
+  local: {
+    ...commonEnvs,
+    API_URL: process.env.LOCAL_API_URL,
+  },
   development: {
+    ...commonEnvs,
     API_URL: process.env.DEV_API_URL,
-    SENTRY_DSN: process.env.SENTRY_DSN,
   },
   production: {
+    ...commonEnvs,
     API_URL: process.env.PROD_API_URL,
-    SENTRY_DSN: process.env.SENTRY_DSN,
   },
 });
 
-export default config[process.env.ENVIRONMENT];
+export default config[commonEnvs.ENVIRONMENT];
