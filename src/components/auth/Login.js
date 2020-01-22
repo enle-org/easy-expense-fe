@@ -18,7 +18,7 @@ class Login extends React.Component {
   }
 
   componentDidMount() {
-    this.props.authStore.checkSignedIn();
+    // this.props.authStore.checkSignedIn();
   }
 
   closeModal() {

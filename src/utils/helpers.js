@@ -42,7 +42,7 @@ const renderIf = (condition, content) => {
 const axiosCore = (verb, urlPart, data = null, serverToken = null) => {
   const token = serverToken || cookie.get('token');
   if (!token) {
-    Router.push('/signin', '/signin');
+    Router.push('/login', '/login');
   }
 
   if (verb === 'get') {
@@ -108,7 +108,7 @@ const runInActionUtil = (self, prop, data) => {
  * NextJS component getInitialProps util.
  * Fetches initial data used in rendering
  * the component on the server.
- * Also, redirects to signin if not authenticated.
+ * Also, redirects to login if not authenticated.
  * @param {Object} ctx - Context.
  * @param {String} urlPart - API endpoint.
  */
@@ -117,11 +117,11 @@ const getInitialProps = async (ctx, urlPart) => {
   const { token } = nextCookie(ctx);
   const redirectOnError = () => {
     if (window !== 'undefined') {
-      Router.push('/signin', '/signin');
+      Router.push('/login', '/login');
     }
     else {
       ctx.res.writeHead(302, {
-        Location: '/signin',
+        Location: '/login',
       });
       ctx.res.end();
     }
@@ -140,7 +140,7 @@ const getInitialProps = async (ctx, urlPart) => {
 };
 
 /**
- * Redirects to signin if not authenticated.
+ * Redirects to login if not authenticated.
  * @param {Object} ctx - Context.
  */
 const checkAuth = async ctx => {
@@ -148,7 +148,7 @@ const checkAuth = async ctx => {
 
   if (!token) {
     ctx.res.writeHead(302, {
-      Location: '/signin',
+      Location: '/login',
     });
     ctx.res.end();
   }

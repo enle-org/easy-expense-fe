@@ -2,12 +2,12 @@ import {
   observable,
   action,
   runInAction,
-  toJS,
 } from 'mobx';
 import Router from 'next/router';
+import cookie from 'js-cookie';
 
 import { setClassProps, runInActionUtil } from '../utils/helpers';
-import setToken from '../utils/setToken';
+import { login } from '../utils/serverAuth';
 import axiosInstance from '../utils/axiosInstance';
 import config from '../../config';
 
@@ -119,7 +119,7 @@ export default class AuthStore {
 
   @action
   checkSignedIn = async () => {
-    const token = localStorage.getItem('token');
+    const token = cookie.get('token');
     let res;
     if (token) {
       res = await axiosInstance.get(`${baseUrl}/users`, {
@@ -157,7 +157,7 @@ export default class AuthStore {
             return tokenRes;
           }
         });
-      setToken(res.data.accessToken);
+      await login({ token: res.data.accessToken });
       runInAction(() => {
         this.user = res.data.user;
         this.signupLoading = {
@@ -201,7 +201,8 @@ export default class AuthStore {
         password,
         strategy: 'local',
       });
-      setToken(res.data.accessToken);
+      await login({ token: res.data.accessToken });
+      // setToken(res.data.accessToken);
       runInAction(() => {
         this.user = res.data.user;
         this.loginLoading = {
