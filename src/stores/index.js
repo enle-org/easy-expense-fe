@@ -6,6 +6,7 @@
 
 import { configure } from 'mobx';
 import AppStore from './AppStore';
+import AuthStore from './AuthStore';
 
 /**
  * Configuration to ensure all state changes occur via MobX actions
@@ -17,7 +18,9 @@ configure({ enforceActions: 'observed' });
  * @class
  */
 const appStore = new AppStore();
+const authStore = new AuthStore();
 
 export default {
   appStore,
+  authStore,
 };
