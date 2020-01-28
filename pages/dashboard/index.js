@@ -1,6 +1,9 @@
 import React from 'react';
 import Head from 'next/head';
+
 import Dashboard from '../../src/components/dashboard/Dashboard';
+import { withAuthSync } from '../../src/utils/serverAuth';
+import { checkAuth } from '../../src/utils/helpers';
 
 const DashboardPage = () => (
   <div>
@@ -16,4 +19,6 @@ const DashboardPage = () => (
   </div>
 );
 
-export default DashboardPage;
+DashboardPage.getInitialProps = async ctx => checkAuth(ctx);
+
+export default withAuthSync(DashboardPage);

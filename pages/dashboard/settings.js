@@ -1,6 +1,9 @@
 import React from 'react';
 import Head from 'next/head';
+
 import Settings from '../../src/components/dashboard/Settings';
+import { withAuthSync } from '../../src/utils/serverAuth';
+import { checkAuth } from '../../src/utils/helpers';
 
 const SettingsPage = () => (
   <div>
@@ -16,4 +19,6 @@ const SettingsPage = () => (
   </div>
 );
 
-export default SettingsPage;
+SettingsPage.getInitialProps = async ctx => checkAuth(ctx);
+
+export default withAuthSync(SettingsPage);
