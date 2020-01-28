@@ -12,7 +12,6 @@ import axiosInstance from '../utils/axiosInstance';
 import config from '../../config';
 
 const baseUrl = config.API_URL;
-
 export default class AuthStore {
 	@observable
 	user = {
@@ -27,6 +26,18 @@ export default class AuthStore {
 
 	@observable
 	signupLoading = {
+	  value: false,
+	  visible: false,
+	};
+
+  @observable
+	recoveryLoading = {
+	  value: false,
+	  visible: false,
+	};
+
+  @observable
+	resetLoading = {
 	  value: false,
 	  visible: false,
 	};
@@ -50,6 +61,23 @@ export default class AuthStore {
 	  confirmPassword: '',
 	};
 
+  @observable
+	recoveryData = {
+	  email: '',
+	};
+
+  @observable
+  recoverySuccess = {
+    visible: false,
+    message: '',
+  }
+
+  @observable
+	resetData = {
+	  password: '',
+	  confirmPassword: '',
+	};
+
 	@observable
 	signupValidationErrors = {
 	  visible: false,
@@ -64,6 +92,20 @@ export default class AuthStore {
 	  message: '',
 	};
 
+  @observable
+	recoveryValidationErrors = {
+	  visible: false,
+	  type: '',
+	  message: '',
+	};
+
+  @observable
+	resetValidationErrors = {
+	  visible: false,
+	  type: '',
+	  message: '',
+	};
+
 	@observable
 	loginErrors = {
 	  visible: false,
@@ -72,6 +114,18 @@ export default class AuthStore {
 
 	@observable
 	signupErrors = {
+	  visible: false,
+	  message: '',
+	};
+
+  @observable
+	recoveryErrors = {
+	  visible: false,
+	  message: '',
+	};
+
+  @observable
+	resetErrors = {
 	  visible: false,
 	  message: '',
 	};
@@ -113,9 +167,17 @@ export default class AuthStore {
   }
 
 	@action
-  validatePasswordMatch = () => !!this.signupData.password
-    && !!this.signupData.confirmPassword
-    && this.signupData.password === this.signupData.confirmPassword
+  validatePasswordMatch = (type = 'signupData', errorType = 'signupValidationErrors') => {
+    if (this[type].password === this[type].confirmPassword) {
+      this[errorType] = {
+        visible: false,
+        type: '',
+        message: '',
+      };
+      return true;
+    }
+    return false;
+  }
 
   @action
   checkSignedIn = async () => {
@@ -130,6 +192,92 @@ export default class AuthStore {
     }
     if (res) {
       Router.push('/dashboard', '/dashboard');
+    }
+  }
+
+  @action
+  recoveryUtil = async email => {
+    try {
+      runInActionUtil(
+        this,
+        'recoveryLoading',
+        { value: true, visible: true },
+      );
+
+      const res = await axiosInstance.post(`${baseUrl}/recovery`, {
+        email,
+        url: window.location.href,
+      });
+
+      runInAction(() => {
+        this.recoveryLoading = {
+          value: false,
+          visible: false,
+        };
+        this.recoveryData = {
+          email: '',
+        };
+        this.recoverySuccess = {
+          visible: true,
+          message: res.data.data.message,
+        };
+      });
+      // Router.push('/dashboard', '/dashboard');
+    }
+    catch (error) {
+      runInActionUtil(
+        this,
+        'recoveryErrors',
+        { visible: true, message: error.response.data.message },
+      );
+    }
+    finally {
+      runInActionUtil(
+        this,
+        'recoveryLoading',
+        { value: false, visible: false },
+      );
+    }
+  }
+
+  @action
+  resetUtil = async (password, token) => {
+    try {
+      runInActionUtil(
+        this,
+        'resetLoading',
+        { value: true, visible: true },
+      );
+
+      const res = await axiosInstance.patch(`${baseUrl}/recovery/${token}`, {
+        password,
+      });
+      runInAction(() => {
+        this.user = res.data.user;
+        this.resetLoading = {
+          value: false,
+          visible: false,
+        };
+        this.resetData = {
+          password: '',
+          confirmPassword: '',
+        };
+      });
+      Router.push('/login', '/login');
+    }
+    catch (error) {
+      runInActionUtil(
+        this,
+        'resetErrors',
+        { visible: true, message: error.response.data.message },
+      );
+    }
+    finally {
+      runInActionUtil(
+        this,
+        'resetLoading',
+        { value: false, visible: false },
+      );
     }
   }
 
@@ -289,6 +437,46 @@ export default class AuthStore {
         profile.googleId,
         profile.googleId,
       );
+    }
+  };
+
+  @action
+  recovery = async e => {
+    if (e) e.preventDefault();
+    if (
+      this.validateEmail('recoveryData', 'recoveryValidationErrors')
+    ) {
+      this.recoveryUtil(
+        this.recoveryData.email,
+      );
+    }
+    else {
+      this.recoveryValidationErrors = {
+        visible: true,
+        type: 'form',
+        message: 'All fields below should be filled out.',
+      };
+    }
+  };
+
+  @action
+  reset = async (e, token) => {
+    if (e) e.preventDefault();
+    if (
+      this.validatePassword('resetData', 'resetValidationErrors')
+      && this.validatePasswordMatch('resetData', 'resetValidationErrors')
+    ) {
+      this.resetUtil(
+        this.resetData.password,
+        token,
+      );
+    }
+    else {
+      this.resetValidationErrors = {
+        visible: true,
+        type: 'form',
+        message: 'Passwords maybe too short or passwords don\'t match',
+      };
     }
   };
 
