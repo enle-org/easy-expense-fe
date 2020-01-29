@@ -75,7 +75,10 @@
         }
       }
       .buttonWrapper {
+        display:  flex;
         text-align: center;
+        justify-content: center;
+        
         button {
           padding-top: 0.8rem;
           padding-bottom: 0.8rem;

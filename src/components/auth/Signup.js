@@ -20,6 +20,7 @@ class Signup extends React.Component {
 
   componentDidMount() {
     this.props.authStore.checkSignedIn();
+    this.props.authStore.checkInviteEmail();
   }
 
   closeModal() {
@@ -83,6 +84,14 @@ class Signup extends React.Component {
               </em>
             </p>,
           )}
+          {renderIf(
+            this.props.authStore.signupEmailOptions.disabled,
+            <p className="m-t-sm m-b-sm">
+              <em>
+                {`Info: ${this.props.authStore.signupEmailOptions.message}`}
+              </em>
+            </p>,
+          )}
           <form
             onSubmit={e => {
               this.props.authStore.signup(
@@ -99,6 +108,7 @@ class Signup extends React.Component {
                 name="email"
                 id="email"
                 placeholder="Enter email"
+                disabled={this.props.authStore.signupEmailOptions.disabled}
                 value={this.props.authStore.signupData.email}
                 onChange={event => {
                   this.props.authStore.setClassProps([

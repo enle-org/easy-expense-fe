@@ -4,6 +4,7 @@
     flex-direction: column;
     border: 1px solid $colorDark4;
     padding: 1rem;
+    min-height: 85px;
     &:not(:first-child) {
       border-top: unset;
     }
@@ -68,6 +69,30 @@
       font-size: 1.6rem;
       font-weight: 100;
       margin-bottom: 0;
+    }
+  }
+
+  .col-sm-3 {
+    .small {
+      color: $colorDark5;
+    }
+    .small + p {
+      font-size: 2rem;
+    }
+  }
+  .with-divider {
+    border-bottom: 1px solid $colorDark4;
+
+    .button {
+      transition: 0.5s;
+      border: 1px solid $colorPrimary;
+      background: white;
+      color: $colorPrimary;
+
+      &:hover {
+        color: white;
+        background: $colorPrimary;
+      }
     }
   }
 }
