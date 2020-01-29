@@ -2,9 +2,13 @@ import React, { useEffect } from 'react';
 import Router from 'next/router';
 import nextCookie from 'next-cookies';
 import cookie from 'js-cookie';
+import axiosInstance from './axiosInstance';
 
 const login = ({ token }) => {
   cookie.set('token', token, { expires: 7 });
+  Object.assign(axiosInstance.defaults, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
   Router.push('/dashboard', '/dashboard');
 };
 
@@ -32,6 +36,7 @@ const logout = () => {
   cookie.remove('token');
   // to support logging out from all windows
   window.localStorage.setItem('logout', Date.now());
+  Object.assign(axiosInstance.defaults, { headers: { Authorization: null } });
   Router.push('/login', '/login');
 };
 

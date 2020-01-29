@@ -7,15 +7,19 @@ import Router from 'next/router';
 import cookie from 'js-cookie';
 
 import { setClassProps, runInActionUtil } from '../utils/helpers';
-import { login } from '../utils/serverAuth';
+import { login, logout } from '../utils/serverAuth';
 import axiosInstance from '../utils/axiosInstance';
 import config from '../../config';
 
 const baseUrl = config.API_URL;
+
 export default class AuthStore {
 	@observable
 	user = {
 	  _id: '',
+	  password: '',
+	  confirmPassword: '',
+	  confirmEmail: '',
 	};
 
 	@observable
@@ -52,6 +56,12 @@ export default class AuthStore {
 	loginData = {
 	  email: '',
 	  password: '',
+	};
+
+	@observable
+	signupEmailOptions = {
+	  diabled: false,
+	  message: 'You cannot change your email address.',
 	};
 
 	@observable
@@ -128,7 +138,27 @@ export default class AuthStore {
 	resetErrors = {
 	  visible: false,
 	  message: '',
-	};
+  };
+
+  @observable
+  personalSettingsValidationError = {
+	  visible: false,
+	  type: '',
+	  message: '',
+  }
+
+  @observable
+  personalSettingsActionError = {
+	  visible: false,
+	  type: '',
+	  message: '',
+  }
+
+  @observable
+  success = {
+	  visible: false,
+	  message: '',
+  }
 
 	@action
   validateEmail = (type = 'signupData', errorType = 'signupValidationErrors') => {
@@ -176,7 +206,41 @@ export default class AuthStore {
       };
       return true;
     }
+    this[errorType] = {
+      visible: true,
+      type: 'password',
+      message: 'Password do not match.',
+    };
     return false;
+  }
+
+	@action
+  validateEmailMatch = () => {
+    if (this.user.email === this.user.confirmEmail) {
+      this.personalSettingsValidationError = {
+        visible: false,
+        type: '',
+        message: '',
+      };
+      return true;
+    }
+    this.personalSettingsValidationError = {
+      visible: true,
+      type: 'emailMatch',
+      message: 'The email inputted below and your email do not match',
+    };
+    return false;
+  }
+
+  @action
+  checkInviteEmail = async () => {
+    const inviteToken = localStorage.getItem('inviteToken');
+    const inviteEmail = localStorage.getItem('inviteEmail');
+
+    if (inviteToken && inviteEmail) {
+      this.signupData.email = inviteEmail;
+      this.signupEmailOptions.disabled = true;
+    }
   }
 
   @action
@@ -305,6 +369,9 @@ export default class AuthStore {
             return tokenRes;
           }
         });
+      if (localStorage.getItem('inviteEmail')) {
+        localStorage.removeItem('inviteEmail');
+      }
       await login({ token: res.data.accessToken });
       runInAction(() => {
         this.user = res.data.user;
@@ -312,6 +379,7 @@ export default class AuthStore {
           value: false,
           visible: false,
         };
+        this.signupEmailOptions.disabled = false;
         this.signupData = {
           email: '',
           password: '',
@@ -321,11 +389,10 @@ export default class AuthStore {
       Router.push('/dashboard', '/dashboard');
     }
     catch (error) {
-      runInActionUtil(
-        this,
-        'signupErrors',
-        { visible: true, message: error.response.data.message },
-      );
+      runInAction(() => {
+        this.signupErrors = { visible: true, message: error.response.data.message };
+        this.signupEmailOptions.disabled = false;
+      });
     }
     finally {
       runInActionUtil(
@@ -350,7 +417,6 @@ export default class AuthStore {
         strategy: 'local',
       });
       await login({ token: res.data.accessToken });
-      // setToken(res.data.accessToken);
       runInAction(() => {
         this.user = res.data.user;
         this.loginLoading = {
@@ -478,6 +544,122 @@ export default class AuthStore {
         message: 'Passwords maybe too short or passwords don\'t match',
       };
     }
+  };
+
+  @action
+  getUserData = async () => {
+	  try {
+      if (!this.user._id) {
+        const resp = await axiosInstance.get(`${baseUrl}/users`);
+        runInActionUtil(
+          this,
+          'user',
+          resp.data.data[0],
+        );
+        runInActionUtil(
+          this,
+          'personalSettingsActionError',
+          {
+            type: '',
+            visible: false,
+            message: '',
+          },
+        );
+      }
+	  }
+	  catch (error) {
+	    runInActionUtil(
+	      this,
+	      'personalSettingsActionError',
+	      {
+          type: 'getError',
+          visible: true,
+          message: error.response.data.message,
+        },
+	    );
+	  }
+  };
+
+  @action
+  patchUser = async () => {
+	  try {
+      if (
+        this.user._id
+        && this.validatePassword('user', 'personalSettingsActionError')
+        && this.validatePasswordMatch('user', 'personalSettingsActionError')
+      ) {
+        const resp = await axiosInstance.patch(`${baseUrl}/users/${this.user._id}`, {
+          fullname: this.user.fullname,
+          password: this.user.password,
+        });
+        runInActionUtil(
+          this,
+          'user',
+          resp.data,
+        );
+        runInActionUtil(
+          this,
+          'success',
+          { visible: true, message: 'Your personal information has been updated.' },
+        );
+        runInActionUtil(
+          this,
+          'personalSettingsActionError',
+          {
+            type: '',
+            visible: false,
+            message: '',
+          },
+        );
+      }
+	  }
+	  catch (error) {
+	    runInActionUtil(
+	      this,
+	      'personalSettingsActionError',
+	      {
+          type: 'patchError',
+          visible: true,
+          message: error.response.data.message,
+        },
+	    );
+	  }
+  };
+
+  @action
+  deleteUser = async () => {
+	  try {
+      if (
+        this.user._id) {
+        await axiosInstance.delete(`${baseUrl}/users/${this.user._id}`);
+        logout();
+        runInActionUtil(
+          this,
+          'user',
+          {},
+        );
+        runInActionUtil(
+          this,
+          'personalSettingsActionError',
+          {
+            type: '',
+            visible: false,
+            message: '',
+          },
+        );
+      }
+	  }
+	  catch (error) {
+	    runInActionUtil(
+	      this,
+	      'personalSettingsActionError',
+	      {
+          type: 'deleteError',
+          visible: true,
+          message: error.response.data.message,
+        },
+	    );
+	  }
   };
 
 	@action
