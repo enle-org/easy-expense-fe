@@ -184,9 +184,8 @@ class Signup extends React.Component {
                   Sign up with Google
                 </button>
               )}
-              buttonText="Login"
               onSuccess={response => this.responseGoogle(this, response)}
-              onFailure={() => {
+              onFailure={err => {
                 this.props.authStore.setClassProps([
                   {
                     name: 'visible',
@@ -194,9 +193,10 @@ class Signup extends React.Component {
                   },
                   {
                     name: 'message',
-                    value: 'Unknown error.',
+                    value: 'Google Auth Error',
                   },
                 ], this.props.authStore.signupErrors);
+                console.log("TCL: Signup -> render -> err", err);
               }}
               cookiePolicy="single_host_origin"
             />
@@ -231,7 +231,7 @@ class Signup extends React.Component {
               <div className="content">
                 <div className="content__copy">
                   <p>
-                    Pls see the error bellow:
+                    Pls see the error below:
                   </p>
                   <p className="error-text m-b-sm">
                     <em>
