@@ -142,7 +142,7 @@ class Recovery extends React.Component {
                 <div className="content__copy">
                   {!this.isSuccess() && (
                     <p>
-                      Pls see the error below:
+                      Please see the error below:
                     </p>
                   )}
                   <p className={`${!this.isSuccess() && 'error-text'} m-b-sm`}>

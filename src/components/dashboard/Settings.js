@@ -143,8 +143,8 @@ class Settings extends React.Component {
           <div className="u_section head">
             <h2 className="pageTitle">Settings</h2>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua.
+              Edit your organization settings,
+              or delete an organization or your account.
             </p>
           </div>
           <div className="body">
@@ -713,7 +713,7 @@ class Settings extends React.Component {
               <div className="content">
                 <div className="content__copy">
                   <p>
-                    Pls see the error below:
+                    Please see the error below:
                   </p>
                   <p className="error-text m-b-sm">
                     <em>
@@ -756,7 +756,7 @@ class Settings extends React.Component {
               <div className="content">
                 <div className="content__copy">
                   <p>
-                    Pls see the error below:
+                    Please see the error below:
                   </p>
                   <p className="error-text m-b-sm">
                     <em>

@@ -184,7 +184,6 @@ class Signup extends React.Component {
                   Sign up with Google
                 </button>
               )}
-              buttonText="Login"
               onSuccess={response => this.responseGoogle(this, response)}
               onFailure={() => {
                 this.props.authStore.setClassProps([
@@ -194,7 +193,7 @@ class Signup extends React.Component {
                   },
                   {
                     name: 'message',
-                    value: 'Unknown error.',
+                    value: 'Google Auth Error',
                   },
                 ], this.props.authStore.signupErrors);
               }}
@@ -231,7 +230,7 @@ class Signup extends React.Component {
               <div className="content">
                 <div className="content__copy">
                   <p>
-                    Pls see the error bellow:
+                    Please see the error below:
                   </p>
                   <p className="error-text m-b-sm">
                     <em>

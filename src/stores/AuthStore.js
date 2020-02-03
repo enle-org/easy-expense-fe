@@ -180,7 +180,7 @@ export default class AuthStore {
 
 	@action
   validatePassword = (type = 'signupData', errorType = 'signupValidationErrors') => {
-    if (this[type].password.length >= 6) {
+    if (this[type].password && this[type].password.length >= 6) {
       this[errorType] = {
         visible: false,
         type: '',
@@ -198,7 +198,7 @@ export default class AuthStore {
 
 	@action
   validatePasswordMatch = (type = 'signupData', errorType = 'signupValidationErrors') => {
-    if (this[type].password === this[type].confirmPassword) {
+    if (this[type].password && this[type].password === this[type].confirmPassword) {
       this[errorType] = {
         visible: false,
         type: '',
