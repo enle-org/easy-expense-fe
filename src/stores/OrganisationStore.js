@@ -1,4 +1,4 @@
-import { observable, action, toJS } from 'mobx';
+import { observable, action } from 'mobx';
 
 import { setClassProps, runInActionUtil } from '../utils/helpers';
 import axiosInstance from '../utils/axiosInstance';
@@ -99,7 +99,7 @@ export default class OrganisationStore {
 	deleteOrg = async () => {
 	  try {
 	    if (this.validateOrgName()) {
-	      const res = await axiosInstance.delete(`${baseUrl}/organisations/${this.org._id}`);
+	      await axiosInstance.delete(`${baseUrl}/organisations/${this.org._id}`);
 	      runInActionUtil(this, 'org', {
 	        name: '',
 	        invites: [],
@@ -210,7 +210,7 @@ export default class OrganisationStore {
 	      members: this.org.members.map(memberObj => memberObj.text),
 	      invites: this.org.invites.map(inviteObj => inviteObj.text),
 	    };
-	    const resp = await axiosInstance.patch(
+	    await axiosInstance.patch(
 	      `${baseUrl}/organisations/${this.org._id}`, {
 	        _id: this.org._id,
 	        name: this.org.name,

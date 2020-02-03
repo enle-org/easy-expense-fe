@@ -138,7 +138,7 @@ export default class AuthStore {
 	resetErrors = {
 	  visible: false,
 	  message: '',
-  };
+	};
 
   @observable
   personalSettingsValidationError = {

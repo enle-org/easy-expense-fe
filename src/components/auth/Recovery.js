@@ -39,7 +39,10 @@ class Recovery extends React.Component {
     ], this.props.authStore.recoverySuccess);
   }
 
-  isOpen = () => this.props.authStore.recoveryErrors.visible || this.props.authStore.recoverySuccess.visible
+  isOpen = () => (
+    this.props.authStore.recoveryErrors.visible
+    || this.props.authStore.recoverySuccess.visible
+  )
 
   isSuccess = () => this.props.authStore.recoverySuccess.visible
 
