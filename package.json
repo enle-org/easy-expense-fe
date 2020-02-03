@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "yarn build && yarn serve",
+    "start": "yarn serve",
     "dev": "npm-run-all --parallel lint-watch next-dev",
     "next-dev": "next dev",
     "build": "next build",

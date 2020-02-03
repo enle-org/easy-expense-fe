@@ -159,7 +159,10 @@ class Dashboard extends React.Component {
                 </div>
                 <div className="u_section u_card m-t-md">
                   <h4 className="sectionTitle">Create an organization</h4>
-                  <p>Create a new organization and invite members to start reviewing and approving expenses.</p>
+                  <p>
+                    Create a new organization
+                    and invite members to start reviewing and approving expenses.
+                  </p>
                   <div action="#" className="eEForm eEForm__row eEForm__account">
                     <div className="row">
                       <div className="col-sm-4">

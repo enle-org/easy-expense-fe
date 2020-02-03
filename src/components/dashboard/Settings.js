@@ -434,7 +434,11 @@ class Settings extends React.Component {
                         name="organizationNamePopup"
                         id="organizationNamePopup"
                         placeholder="Enter organization name"
-                        value={this.props.organisationStore.userConfirmationData.orgName.toUpperCase()}
+                        value={
+                          this.props.organisationStore
+                            .userConfirmationData.orgName
+                            .toUpperCase()
+                        }
                         onChange={event => {
                           this.props.organisationStore.setClassProps([
                             {
@@ -513,7 +517,11 @@ class Settings extends React.Component {
                         name="organizationNamePopup"
                         id="organizationNamePopup"
                         placeholder="Enter organization name"
-                        value={this.props.organisationStore.userConfirmationData.orgName.toUpperCase()}
+                        value={
+                          this.props.organisationStore
+                            .userConfirmationData.orgName
+                            .toUpperCase()
+                        }
                         onChange={event => {
                           this.props.organisationStore.setClassProps([
                             {
@@ -649,7 +657,10 @@ class Settings extends React.Component {
               </div>
               <div className="content">
                 <div className="content__copy">
-                  <p>Warning: Deleting your account will delete all organizations you’ve created!</p>
+                  <p>
+                    Warning:
+                    Deleting your account will delete all organizations you’ve created!
+                  </p>
                 </div>
                 <div className="content__form">
                   <div className="eEForm">
