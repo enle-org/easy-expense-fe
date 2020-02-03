@@ -5,6 +5,7 @@ import axiosInstance from '../utils/axiosInstance';
 import config from '../../config';
 
 const baseUrl = config.API_URL;
+const baseClientUrl = config.CLIENT_URL;
 
 export default class OrganisationStore {
   constructor(authStore) {
@@ -148,7 +149,7 @@ export default class OrganisationStore {
 	      const members = Component.state.members.map(member => member.text);
 	      await axiosInstance.post(`${baseUrl}/organisations`, {
 	        name: this.newOrgData.name,
-	        url: baseUrl,
+	        url: baseClientUrl,
 	        invites: members,
 	      });
 	      Component.setState({ members: [] });
@@ -214,7 +215,7 @@ export default class OrganisationStore {
 	      `${baseUrl}/organisations/${this.org._id}`, {
 	        _id: this.org._id,
 	        name: this.org.name,
-	        url: baseUrl,
+	        url: baseClientUrl,
 	        ...patchedOrg,
 	      },
 	    );

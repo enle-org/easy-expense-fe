@@ -203,7 +203,7 @@ class Login extends React.Component {
               <div className="content">
                 <div className="content__copy">
                   <p>
-                    Pls see the error below:
+                    Please see the error below:
                   </p>
                   <p className="error-text m-b-sm">
                     <em>
