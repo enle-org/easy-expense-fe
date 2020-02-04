@@ -2,6 +2,25 @@
   "name": "fe-nextjs-mobx",
   "version": "0.1.0",
   "private": true,
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run lint",
+      "git add --force"
+    ],
+    "*.json": [
+      "prettier --write",
+      "git add --force"
+    ],
+    "*.scss": [
+      "npm run sass-lint:fix",
+      "git add --force"
+    ]
+  },
   "scripts": {
     "start": "yarn serve",
     "dev": "npm-run-all --parallel lint-watch next-dev",
@@ -14,7 +33,8 @@
     "docs": "./node_modules/.bin/esdoc",
     "lint": "node_modules/.bin/esw",
     "lint-watch": "node_modules/.bin/esw --watch",
-    "lint-test": "npm-run-all --parallel lint-watch test-watch"
+    "lint-test": "npm-run-all --parallel lint-watch test-watch",
+    "prettier": "prettier --write '**/*.{js,jsx}'"
   },
   "jest": {
     "collectCoverage": true,
@@ -76,14 +96,18 @@
     "esdoc-standard-plugin": "^1.0.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^4.2.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
     "eslint-watch": "^5.0.1",
     "husky": "^3.1.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.7.1",
+    "lint-staged": "^8.1.5",
     "npm-run-all": "^4.1.5",
-    "npm-watch": "^0.6.0"
+    "npm-watch": "^0.6.0",
+    "prettier": "^1.17.0"
   }
 }

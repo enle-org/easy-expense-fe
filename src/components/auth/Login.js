@@ -22,26 +22,25 @@ class Login extends React.Component {
   }
 
   closeModal() {
-    this.props.authStore.setClassProps([
-      {
-        name: 'visible',
-        value: false,
-      },
-      {
-        name: 'message',
-        value: '',
-      },
-    ], this.props.authStore.loginErrors);
+    this.props.authStore.setClassProps(
+      [
+        {
+          name: 'visible',
+          value: false,
+        },
+        {
+          name: 'message',
+          value: '',
+        },
+      ],
+      this.props.authStore.loginErrors,
+    );
   }
 
   // eslint-disable-next-line class-methods-use-this
   responseGoogle(self, response) {
     if (response.profileObj) {
-      self.props.authStore.login(
-        null,
-        'googleAuth',
-        response.profileObj,
-      );
+      self.props.authStore.login(null, 'googleAuth', response.profileObj);
     }
   }
 
@@ -58,8 +57,8 @@ class Login extends React.Component {
           <div className="pageContent">
             <h1 className="pageTitle">Login</h1>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-              tempor.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor.
             </p>
           </div>
           {renderIf(
@@ -72,10 +71,7 @@ class Login extends React.Component {
           )}
           <form
             onSubmit={e => {
-              this.props.authStore.login(
-                e,
-                'local',
-              );
+              this.props.authStore.login(e, 'local');
             }}
             className="eEForm"
           >
@@ -88,13 +84,19 @@ class Login extends React.Component {
                 placeholder="Enter email"
                 value={this.props.authStore.loginData.email}
                 onChange={event => {
-                  this.props.authStore.setClassProps([
-                    {
-                      name: 'email',
-                      value: event.target.value,
-                    },
-                  ], this.props.authStore.loginData);
-                  this.props.authStore.validateEmail('loginData', 'loginValidationErrors');
+                  this.props.authStore.setClassProps(
+                    [
+                      {
+                        name: 'email',
+                        value: event.target.value,
+                      },
+                    ],
+                    this.props.authStore.loginData,
+                  );
+                  this.props.authStore.validateEmail(
+                    'loginData',
+                    'loginValidationErrors',
+                  );
                 }}
               />
             </div>
@@ -107,13 +109,19 @@ class Login extends React.Component {
                 placeholder="Enter password"
                 value={this.props.authStore.loginData.password}
                 onChange={event => {
-                  this.props.authStore.setClassProps([
-                    {
-                      name: 'password',
-                      value: event.target.value,
-                    },
-                  ], this.props.authStore.loginData);
-                  this.props.authStore.validatePassword('loginData', 'loginValidationErrors');
+                  this.props.authStore.setClassProps(
+                    [
+                      {
+                        name: 'password',
+                        value: event.target.value,
+                      },
+                    ],
+                    this.props.authStore.loginData,
+                  );
+                  this.props.authStore.validatePassword(
+                    'loginData',
+                    'loginValidationErrors',
+                  );
                 }}
               />
             </div>
@@ -135,11 +143,11 @@ class Login extends React.Component {
               type="submit"
               className="button button__primary"
             >
-              {
-                this.props.authStore.loginLoading.value
-                  ? <span className="login-loader" />
-                  : 'Log in'
-              }
+              {this.props.authStore.loginLoading.value ? (
+                <span className="login-loader" />
+              ) : (
+                'Log in'
+              )}
             </button>
           </form>
           <div className="socialSignup">
@@ -159,16 +167,19 @@ class Login extends React.Component {
               buttonText="Login"
               onSuccess={response => this.responseGoogle(this, response)}
               onFailure={() => {
-                this.props.authStore.setClassProps([
-                  {
-                    name: 'visible',
-                    value: true,
-                  },
-                  {
-                    name: 'message',
-                    value: 'Unknown error.',
-                  },
-                ], this.props.authStore.loginErrors);
+                this.props.authStore.setClassProps(
+                  [
+                    {
+                      name: 'visible',
+                      value: true,
+                    },
+                    {
+                      name: 'message',
+                      value: 'Unknown error.',
+                    },
+                  ],
+                  this.props.authStore.loginErrors,
+                );
               }}
               cookiePolicy="single_host_origin"
             />
@@ -198,13 +209,13 @@ class Login extends React.Component {
                 >
                   <Icons.close />
                 </button>
-                <h2 className="head__title sectionTitleSmall">An Error Occured</h2>
+                <h2 className="head__title sectionTitleSmall">
+                  An Error Occured
+                </h2>
               </div>
               <div className="content">
                 <div className="content__copy">
-                  <p>
-                    Please see the error below:
-                  </p>
+                  <p>Please see the error below:</p>
                   <p className="error-text m-b-sm">
                     <em>
                       {`Error: ${this.props.authStore.loginErrors.message}`}
@@ -228,6 +239,5 @@ class Login extends React.Component {
     );
   }
 }
-
 
 export default Login;

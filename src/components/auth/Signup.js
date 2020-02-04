@@ -24,26 +24,25 @@ class Signup extends React.Component {
   }
 
   closeModal() {
-    this.props.authStore.setClassProps([
-      {
-        name: 'visible',
-        value: false,
-      },
-      {
-        name: 'message',
-        value: '',
-      },
-    ], this.props.authStore.signupErrors);
+    this.props.authStore.setClassProps(
+      [
+        {
+          name: 'visible',
+          value: false,
+        },
+        {
+          name: 'message',
+          value: '',
+        },
+      ],
+      this.props.authStore.signupErrors,
+    );
   }
 
   // eslint-disable-next-line class-methods-use-this
   responseGoogle(self, response) {
     if (response.profileObj) {
-      self.props.authStore.signup(
-        null,
-        'googleAuth',
-        response.profileObj,
-      );
+      self.props.authStore.signup(null, 'googleAuth', response.profileObj);
     }
   }
 
@@ -72,8 +71,8 @@ class Signup extends React.Component {
           <div className="pageContent">
             <h1 className="pageTitle">Sign Up</h1>
             <p>
-              You can register as an organisation expense approver or an organisation
-              member.
+              You can register as an organisation expense approver or an
+              organisation member.
             </p>
           </div>
           {renderIf(
@@ -94,10 +93,7 @@ class Signup extends React.Component {
           )}
           <form
             onSubmit={e => {
-              this.props.authStore.signup(
-                e,
-                'local',
-              );
+              this.props.authStore.signup(e, 'local');
             }}
             className="eEForm"
           >
@@ -111,12 +107,15 @@ class Signup extends React.Component {
                 disabled={this.props.authStore.signupEmailOptions.disabled}
                 value={this.props.authStore.signupData.email}
                 onChange={event => {
-                  this.props.authStore.setClassProps([
-                    {
-                      name: 'email',
-                      value: event.target.value,
-                    },
-                  ], this.props.authStore.signupData);
+                  this.props.authStore.setClassProps(
+                    [
+                      {
+                        name: 'email',
+                        value: event.target.value,
+                      },
+                    ],
+                    this.props.authStore.signupData,
+                  );
                   this.props.authStore.validateEmail();
                 }}
               />
@@ -130,12 +129,15 @@ class Signup extends React.Component {
                 placeholder="Enter password"
                 value={this.props.authStore.signupData.password}
                 onChange={event => {
-                  this.props.authStore.setClassProps([
-                    {
-                      name: 'password',
-                      value: event.target.value,
-                    },
-                  ], this.props.authStore.signupData);
+                  this.props.authStore.setClassProps(
+                    [
+                      {
+                        name: 'password',
+                        value: event.target.value,
+                      },
+                    ],
+                    this.props.authStore.signupData,
+                  );
                   this.props.authStore.validatePassword();
                 }}
               />
@@ -148,14 +150,17 @@ class Signup extends React.Component {
                 id="confirmPassword"
                 placeholder="Confirm Password"
                 value={this.props.authStore.signupData.confirmPassword}
-                onChange={event => (
-                  this.props.authStore.setClassProps([
-                    {
-                      name: 'confirmPassword',
-                      value: event.target.value,
-                    },
-                  ], this.props.authStore.signupData)
-                )}
+                onChange={event =>
+                  this.props.authStore.setClassProps(
+                    [
+                      {
+                        name: 'confirmPassword',
+                        value: event.target.value,
+                      },
+                    ],
+                    this.props.authStore.signupData,
+                  )
+                }
               />
             </div>
             <button
@@ -163,11 +168,11 @@ class Signup extends React.Component {
               type="submit"
               className="button button__primary"
             >
-              {
-                this.props.authStore.signupLoading.value
-                  ? <span className="login-loader" />
-                  : 'Sign up'
-              }
+              {this.props.authStore.signupLoading.value ? (
+                <span className="login-loader" />
+              ) : (
+                'Sign up'
+              )}
             </button>
           </form>
           <div className="socialSignup">
@@ -186,16 +191,19 @@ class Signup extends React.Component {
               )}
               onSuccess={response => this.responseGoogle(this, response)}
               onFailure={() => {
-                this.props.authStore.setClassProps([
-                  {
-                    name: 'visible',
-                    value: true,
-                  },
-                  {
-                    name: 'message',
-                    value: 'Google Auth Error',
-                  },
-                ], this.props.authStore.signupErrors);
+                this.props.authStore.setClassProps(
+                  [
+                    {
+                      name: 'visible',
+                      value: true,
+                    },
+                    {
+                      name: 'message',
+                      value: 'Google Auth Error',
+                    },
+                  ],
+                  this.props.authStore.signupErrors,
+                );
               }}
               cookiePolicy="single_host_origin"
             />
@@ -225,13 +233,13 @@ class Signup extends React.Component {
                 >
                   <Icons.close />
                 </button>
-                <h2 className="head__title sectionTitleSmall">An Error Occured</h2>
+                <h2 className="head__title sectionTitleSmall">
+                  An Error Occured
+                </h2>
               </div>
               <div className="content">
                 <div className="content__copy">
-                  <p>
-                    Please see the error below:
-                  </p>
+                  <p>Please see the error below:</p>
                   <p className="error-text m-b-sm">
                     <em>
                       {`Error: ${this.props.authStore.signupErrors.message}`}
