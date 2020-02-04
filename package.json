@@ -15,10 +15,6 @@
     "*.json": [
       "prettier --write",
       "git add --force"
-    ],
-    "*.scss": [
-      "npm run sass-lint:fix",
-      "git add --force"
     ]
   },
   "scripts": {
