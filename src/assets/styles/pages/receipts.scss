@@ -1,0 +1,90 @@
+#receipts {
+  .button-wrapper {
+    padding-top: 2rem;
+    button {
+      padding: 1rem 2rem;
+      border-radius: 2px;
+    }
+  }
+  .tab-buttons {
+    border-bottom: 1px solid #dddddd;
+    display: flex;
+    @include respond(phone) {
+      justify-content: space-between;
+    }
+    button {
+      padding: 1.2rem;
+      background-color: transparent;
+      color: #666666;
+      outline: none;
+      font-size: 0.9rem;
+      @include respond(phone) {
+        padding: 1rem 0.2rem;
+      }
+    }
+    button.active, button:hover {
+      background-color: transparent;
+      position: relative;
+      color: $colorPrimary;
+      outline: none;
+      &::after {
+        position: absolute;
+        content: "";
+        height: 3px;
+        width: 100%;
+        background-color: $colorPrimary;
+        bottom: -4px;
+        left: 0;
+      }
+    }
+  }
+  .receipts-table {
+    margin-top: 2rem;
+
+  }
+  table {
+    border-collapse: separate;
+    border-spacing: 0 0.3rem;
+    width: 100%;
+    font-size: 0.9rem;
+  }
+  thead {
+    tr {
+      background-color: #f7f7f7;
+      box-shadow: 0 1px 9px 1px rgba(0, 0, 0, 0.28);
+      -webkit-box-shadow: 0 1px 9px 1px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(0,0,0,1);
+    }
+  }
+  tbody {
+    tr {
+      background-color: #ffffff;
+      box-shadow: 0 1px 9px 1px rgba(0, 0, 0, 0.28);
+      -webkit-box-shadow: 0 1px 9px 1px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(0,0,0,1);
+      transition: 0.3s;
+    }
+    tr:hover {
+      background-color: $colorPrimary;
+      color: white;
+      cursor: pointer;
+    }
+    button {
+      background-color: transparent;
+    }
+  }
+  th, td {
+    text-align: left;
+    padding: 16px 8px;
+  }
+  .receipt-view-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: $colorPrimary;
+    line-height: 0.1rem;
+    span {
+      margin-right: 1rem;
+    }
+  }
+}

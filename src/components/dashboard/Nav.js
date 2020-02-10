@@ -11,7 +11,7 @@ const Nav = () => {
   const router = useRouter();
 
   return (
-    <nav className="accountNav">
+    <nav id="accountNav">
       <div className="brand">
         <Link href="/" as="/">
           <img src="/logo.png" alt="Easy Expense logo" />
@@ -22,38 +22,54 @@ const Nav = () => {
           <Link href="/dashboard" as="/dashboard">
             <li className={checkActive(router, '/dashboard')}>
               <a href="#">
-                <span className="icon icon__dashboard" />
+                <img src="/icons/dashboard.svg" alt=""/>
                 Dashboard
+              </a>
+            </li>
+          </Link>
+          <Link href="/dashboard/receipts" as="/dashboard/receipts">
+            <li className={checkActive(router, '/dashboard/receipts')}>
+              <a href="#">
+                <img src="/icons/receipt.svg" alt=""/>
+                Receipts
               </a>
             </li>
           </Link>
           <li>
             <a href="#">
-              <span className="icon icon__receipt" />
-              Receipts
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span className="icon icon__expense" />
+              <img src="/icons/expense.svg" alt=""/>
               Expenses
             </a>
           </li>
           <li>
             <a href="#">
-              <span className="icon icon__expense_report" />
+              <img src="/icons/expense_report.svg" alt=""/>
               Expense Report
             </a>
           </li>
           <Link href="/dashboard/settings" as="/dashboard/settings">
             <li className={checkActive(router, '/dashboard/settings')}>
               <a href="#">
-                <span className="icon icon__settings" />
+              <img src="/icons/settings.svg" alt=""/>
                 Settings
               </a>
             </li>
           </Link>
         </ul>
+      </div>
+      <div className="topNav">
+        <div className="notification-area">
+          <button>
+            <img src="/icons/notification.svg" alt=""/>
+          </button>
+        </div>
+        <div className="profile-area">
+          <img src="/avatar.png" alt="" className="avatar"/>
+          <p>Jessica Rabbit</p>
+          <button>
+            <img src="/icons/chevron_down.svg" alt="" />
+          </button>
+        </div>
       </div>
     </nav>
   );

@@ -3,6 +3,7 @@ import { push as Menu } from 'react-burger-menu';
 import Link from 'next/link';
 import Icons from '../common/icons';
 
+
 const Home = () => (
   <div id="outer-container" className="dashboard-outer">
     <Menu right pageWrapId="page-wrap" outerContainerId="outer-container">
@@ -22,16 +23,15 @@ const Home = () => (
             <Link href="/" as="/">
               <img src="/logo.png" alt="Easy Expense logo" />
             </Link>
-          </div>
           {/* Navigation menu not visibile on mobile device begins here */}
           <nav>
             <ul className="authLinks">
-              <li className="button button__primary authLinks__link">
+              <li className="secondary-link">
                 <Link href="/signup" as="/signup">
                   <a href="pages/website/auth/index.html">Sign up</a>
                 </Link>
               </li>
-              <li className="authLinks__link link">
+              <li className="primary-link">
                 <Link href="/login" as="/login">
                   <a href="#">Login</a>
                 </Link>
@@ -39,6 +39,7 @@ const Home = () => (
             </ul>
           </nav>
           {/* Navigation menu not visibile on mobile device ends here */}
+          </div>
         </header>
         <main>
           <div className="hero">

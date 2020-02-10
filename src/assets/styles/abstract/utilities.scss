@@ -8,10 +8,10 @@
 }
 
 .u_card {
-  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.1);
-  border-radius: 1rem;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
   background: $colorWhite;
-  padding: 2rem 3rem;
+  padding: 2rem 1.2rem;
 }
 
 .u_fullWidth {
@@ -33,7 +33,7 @@ div.ReactTags__tagInput input.ReactTags__tagInputField,
 div.ReactTags__tagInput input.ReactTags__tagInputField:focus {
   height: 31px;
   margin: 0;
-  font-size: 1.8rem;
+  font-size: 1rem;
   width: 100%;
   border: 1px solid #eee;
   padding: 0 10px;
@@ -134,7 +134,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 .bm-menu {
   background: #1b1e27;
   padding: 2.5em 1.5em 0;
-  font-size: 1.15em;
+  font-size: 0.8em;
 }
 
 /* Morph shape necessary with bubble or elastic */

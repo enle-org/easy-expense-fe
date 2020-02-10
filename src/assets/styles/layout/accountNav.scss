@@ -1,58 +1,54 @@
-.accountNav {
-    width: 15%;
-    background: $colorWhite;
-    box-shadow: 0.4rem 0 1rem rgba(0, 0, 0, 0.05);
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    height: 100vh;
-    @include respond(tabLand) {
-        display: none;
-    }
-    .brand {
-        padding-top: 3rem;
-        padding-bottom: 1rem;
-        margin-bottom: 0;
-        padding-left: 4rem;
-    }
-        .menu {
-        ul {
-            padding: 0;
-            list-style-type: none;
-            li {
-                padding: 2.4rem;
-                padding-left: 0;
-                padding-left: 4rem;
-                &:hover, &.activeNav {
-                    background: $colorNav;
-                    font-weight: 600;
-                    cursor: pointer;
-                }
-                &.activeNav {
-                    border-right: 0.4rem solid $colorPrimary;
-                }
-                a {
-                    text-decoration: none;
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-                    span {
-                        &:first-child {
-                            margin-right: 1rem;
-                        }
-                        &.notificationCount {
-                            margin-left: 1rem;
-                            font-size: 1.2rem;
-                            color: $colorWhite;
-                            background: $colorDanger;
-                            border-radius: 50%;
-                            height: 1.6rem;
-                            width: 1.6rem;
-                            text-align: center;
-                        }
-                    }
-                }
-            }
+#accountNav {
+  width: 200px;
+  background: $colorWhite;
+  box-shadow: 0.4rem 0 1rem rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  height: 100vh;
+  @include respond(phone) {
+    display: none;
+  }
+  .brand {
+    padding-top: 1.3rem;
+    padding-bottom: 1rem;
+    margin-bottom: 0;
+    padding-left: 1rem;
+  }
+  .menu {
+    ul {
+      padding: 0;
+      list-style-type: none;
+      li {
+        border-left: 0.4rem solid transparent;
+        &:hover, &.activeNav {
+          background: $colorNav;
+          cursor: pointer;
         }
+        &.activeNav {
+          border-left: 0.4rem solid $colorPrimary;
+        }
+        a {
+          text-decoration: none;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          padding: 1rem;
+          img {
+            &:first-child {
+              margin-right: 1rem;
+            }
+            &.notificationCount {
+              margin-left: 1rem;
+              font-size: 0.8rem;
+              color: $colorWhite;
+              background: $colorDanger;
+              border-radius: 50%;
+              text-align: center;
+            }
+          }
+        }
+      }
     }
+  }
 }
