@@ -12,7 +12,7 @@
     background: $colorWhite;
     margin: auto;
     border-radius: $border-radius;
-    padding: 5rem;
+    padding: 2rem;
     box-sizing: border-box;
     &.recoveryWrapper {
       width: calc(100% * (2/5));
@@ -28,14 +28,10 @@
     justify-content: center;
     align-items: center;
     color: $colorWhite;
-    padding: 1.4rem;
-    font-size: 1.4rem;
+    padding: 0.9rem;
+    font-size: 0.9rem;
     border-radius: 0.2rem;
   }
-}
-
-.brand {
-  margin-bottom: 2rem;
 }
 
 .pageContent {
@@ -45,7 +41,7 @@
   }
   p {
     margin: 0;
-    font-size: 1.4rem;
+    font-size: 0.9rem;
     color: $colorDark3;
   }
 }
@@ -78,7 +74,7 @@
 .toggleAuthPage {
   text-align: center;
   p, a {
-    font-size: 1.4rem;
+    font-size: 0.9rem;
   }
   a {
     text-decoration: none;
