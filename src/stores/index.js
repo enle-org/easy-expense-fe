@@ -24,7 +24,6 @@ const authStore = new AuthStore();
 const dashboardStore = new DashboardStore();
 const organisationStore = new OrganisationStore(authStore);
 
-
 export default {
   appStore,
   authStore,

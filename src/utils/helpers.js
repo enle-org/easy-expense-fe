@@ -50,10 +50,10 @@ const axiosCore = (verb, urlPart, data = null, serverToken = null) => {
       `${config.API_URL}/${urlPart}`,
       token
         ? {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         : {},
     );
   }
@@ -62,10 +62,10 @@ const axiosCore = (verb, urlPart, data = null, serverToken = null) => {
     data,
     token
       ? {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       : {},
   );
 };
@@ -75,7 +75,8 @@ const axiosCore = (verb, urlPart, data = null, serverToken = null) => {
  * @param {String} urlPart - API endpoint.
  * @param {String} token - Auth token.
  */
-const getData = (urlPart, token = null) => axiosCore('get', urlPart, null, token);
+const getData = (urlPart, token = null) =>
+  axiosCore('get', urlPart, null, token);
 
 /**
  * Performs a POST request.
@@ -90,7 +91,6 @@ const postData = (urlPart, data) => axiosCore('post', urlPart, data);
  * @param {Object} data - data in for the request.
  */
 const patchData = (urlPart, data) => axiosCore('patch', urlPart, data);
-
 
 /**
  * MobX runInAction util.
@@ -118,8 +118,7 @@ const getInitialProps = async (ctx, urlPart) => {
   const redirectOnError = () => {
     if (window !== 'undefined') {
       Router.push('/login', '/login');
-    }
-    else {
+    } else {
       ctx.res.writeHead(302, {
         Location: '/login',
       });
@@ -133,8 +132,7 @@ const getInitialProps = async (ctx, urlPart) => {
       return data;
     }
     return await redirectOnError();
-  }
-  catch (error) {
+  } catch (error) {
     redirectOnError();
   }
 };
