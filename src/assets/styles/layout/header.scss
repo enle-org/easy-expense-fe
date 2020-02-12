@@ -25,7 +25,7 @@ header {
       list-style: none;
       .primary-link {
         background-color: $colorPrimary;
-        border-radius: 3px;
+        border-radius: 30px;
         margin-left: 1rem;
         border: 1px solid $colorPrimary;
         a {
@@ -34,16 +34,15 @@ header {
       }
       .secondary-link {
         background-color: $colorWhite;
-        border-radius: 3px;
+        border-radius: 30px;
         margin-left: 1rem;
-        border: 1px solid $colorPrimary;
         a {
           color: $colorPrimary;
         }
       }
       a {
         display: inline-block;
-        padding: 1rem 2rem;
+        padding: 0.6rem 2rem;
         text-decoration: none;
         min-width: 120px;
         text-align: center;

@@ -22,7 +22,7 @@ const Nav = () => {
           <Link href="/dashboard" as="/dashboard">
             <li className={checkActive(router, '/dashboard')}>
               <a href="#">
-                <img src="/icons/dashboard.svg" alt=""/>
+                <img src="/icons/dashboard.svg" alt="" />
                 Dashboard
               </a>
             </li>
@@ -30,27 +30,27 @@ const Nav = () => {
           <Link href="/dashboard/receipts" as="/dashboard/receipts">
             <li className={checkActive(router, '/dashboard/receipts')}>
               <a href="#">
-                <img src="/icons/receipt.svg" alt=""/>
+                <img src="/icons/receipt.svg" alt="" />
                 Receipts
               </a>
             </li>
           </Link>
           <li>
             <a href="#">
-              <img src="/icons/expense.svg" alt=""/>
+              <img src="/icons/expense.svg" alt="" />
               Expenses
             </a>
           </li>
           <li>
             <a href="#">
-              <img src="/icons/expense_report.svg" alt=""/>
+              <img src="/icons/expense_report.svg" alt="" />
               Expense Report
             </a>
           </li>
           <Link href="/dashboard/settings" as="/dashboard/settings">
             <li className={checkActive(router, '/dashboard/settings')}>
               <a href="#">
-              <img src="/icons/settings.svg" alt=""/>
+                <img src="/icons/settings.svg" alt="" />
                 Settings
               </a>
             </li>
@@ -59,14 +59,14 @@ const Nav = () => {
       </div>
       <div className="topNav">
         <div className="notification-area">
-          <button>
-            <img src="/icons/notification.svg" alt=""/>
+          <button type="button">
+            <img src="/icons/notification.svg" alt="" />
           </button>
         </div>
         <div className="profile-area">
-          <img src="/avatar.png" alt="" className="avatar"/>
+          <img src="/avatar.png" alt="" className="avatar" />
           <p>Jessica Rabbit</p>
-          <button>
+          <button type="button">
             <img src="/icons/chevron_down.svg" alt="" />
           </button>
         </div>

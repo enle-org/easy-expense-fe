@@ -22,6 +22,17 @@
       background: $colorPrimaryUp1;
     }
   }
+  &__secondary {
+    background: $colorWhite;
+    border: 1px solid $colorPrimary;
+    color: $colorPrimary;
+    &:hover {
+      background: #E7E5FF;
+    }
+    &:active {
+      background: #E7E5FF;
+    }
+  }
 
   &__danger {
     background: $colorDanger;

@@ -23,22 +23,22 @@ const Home = () => (
             <Link href="/" as="/">
               <img src="/logo.png" alt="Easy Expense logo" />
             </Link>
-          {/* Navigation menu not visibile on mobile device begins here */}
-          <nav>
-            <ul className="authLinks">
-              <li className="secondary-link">
-                <Link href="/signup" as="/signup">
-                  <a href="pages/website/auth/index.html">Sign up</a>
-                </Link>
-              </li>
-              <li className="primary-link">
-                <Link href="/login" as="/login">
-                  <a href="#">Login</a>
-                </Link>
-              </li>
-            </ul>
-          </nav>
-          {/* Navigation menu not visibile on mobile device ends here */}
+            {/* Navigation menu not visibile on mobile device begins here */}
+            <nav>
+              <ul className="authLinks">
+                <li className="primary-link">
+                  <Link href="/signup" as="/signup">
+                    <a href="pages/website/auth/index.html">Sign up</a>
+                  </Link>
+                </li>
+                <li className="secondary-link">
+                  <Link href="/login" as="/login">
+                    <a href="#">Login</a>
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+            {/* Navigation menu not visibile on mobile device ends here */}
           </div>
         </header>
         <main>

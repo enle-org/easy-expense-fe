@@ -80,7 +80,7 @@ class Login extends React.Component {
             className="eEForm"
           >
             <div className="formGroup">
-              <label htmlFor="loginEmail">Email</label>
+              <label htmlFor="loginEmail">Email Address</label>
               <input
                 type="email"
                 name="email"
@@ -130,17 +130,26 @@ class Login extends React.Component {
                 </Link>
               </div>
             </div>
-            <button
-              disabled={this.props.authStore.loginLoading.value}
-              type="submit"
-              className="button button__primary"
-            >
-              {
-                this.props.authStore.loginLoading.value
-                  ? <span className="login-loader" />
-                  : 'Log in'
-              }
-            </button>
+            <div className="auth-buttons">
+              <Link href="/signup" as="/signup">
+                <a href="#">
+                  <button type="button" className="button button__secondary">
+                      Sign Up
+                  </button>
+                </a>
+              </Link>
+              <button
+                disabled={this.props.authStore.loginLoading.value}
+                type="submit"
+                className="button button__primary"
+              >
+                {
+                  this.props.authStore.loginLoading.value
+                    ? <span className="login-loader" />
+                    : 'Log in'
+                }
+              </button>
+            </div>
           </form>
           <div className="socialSignup">
             <GoogleLogin
@@ -173,14 +182,14 @@ class Login extends React.Component {
               cookiePolicy="single_host_origin"
             />
           </div>
-          <div className="toggleAuthPage">
+          {/* <div className="toggleAuthPage">
             <p>
               Don&apos;t have an account?
               <Link href="/signup" as="/signup">
                 <a href="#"> Sign up</a>
               </Link>
             </p>
-          </div>
+          </div> */}
         </main>
         {/* Error Modal */}
         <Modal
