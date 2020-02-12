@@ -98,7 +98,7 @@ class Signup extends React.Component {
             className="eEForm"
           >
             <div className="formGroup">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">Email Address</label>
               <input
                 type="email"
                 name="email"
@@ -163,17 +163,26 @@ class Signup extends React.Component {
                 }
               />
             </div>
-            <button
-              disabled={this.props.authStore.signupLoading.value}
-              type="submit"
-              className="button button__primary"
-            >
-              {this.props.authStore.signupLoading.value ? (
-                <span className="login-loader" />
-              ) : (
-                'Sign up'
-              )}
-            </button>
+            <div className="auth-buttons">
+              <button
+                disabled={this.props.authStore.signupLoading.value}
+                type="submit"
+                className="button button__primary"
+              >
+                {
+                  this.props.authStore.signupLoading.value
+                    ? <span className="login-loader" />
+                    : 'Sign up'
+                }
+              </button>
+              <Link href="/login" as="/login">
+                <a href="#">
+                  <button type="button" className="button button__secondary">
+                    Login
+                  </button>
+                </a>
+              </Link>
+            </div>
           </form>
           <div className="socialSignup">
             <GoogleLogin
@@ -207,14 +216,6 @@ class Signup extends React.Component {
               }}
               cookiePolicy="single_host_origin"
             />
-          </div>
-          <div className="toggleAuthPage">
-            <p>
-              Already have an account?
-              <Link href="/login" as="/login">
-                <a href="#"> Sign in</a>
-              </Link>
-            </p>
           </div>
         </main>
         {/* Error Modal */}

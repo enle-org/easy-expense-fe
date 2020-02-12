@@ -119,13 +119,6 @@ class Recovery extends React.Component {
               )}
             </button>
           </form>
-          <div className="toggleAuthPage">
-            <p>
-              <Link href="/login" as="/login">
-                <a href="#">Back to login</a>
-              </Link>
-            </p>
-          </div>
         </main>
         <Modal
           isOpen={this.isOpen()}
