@@ -5,7 +5,7 @@ import ReceiptView from '../../src/components/dashboard/ReceiptView';
 import { withAuthSync } from '../../src/utils/serverAuth';
 import { checkAuth } from '../../src/utils/helpers';
 
-const SettingsPage = () => (
+const ReceiptsView = () => (
   <div>
     <Head>
       <meta charset="UTF-8" />
@@ -19,6 +19,6 @@ const SettingsPage = () => (
   </div>
 );
 
-SettingsPage.getInitialProps = async ctx => checkAuth(ctx);
+ReceiptsView.getInitialProps = async ctx => checkAuth(ctx);
 
-export default withAuthSync(SettingsPage);
+export default withAuthSync(ReceiptsView);
