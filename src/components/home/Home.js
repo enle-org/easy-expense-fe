@@ -47,11 +47,14 @@ const Home = () => (
               <h1>Track and approve business expenses easily</h1>
               <p>
                 Easy Expense is an open-source tool that helps small businesses
-                to track and approve business expenses.
-                It streamlines expense tracking and reporting,
-                and is free for companies to use and host.
+                to track and approve business expenses. It streamlines expense
+                tracking and reporting, and is free for companies to use and
+                host.
               </p>
-              <a href="pages/website/auth/index.html" className="link link__primary">
+              <a
+                href="pages/website/auth/index.html"
+                className="link link__primary"
+              >
                 Sign Up
                 <span className="icon icon__forward" />
               </a>
@@ -67,7 +70,8 @@ const Home = () => (
               </div>
               <h3>Capture receipts and create expense reports.</h3>
               <p>
-                Take photos of receipts, and convert receipts to expense reports.
+                Take photos of receipts, and convert receipts to expense
+                reports.
               </p>
             </div>
             <div className="benefits__item">
@@ -76,18 +80,18 @@ const Home = () => (
               </div>
               <h3>Review and approve expenses</h3>
               <p>
-                Expense approvers can review details,
-                and use Easy Expense for quick approval.
+                Expense approvers can review details, and use Easy Expense for
+                quick approval.
               </p>
             </div>
             <div className="benefits__item">
               <div className="benefits__item__image">
                 <Icons.calender />
               </div>
-              <h3>Saves employees and business owners  time.</h3>
+              <h3>Saves employees and business owners time.</h3>
               <p>
-                No more emails and spreadsheets.
-                This easy web app simplifes the expense management process.
+                No more emails and spreadsheets. This easy web app simplifes the
+                expense management process.
               </p>
             </div>
           </div>

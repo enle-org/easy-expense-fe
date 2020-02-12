@@ -7,7 +7,6 @@ import { renderIf } from '../../utils/helpers';
 import Icons from '../common/icons';
 import CustomStyles from '../common/commonStyles';
 
-
 @inject('authStore')
 @observer
 class Reset extends React.Component {
@@ -17,27 +16,25 @@ class Reset extends React.Component {
   }
 
   closeModal = () => {
-    this.props.authStore.setClassProps([
-      {
-        name: 'visible',
-        value: false,
-      },
-      {
-        name: 'message',
-        value: '',
-      },
-    ], this.props.authStore.resetErrors);
-  }
-
-
-  handleSubmit = (e, token) => {
-    e.preventDefault();
-    this.props.authStore.reset(
-      e,
-      token,
+    this.props.authStore.setClassProps(
+      [
+        {
+          name: 'visible',
+          value: false,
+        },
+        {
+          name: 'message',
+          value: '',
+        },
+      ],
+      this.props.authStore.resetErrors,
     );
   };
 
+  handleSubmit = (e, token) => {
+    e.preventDefault();
+    this.props.authStore.reset(e, token);
+  };
 
   render() {
     Modal.setAppElement('body');
@@ -52,8 +49,8 @@ class Reset extends React.Component {
           <div className="pageContent">
             <h1 className="pageTitle">Password Reset</h1>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-              tempor.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor.
             </p>
           </div>
 
@@ -65,7 +62,12 @@ class Reset extends React.Component {
               </em>
             </p>,
           )}
-          <form onSubmit={e => this.handleSubmit(e, window.location.pathname.split('/')[2])} className="eEForm">
+          <form
+            onSubmit={e =>
+              this.handleSubmit(e, window.location.pathname.split('/')[2])
+            }
+            className="eEForm"
+          >
             <div className="formGroup">
               <label htmlFor="password">Password</label>
               <input
@@ -75,13 +77,19 @@ class Reset extends React.Component {
                 placeholder="Enter password"
                 value={this.props.authStore.resetData.password}
                 onChange={event => {
-                  this.props.authStore.setClassProps([
-                    {
-                      name: 'password',
-                      value: event.target.value,
-                    },
-                  ], this.props.authStore.resetData);
-                  this.props.authStore.validatePassword('resetData', 'resetValidationErrors');
+                  this.props.authStore.setClassProps(
+                    [
+                      {
+                        name: 'password',
+                        value: event.target.value,
+                      },
+                    ],
+                    this.props.authStore.resetData,
+                  );
+                  this.props.authStore.validatePassword(
+                    'resetData',
+                    'resetValidationErrors',
+                  );
                 }}
               />
             </div>
@@ -94,13 +102,19 @@ class Reset extends React.Component {
                 placeholder="Confirm Password"
                 value={this.props.authStore.resetData.confirmPassword}
                 onChange={event => {
-                  this.props.authStore.setClassProps([
-                    {
-                      name: 'confirmPassword',
-                      value: event.target.value,
-                    },
-                  ], this.props.authStore.resetData);
-                  this.props.authStore.validatePasswordMatch('resetData', 'resetValidationErrors');
+                  this.props.authStore.setClassProps(
+                    [
+                      {
+                        name: 'confirmPassword',
+                        value: event.target.value,
+                      },
+                    ],
+                    this.props.authStore.resetData,
+                  );
+                  this.props.authStore.validatePasswordMatch(
+                    'resetData',
+                    'resetValidationErrors',
+                  );
                 }}
               />
             </div>
@@ -109,11 +123,11 @@ class Reset extends React.Component {
               type="submit"
               className="button button__primary"
             >
-              {
-                this.props.authStore.resetLoading.value
-                  ? <span className="login-loader" />
-                  : 'Reset Password'
-              }
+              {this.props.authStore.resetLoading.value ? (
+                <span className="login-loader" />
+              ) : (
+                'Reset Password'
+              )}
             </button>
           </form>
           <div className="toggleAuthPage">
@@ -140,13 +154,13 @@ class Reset extends React.Component {
                 >
                   <Icons.close />
                 </button>
-                <h2 className="head__title sectionTitleSmall">An Error Occured</h2>
+                <h2 className="head__title sectionTitleSmall">
+                  An Error Occured
+                </h2>
               </div>
               <div className="content">
                 <div className="content__copy">
-                  <p>
-                    Please see the error below:
-                  </p>
+                  <p>Please see the error below:</p>
                   <p className="error-text m-b-sm">
                     <em>
                       {`Error: ${this.props.authStore.resetErrors.message}`}
@@ -166,7 +180,6 @@ class Reset extends React.Component {
             </div>
           </div>
         </Modal>
-
       </div>
     );
   }

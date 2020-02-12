@@ -37,16 +37,19 @@ class Dashboard extends React.Component {
   }
 
   closeModal(type) {
-    this.props.organisationStore.setClassProps([
-      {
-        name: 'visible',
-        value: false,
-      },
-      {
-        name: 'message',
-        value: '',
-      },
-    ], this.props.organisationStore[type]);
+    this.props.organisationStore.setClassProps(
+      [
+        {
+          name: 'visible',
+          value: false,
+        },
+        {
+          name: 'message',
+          value: '',
+        },
+      ],
+      this.props.organisationStore[type],
+    );
   }
 
   handleDelete(i) {
@@ -66,8 +69,7 @@ class Dashboard extends React.Component {
     if (!res) {
       this.setState({ additionError: '' });
       this.setState(state => ({ members: [...state.members, member] }));
-    }
-    else {
+    } else {
       this.setState({ additionError: ' - Invalid email entered' });
     }
   }
@@ -111,8 +113,9 @@ class Dashboard extends React.Component {
               <div className="u_section head">
                 <h2 className="pageTitle">Getting Started</h2>
                 <p>
-                  You can create an organisation and start reviewing expense reports as an
-                  expense approver or join an organization via an invite link.
+                  You can create an organisation and start reviewing expense
+                  reports as an expense approver or join an organization via an
+                  invite link.
                 </p>
               </div>
               <div className="body">
@@ -120,39 +123,38 @@ class Dashboard extends React.Component {
                   <h4 className="sectionTitle">Join an organization</h4>
                   <p>Accept the invites below to join an organization.</p>
                   <div className="eEForm eEForm__account">
-                    {
-                      this.props.organisationStore.inviteData.orgID
-                        ? (
-                          <div className="row with-divider">
-                            <div className="col-sm-3">
-                              <p className="small">Organization</p>
-                              <p>{this.props.organisationStore.inviteData.orgName.toUpperCase()}</p>
-                            </div>
-                            <div className="col-sm-3">
-                              <p className="small">Invited By:</p>
-                              <p>{this.props.organisationStore.inviteData.invitedBy}</p>
-                            </div>
-                            <div className="col-sm-6">
-                              <div className="buttonWrapper">
-                                <button
-                                  type="button"
-                                  className="button button__primary"
-                                  onClick={this.props.organisationStore.joinOrg}
-                                >
-                                Join Organization
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        )
-                        : (
-                          <p className="text-center">
-                            <em>You don&apos;t have any invites at the moment.</em>
+                    {this.props.organisationStore.inviteData.orgID ? (
+                      <div className="row with-divider">
+                        <div className="col-sm-3">
+                          <p className="small">Organization</p>
+                          <p>
+                            {this.props.organisationStore.inviteData.orgName.toUpperCase()}
                           </p>
-                        )
-                    }
+                        </div>
+                        <div className="col-sm-3">
+                          <p className="small">Invited By:</p>
+                          <p>
+                            {this.props.organisationStore.inviteData.invitedBy}
+                          </p>
+                        </div>
+                        <div className="col-sm-6">
+                          <div className="buttonWrapper">
+                            <button
+                              type="button"
+                              className="button button__primary"
+                              onClick={this.props.organisationStore.joinOrg}
+                            >
+                              Join Organization
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <p className="text-center">
+                        <em>You don&apos;t have any invites at the moment.</em>
+                      </p>
+                    )}
                   </div>
-
                 </div>
                 <div className="divider">
                   <p>OR</p>
@@ -160,14 +162,19 @@ class Dashboard extends React.Component {
                 <div className="u_section u_card m-t-md">
                   <h4 className="sectionTitle">Create an organization</h4>
                   <p>
-                    Create a new organization
-                    and invite members to start reviewing and approving expenses.
+                    Create a new organization and invite members to start
+                    reviewing and approving expenses.
                   </p>
-                  <div action="#" className="eEForm eEForm__row eEForm__account">
+                  <div
+                    action="#"
+                    className="eEForm eEForm__row eEForm__account"
+                  >
                     <div className="row">
                       <div className="col-sm-4">
                         <div className="formGroup">
-                          <label htmlFor="organizationName">Organization Name</label>
+                          <label htmlFor="organizationName">
+                            Organization Name
+                          </label>
                           <input
                             type="text"
                             name="organizationName"
@@ -175,12 +182,15 @@ class Dashboard extends React.Component {
                             placeholder="Enter organization name"
                             value={this.props.organisationStore.newOrgData.name}
                             onChange={event => {
-                              this.props.organisationStore.setClassProps([
-                                {
-                                  name: 'name',
-                                  value: event.target.value,
-                                },
-                              ], this.props.organisationStore.newOrgData);
+                              this.props.organisationStore.setClassProps(
+                                [
+                                  {
+                                    name: 'name',
+                                    value: event.target.value,
+                                  },
+                                ],
+                                this.props.organisationStore.newOrgData,
+                              );
                             }}
                           />
                         </div>
@@ -189,7 +199,9 @@ class Dashboard extends React.Component {
                         <div className="formGroup">
                           <label htmlFor="members">
                             Members (Add emails seperated by a comma)
-                            <span className="error-text">{ this.state.additionError }</span>
+                            <span className="error-text">
+                              {this.state.additionError}
+                            </span>
                           </label>
                           <ReactTags
                             placeholder="Add a member"
@@ -206,7 +218,9 @@ class Dashboard extends React.Component {
                       <button
                         type="button"
                         className="button button__primary"
-                        onClick={() => this.props.organisationStore.createOrg(this)}
+                        onClick={() =>
+                          this.props.organisationStore.createOrg(this)
+                        }
                       >
                         Create organization
                       </button>
@@ -233,13 +247,13 @@ class Dashboard extends React.Component {
                 >
                   <Icons.close />
                 </button>
-                <h2 className="head__title sectionTitleSmall">An Error Occured</h2>
+                <h2 className="head__title sectionTitleSmall">
+                  An Error Occured
+                </h2>
               </div>
               <div className="content">
                 <div className="content__copy">
-                  <p>
-                    Please see the error below:
-                  </p>
+                  <p>Please see the error below:</p>
                   <p className="error-text m-b-sm">
                     <em>
                       {`Error: ${this.props.organisationStore.error.message}`}

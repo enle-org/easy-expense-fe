@@ -7,7 +7,6 @@ import { renderIf } from '../../utils/helpers';
 import Icons from '../common/icons';
 import CustomStyles from '../common/commonStyles';
 
-
 @inject('authStore')
 @observer
 class Recovery extends React.Component {
@@ -17,40 +16,43 @@ class Recovery extends React.Component {
   }
 
   closeModal = () => {
-    this.props.authStore.setClassProps([
-      {
-        name: 'visible',
-        value: false,
-      },
-      {
-        name: 'message',
-        value: '',
-      },
-    ], this.props.authStore.recoveryErrors);
-    this.props.authStore.setClassProps([
-      {
-        name: 'visible',
-        value: false,
-      },
-      {
-        name: 'message',
-        value: '',
-      },
-    ], this.props.authStore.recoverySuccess);
-  }
+    this.props.authStore.setClassProps(
+      [
+        {
+          name: 'visible',
+          value: false,
+        },
+        {
+          name: 'message',
+          value: '',
+        },
+      ],
+      this.props.authStore.recoveryErrors,
+    );
+    this.props.authStore.setClassProps(
+      [
+        {
+          name: 'visible',
+          value: false,
+        },
+        {
+          name: 'message',
+          value: '',
+        },
+      ],
+      this.props.authStore.recoverySuccess,
+    );
+  };
 
-  isOpen = () => (
-    this.props.authStore.recoveryErrors.visible
-    || this.props.authStore.recoverySuccess.visible
-  )
+  isOpen = () =>
+    this.props.authStore.recoveryErrors.visible ||
+    this.props.authStore.recoverySuccess.visible;
 
-  isSuccess = () => this.props.authStore.recoverySuccess.visible
+  isSuccess = () => this.props.authStore.recoverySuccess.visible;
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.authStore.recovery(
-      e,
-    );
+    this.props.authStore.recovery(e);
   };
 
   render() {
@@ -66,8 +68,8 @@ class Recovery extends React.Component {
           <div className="pageContent">
             <h1 className="pageTitle">Password Recovery</h1>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-              tempor.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor.
             </p>
           </div>
 
@@ -89,13 +91,19 @@ class Recovery extends React.Component {
                 placeholder="Enter email"
                 value={this.props.authStore.recoveryData.email}
                 onChange={event => {
-                  this.props.authStore.setClassProps([
-                    {
-                      name: 'email',
-                      value: event.target.value,
-                    },
-                  ], this.props.authStore.recoveryData);
-                  this.props.authStore.validateEmail('recoveryData', 'recoveryValidationErrors');
+                  this.props.authStore.setClassProps(
+                    [
+                      {
+                        name: 'email',
+                        value: event.target.value,
+                      },
+                    ],
+                    this.props.authStore.recoveryData,
+                  );
+                  this.props.authStore.validateEmail(
+                    'recoveryData',
+                    'recoveryValidationErrors',
+                  );
                 }}
               />
             </div>
@@ -104,11 +112,11 @@ class Recovery extends React.Component {
               type="submit"
               className="button button__primary"
             >
-              {
-                this.props.authStore.recoveryLoading.value
-                  ? <span className="login-loader" />
-                  : 'Login'
-              }
+              {this.props.authStore.recoveryLoading.value ? (
+                <span className="login-loader" />
+              ) : (
+                'Check Email'
+              )}
             </button>
           </form>
         </main>
@@ -133,18 +141,12 @@ class Recovery extends React.Component {
               </div>
               <div className="content">
                 <div className="content__copy">
-                  {!this.isSuccess() && (
-                    <p>
-                      Please see the error below:
-                    </p>
-                  )}
+                  {!this.isSuccess() && <p>Please see the error below:</p>}
                   <p className={`${!this.isSuccess() && 'error-text'} m-b-sm`}>
                     <em>
-                      {this.isSuccess() ? (
-                        `Success: ${this.props.authStore.recoverySuccess.message}`
-                      ) : (
-                        `Error: ${this.props.authStore.recoveryErrors.message}`
-                      )}
+                      {this.isSuccess()
+                        ? `Success: ${this.props.authStore.recoverySuccess.message}`
+                        : `Error: ${this.props.authStore.recoveryErrors.message}`}
                     </em>
                   </p>
                 </div>
@@ -161,7 +163,6 @@ class Recovery extends React.Component {
             </div>
           </div>
         </Modal>
-
       </div>
     );
   }
