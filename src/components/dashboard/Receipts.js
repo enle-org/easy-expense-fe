@@ -130,86 +130,85 @@ class Receipts extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {receipts.map(receipt => {
-                    return (
-                      <tr
-                        className="t-row"
-                        key={receipt._id}
-                        onClick={() => this.renderImage(receipt)}
-                      >
-                        <td>
-                          <img src="/icons/checkmark.svg" alt="" />
-                          {/* <img src="/icons/question_mark.svg" alt="" /> */}
-                        </td>
-                        <td>{receipt.title}</td>
-                        <td>
-                          {moment(receipt.createdAt).format('DD MMMM YYYY')}
-                        </td>
-                        <td>
-                          <button
-                            type="button"
-                            onClick={() => this.openDeleteModal(receipt._id)}
-                          >
-                            <svg
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
+                  {receipts.length > 0 &&
+                    receipts.map(receipt => {
+                      return (
+                        <tr className="t-row" key={receipt._id}>
+                          <td onClick={() => this.renderImage(receipt)}>
+                            <img src="/icons/checkmark.svg" alt="" />
+                            {/* <img src="/icons/question_mark.svg" alt="" /> */}
+                          </td>
+                          <td onClick={() => this.renderImage(receipt)}>
+                            {receipt.title}
+                          </td>
+                          <td onClick={() => this.renderImage(receipt)}>
+                            {moment(receipt.createdAt).format('DD MMMM YYYY')}
+                          </td>
+                          <td>
+                            <button
+                              type="button"
+                              onClick={() => this.openDeleteModal(receipt._id)}
                             >
-                              <rect
+                              <svg
                                 width="24"
                                 height="24"
-                                rx="3"
-                                fill="#E5E5E5"
-                              />
-                              <g clipPath="url(#clip0)">
-                                <path
-                                  d="M6.1189 8.23779H7.53149H18.8323"
-                                  stroke="black"
-                                  strokeWidth="1.4126"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <rect
+                                  width="24"
+                                  height="24"
+                                  rx="3"
+                                  fill="#E5E5E5"
                                 />
-                                <path
-                                  d="M9.65039 8.23779V6.8252C9.65039 6.45055 9.79922 6.09125 10.0641 5.82634C10.329 5.56142 10.6883 5.4126 11.063 5.4126H13.8882C14.2628 5.4126 14.6221 5.56142 14.887 5.82634C15.152 6.09125 15.3008 6.45055 15.3008 6.8252V8.23779M17.4197 8.23779V18.126C17.4197 18.5006 17.2709 18.8599 17.0059 19.1248C16.741 19.3897 16.3817 19.5386 16.0071 19.5386H8.94409C8.56945 19.5386 8.21015 19.3897 7.94523 19.1248C7.68032 18.8599 7.53149 18.5006 7.53149 18.126V8.23779H17.4197Z"
-                                  stroke="black"
-                                  strokeWidth="1.4126"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                />
-                                <path
-                                  d="M11.063 11.7693V16.0071"
-                                  stroke="black"
-                                  strokeWidth="1.4126"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                />
-                                <path
-                                  d="M13.8882 11.7693V16.0071"
-                                  stroke="black"
-                                  strokeWidth="1.4126"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                />
-                              </g>
-                              <defs>
-                                <clipPath id="clip0">
-                                  <rect
-                                    x="4"
-                                    y="4"
-                                    width="16.9512"
-                                    height="16.9512"
-                                    fill="white"
+                                <g clipPath="url(#clip0)">
+                                  <path
+                                    d="M6.1189 8.23779H7.53149H18.8323"
+                                    stroke="black"
+                                    strokeWidth="1.4126"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
                                   />
-                                </clipPath>
-                              </defs>
-                            </svg>
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                                  <path
+                                    d="M9.65039 8.23779V6.8252C9.65039 6.45055 9.79922 6.09125 10.0641 5.82634C10.329 5.56142 10.6883 5.4126 11.063 5.4126H13.8882C14.2628 5.4126 14.6221 5.56142 14.887 5.82634C15.152 6.09125 15.3008 6.45055 15.3008 6.8252V8.23779M17.4197 8.23779V18.126C17.4197 18.5006 17.2709 18.8599 17.0059 19.1248C16.741 19.3897 16.3817 19.5386 16.0071 19.5386H8.94409C8.56945 19.5386 8.21015 19.3897 7.94523 19.1248C7.68032 18.8599 7.53149 18.5006 7.53149 18.126V8.23779H17.4197Z"
+                                    stroke="black"
+                                    strokeWidth="1.4126"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  />
+                                  <path
+                                    d="M11.063 11.7693V16.0071"
+                                    stroke="black"
+                                    strokeWidth="1.4126"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  />
+                                  <path
+                                    d="M13.8882 11.7693V16.0071"
+                                    stroke="black"
+                                    strokeWidth="1.4126"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  />
+                                </g>
+                                <defs>
+                                  <clipPath id="clip0">
+                                    <rect
+                                      x="4"
+                                      y="4"
+                                      width="16.9512"
+                                      height="16.9512"
+                                      fill="white"
+                                    />
+                                  </clipPath>
+                                </defs>
+                              </svg>
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
                 </tbody>
               </table>
             </div>
@@ -293,3 +292,5 @@ class Receipts extends React.Component {
     );
   }
 }
+
+export default Receipts;
