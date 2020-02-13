@@ -13,6 +13,11 @@ const SettingsPage = () => (
       <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
       <title>Receipts | Easy Expense</title>
       <link rel="icon" href="/favicon.ico" />
+
+      <script
+        src="https://widget.cloudinary.com/v2.0/global/all.js"
+        type="text/javascript"
+      />
     </Head>
 
     <Receipts />

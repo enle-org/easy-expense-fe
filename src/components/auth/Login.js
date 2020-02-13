@@ -142,7 +142,7 @@ class Login extends React.Component {
               <Link href="/signup" as="/signup">
                 <a href="#">
                   <button type="button" className="button button__secondary">
-                      Sign Up
+                    Sign Up
                   </button>
                 </a>
               </Link>
@@ -151,11 +151,11 @@ class Login extends React.Component {
                 type="submit"
                 className="button button__primary"
               >
-                {
-                  this.props.authStore.loginLoading.value
-                    ? <span className="login-loader" />
-                    : 'Log in'
-                }
+                {this.props.authStore.loginLoading.value ? (
+                  <span className="login-loader" />
+                ) : (
+                  'Log in'
+                )}
               </button>
             </div>
           </form>
