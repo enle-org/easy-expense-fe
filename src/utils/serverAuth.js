@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import Router from 'next/router';
 import nextCookie from 'next-cookies';
 import cookie from 'js-cookie';
+import jwt from 'jsonwebtoken';
+
 import axiosInstance from './axiosInstance';
 
 const login = ({ token }) => {
@@ -72,4 +74,9 @@ const withAuthSync = WrappedComponent => {
   return Wrapper;
 };
 
-export { login, auth, logout, withAuthSync };
+const decodeToken = () => {
+  const token = cookie.get('token');
+  return jwt.decode(token);
+};
+
+export { login, auth, logout, withAuthSync, decodeToken };

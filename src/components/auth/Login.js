@@ -151,11 +151,11 @@ class Login extends React.Component {
                 type="submit"
                 className="button button__primary"
               >
-                {
-                  this.props.authStore.loginLoading.value
-                    ? <span className="login-loader" />
-                    : 'Log in'
-                }
+                {this.props.authStore.loginLoading.value ? (
+                  <span className="login-loader" />
+                ) : (
+                  'Log in'
+                )}
               </button>
             </div>
           </form>

@@ -1,7 +1,6 @@
-/* eslint-disable react/no-unused-state */
 import React from 'react';
-
 import Link from 'next/link';
+
 import Nav from './Nav';
 
 const ReceiptView = () => (
