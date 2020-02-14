@@ -56,12 +56,15 @@ class Settings extends React.Component {
 
   runDelete(obj, type, typeArr, i) {
     obj[type] = typeArr.filter((_typeArr, index) => index !== i);
-    this.props.organisationStore.setClassProps([
-      {
-        name: type,
-        value: obj[type],
-      },
-    ], this.props.organisationStore.org);
+    this.props.organisationStore.setClassProps(
+      [
+        {
+          name: type,
+          value: obj[type],
+        },
+      ],
+      this.props.organisationStore.org,
+    );
   }
 
   handleDelete(type, typeArr, i) {
@@ -69,8 +72,7 @@ class Settings extends React.Component {
     if (type === 'members') {
       this.setState({ removeMemberHold: { type, typeArr, i } });
       this.openModal('removeMember');
-    }
-    else this.runDelete(obj, type, typeArr, i);
+    } else this.runDelete(obj, type, typeArr, i);
   }
 
   handleAddition(invite) {
@@ -82,14 +84,16 @@ class Settings extends React.Component {
     const res = validate({ invite: invite.text }, constraints);
     if (!res) {
       this.setState({ additionError: '' });
-      this.props.organisationStore.setClassProps([
-        {
-          name: 'invites',
-          value: [...this.props.organisationStore.org.invites, invite],
-        },
-      ], this.props.organisationStore.org);
-    }
-    else {
+      this.props.organisationStore.setClassProps(
+        [
+          {
+            name: 'invites',
+            value: [...this.props.organisationStore.org.invites, invite],
+          },
+        ],
+        this.props.organisationStore.org,
+      );
+    } else {
       this.setState({ additionError: ' - Invalid email entered' });
     }
   }
@@ -115,20 +119,23 @@ class Settings extends React.Component {
   }
 
   closeModal2(store, type) {
-    this.props[store].setClassProps([
-      {
-        name: 'visible',
-        value: false,
-      },
-      {
-        name: 'message',
-        value: '',
-      },
-      {
-        name: 'type',
-        value: '',
-      },
-    ], this.props[store][type]);
+    this.props[store].setClassProps(
+      [
+        {
+          name: 'visible',
+          value: false,
+        },
+        {
+          name: 'message',
+          value: '',
+        },
+        {
+          name: 'type',
+          value: '',
+        },
+      ],
+      this.props[store][type],
+    );
   }
 
   render() {
@@ -139,105 +146,109 @@ class Settings extends React.Component {
       <div className="accountWrapper">
         <Nav />
         <main className="accountWrapper__main">
-          <h1 className="accountPageTitle">Personal and organization settings</h1>
+          <h1 className="accountPageTitle">
+            Personal and organization settings
+          </h1>
           <div className="u_section head">
             <h2 className="pageTitle">Settings</h2>
             <p>
-              Edit your organization settings,
-              or delete an organization or your account.
+              Edit your organization settings, or delete an organization or your
+              account.
             </p>
           </div>
           <div className="body">
             <div className="u_section u_card">
-              <h4 className="sectionTitle settingsTitle">Organization Settings</h4>
-              {
-                this.props.organisationStore.org && this.props.organisationStore.org.name
-                  ? (
-                    <div action="#" className="eEForm eEForm__row eEForm__account">
-                      <div className="eERow2">
-                        <div className="formGroup">
-                          <label htmlFor="organizationNameSettings">
-                            Organization Name
-                          </label>
-                          <input
-                            disabled
-                            type="text"
-                            name="organizationNameSettings"
-                            id="organizationNameSettings"
-                            placeholder="Enter organization name"
-                            defaultValue={this.props.organisationStore.org.name.toUpperCase()}
-                          />
-                        </div>
-                        <div className="formGroup">
-                          <label htmlFor="membersSettings">
-                            Invite Members (Add emails seperated by a comma)
-                            <span className="error-text">{ this.state.additionError }</span>
-                          </label>
-                          <ReactTags
-                            placeholder="Enter an email"
-                            tags={invites}
-                            allowDragDrop={false}
-                            handleDelete={i => this.handleDelete('invites', invites, i)}
-                            handleAddition={this.handleAddition}
-                            delimiters={delimiters}
-                          />
-                        </div>
-                      </div>
-                      <div className="singleColumnFormGroup formGroup remove_member">
-                        <label htmlFor="removeMembers">Remove Members</label>
-                        {
-                          members.length
-                            ? (
-                              <ReactTags
-                                placeholder="Enter an email"
-                                tags={members}
-                                allowDragDrop={false}
-                                handleDelete={i => this.handleDelete('members', members, i)}
-                                handleAddition={this.handleAddition}
-                                delimiters={delimiters}
-                              />
-                            )
-                            : (
-                              <p className="text-center">
-                                <em>No members yet</em>
-                              </p>
-                            )
-                        }
-                      </div>
-                      <div className="buttonWrapper buttonWrapper__group">
-                        <div className="left">
-                          <button
-                            type="button"
-                            className="button button__danger"
-                            onClick={() => this.openModal('deleteOrg')}
-                          >
-                            Delete Organization
-                          </button>
-                        </div>
-                        <div className="right">
-                          <button
-                            type="button"
-                            className="button button__primary"
-                            onClick={() => this.openModal('patchOrg')}
-                          >
-                            Save Changes
-                          </button>
-                        </div>
-                      </div>
+              <h4 className="sectionTitle settingsTitle">
+                Organization Settings
+              </h4>
+              {this.props.organisationStore.org &&
+              this.props.organisationStore.org.name ? (
+                <div action="#" className="eEForm eEForm__row eEForm__account">
+                  <div className="eERow2">
+                    <div className="formGroup">
+                      <label htmlFor="organizationNameSettings">
+                        Organization Name
+                      </label>
+                      <input
+                        disabled
+                        type="text"
+                        name="organizationNameSettings"
+                        id="organizationNameSettings"
+                        placeholder="Enter organization name"
+                        defaultValue={this.props.organisationStore.org.name.toUpperCase()}
+                      />
                     </div>
-                  )
-                  : (
-                    <p className="text-center">
-                      <em>You have not created any organisations yet.</em>
-                    </p>
-                  )
-              }
+                    <div className="formGroup">
+                      <label htmlFor="membersSettings">
+                        Invite Members (Add emails seperated by a comma)
+                        <span className="error-text">
+                          {this.state.additionError}
+                        </span>
+                      </label>
+                      <ReactTags
+                        placeholder="Enter an email"
+                        tags={invites}
+                        allowDragDrop={false}
+                        handleDelete={i =>
+                          this.handleDelete('invites', invites, i)
+                        }
+                        handleAddition={this.handleAddition}
+                        delimiters={delimiters}
+                      />
+                    </div>
+                  </div>
+                  <div className="singleColumnFormGroup formGroup remove_member">
+                    <label htmlFor="removeMembers">Remove Members</label>
+                    {members.length ? (
+                      <ReactTags
+                        placeholder="Enter an email"
+                        tags={members}
+                        allowDragDrop={false}
+                        handleDelete={i =>
+                          this.handleDelete('members', members, i)
+                        }
+                        handleAddition={this.handleAddition}
+                        delimiters={delimiters}
+                      />
+                    ) : (
+                      <p className="text-center">
+                        <em>No members yet</em>
+                      </p>
+                    )}
+                  </div>
+                  <div className="buttonWrapper buttonWrapper__group">
+                    <div className="left">
+                      <button
+                        type="button"
+                        className="button button__danger"
+                        onClick={() => this.openModal('deleteOrg')}
+                      >
+                        Delete Organization
+                      </button>
+                    </div>
+                    <div className="right">
+                      <button
+                        type="button"
+                        className="button button__primary"
+                        onClick={() => this.openModal('patchOrg')}
+                      >
+                        Save Changes
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-center">
+                  <em>You have not created any organisations yet.</em>
+                </p>
+              )}
             </div>
             <div className="u_card">
               <h4 className="sectionTitle settingsTitle">Personal Settings</h4>
               {renderIf(
-                this.props.authStore.personalSettingsValidationError.visible
-                && this.props.authStore.personalSettingsValidationError.type !== 'emailMatch',
+                this.props.authStore.personalSettingsValidationError.visible &&
+                  this.props.authStore.personalSettingsValidationError.type !==
+                    'emailMatch',
                 <p className="error-text m-b-sm">
                   <em>
                     {`Error: ${this.props.authStore.personalSettingsValidationError.message}`}
@@ -255,12 +266,15 @@ class Settings extends React.Component {
                       placeholder="Enter full name"
                       value={this.props.authStore.user.fullname}
                       onChange={event => {
-                        this.props.authStore.setClassProps([
-                          {
-                            name: 'fullname',
-                            value: event.target.value,
-                          },
-                        ], this.props.authStore.user);
+                        this.props.authStore.setClassProps(
+                          [
+                            {
+                              name: 'fullname',
+                              value: event.target.value,
+                            },
+                          ],
+                          this.props.authStore.user,
+                        );
                       }}
                     />
                   </div>
@@ -274,35 +288,48 @@ class Settings extends React.Component {
                       placeholder="Enter email address"
                       value={this.props.authStore.user.email}
                       onChange={event => {
-                        this.props.authStore.setClassProps([
-                          {
-                            name: 'email',
-                            value: event.target.value,
-                          },
-                        ], this.props.authStore.user);
+                        this.props.authStore.setClassProps(
+                          [
+                            {
+                              name: 'email',
+                              value: event.target.value,
+                            },
+                          ],
+                          this.props.authStore.user,
+                        );
                       }}
                     />
                   </div>
                   <div className="formGroup">
-                    <label htmlFor="currentPasswordSettings">New Password</label>
+                    <label htmlFor="currentPasswordSettings">
+                      New Password
+                    </label>
                     <input
                       type="password"
                       name="currentPasswordSettings"
                       id="currentPasswordSettings"
                       value={this.props.authStore.user.password}
                       onChange={event => {
-                        this.props.authStore.setClassProps([
-                          {
-                            name: 'password',
-                            value: event.target.value,
-                          },
-                        ], this.props.authStore.user);
-                        this.props.authStore.validatePassword('user', 'personalSettingsValidationError');
+                        this.props.authStore.setClassProps(
+                          [
+                            {
+                              name: 'password',
+                              value: event.target.value,
+                            },
+                          ],
+                          this.props.authStore.user,
+                        );
+                        this.props.authStore.validatePassword(
+                          'user',
+                          'personalSettingsValidationError',
+                        );
                       }}
                     />
                   </div>
                   <div className="formGroup">
-                    <label htmlFor="newPasswordSettings">Confirm New Password</label>
+                    <label htmlFor="newPasswordSettings">
+                      Confirm New Password
+                    </label>
                     <input
                       type="password"
                       name="newPasswordSettings"
@@ -310,13 +337,19 @@ class Settings extends React.Component {
                       placeholder="Enter new password"
                       value={this.props.authStore.user.confirmPassword}
                       onChange={event => {
-                        this.props.authStore.setClassProps([
-                          {
-                            name: 'confirmPassword',
-                            value: event.target.value,
-                          },
-                        ], this.props.authStore.user);
-                        this.props.authStore.validatePasswordMatch('user', 'personalSettingsValidationError');
+                        this.props.authStore.setClassProps(
+                          [
+                            {
+                              name: 'confirmPassword',
+                              value: event.target.value,
+                            },
+                          ],
+                          this.props.authStore.user,
+                        );
+                        this.props.authStore.validatePasswordMatch(
+                          'user',
+                          'personalSettingsValidationError',
+                        );
                       }}
                     />
                   </div>
@@ -367,7 +400,8 @@ class Settings extends React.Component {
               <div className="content">
                 <div className="content__copy">
                   <p>
-                    Are you sure you want remove this account from the organisation?
+                    Are you sure you want remove this account from the
+                    organisation?
                   </p>
                   <p>This action cannot be undone.</p>
                 </div>
@@ -409,7 +443,9 @@ class Settings extends React.Component {
                 >
                   <Icons.close />
                 </button>
-                <h2 className="head__title sectionTitleSmall">Delete Organization</h2>
+                <h2 className="head__title sectionTitleSmall">
+                  Delete Organization
+                </h2>
               </div>
               <div className="content">
                 <div className="content__copy">
@@ -417,8 +453,9 @@ class Settings extends React.Component {
                   <p>This action cannot be undone.</p>
                 </div>
                 {renderIf(
-                  this.props.organisationStore.actionConfirmation.visible
-                  && this.props.organisationStore.actionConfirmation.type === 'deleteOrg',
+                  this.props.organisationStore.actionConfirmation.visible &&
+                    this.props.organisationStore.actionConfirmation.type ===
+                      'deleteOrg',
                   <p className="error-text m-b-sm">
                     <em>
                       {`Error: ${this.props.organisationStore.actionConfirmation.message}`}
@@ -428,24 +465,25 @@ class Settings extends React.Component {
                 <div className="content__form">
                   <form action="#" className="eEForm">
                     <div className="formGroup">
-                      <label htmlFor="organizationNamePopup">Organization Name</label>
+                      <label htmlFor="organizationNamePopup">
+                        Organization Name
+                      </label>
                       <input
                         type="text"
                         name="organizationNamePopup"
                         id="organizationNamePopup"
                         placeholder="Enter organization name"
-                        value={
-                          this.props.organisationStore
-                            .userConfirmationData.orgName
-                            .toUpperCase()
-                        }
+                        value={this.props.organisationStore.userConfirmationData.orgName.toUpperCase()}
                         onChange={event => {
-                          this.props.organisationStore.setClassProps([
-                            {
-                              name: 'orgName',
-                              value: event.target.value.toLowerCase(),
-                            },
-                          ], this.props.organisationStore.userConfirmationData);
+                          this.props.organisationStore.setClassProps(
+                            [
+                              {
+                                name: 'orgName',
+                                value: event.target.value.toLowerCase(),
+                              },
+                            ],
+                            this.props.organisationStore.userConfirmationData,
+                          );
                           this.props.organisationStore.validateOrgName();
                         }}
                       />
@@ -493,15 +531,18 @@ class Settings extends React.Component {
                 >
                   <Icons.close />
                 </button>
-                <h2 className="head__title sectionTitleSmall">Update Organization</h2>
+                <h2 className="head__title sectionTitleSmall">
+                  Update Organization
+                </h2>
               </div>
               <div className="content">
                 <div className="content__copy">
                   <p>You&apos;re about to modify this organisation, proceed?</p>
                 </div>
                 {renderIf(
-                  this.props.organisationStore.actionConfirmation.visible
-                  && this.props.organisationStore.actionConfirmation.type === 'deleteOrg',
+                  this.props.organisationStore.actionConfirmation.visible &&
+                    this.props.organisationStore.actionConfirmation.type ===
+                      'deleteOrg',
                   <p className="error-text m-b-sm">
                     <em>
                       {`Error: ${this.props.organisationStore.actionConfirmation.message}`}
@@ -511,24 +552,25 @@ class Settings extends React.Component {
                 <div className="content__form">
                   <form action="#" className="eEForm">
                     <div className="formGroup">
-                      <label htmlFor="organizationNamePopup">Organization Name</label>
+                      <label htmlFor="organizationNamePopup">
+                        Organization Name
+                      </label>
                       <input
                         type="text"
                         name="organizationNamePopup"
                         id="organizationNamePopup"
                         placeholder="Enter organization name"
-                        value={
-                          this.props.organisationStore
-                            .userConfirmationData.orgName
-                            .toUpperCase()
-                        }
+                        value={this.props.organisationStore.userConfirmationData.orgName.toUpperCase()}
                         onChange={event => {
-                          this.props.organisationStore.setClassProps([
-                            {
-                              name: 'orgName',
-                              value: event.target.value.toLowerCase(),
-                            },
-                          ], this.props.organisationStore.userConfirmationData);
+                          this.props.organisationStore.setClassProps(
+                            [
+                              {
+                                name: 'orgName',
+                                value: event.target.value.toLowerCase(),
+                              },
+                            ],
+                            this.props.organisationStore.userConfirmationData,
+                          );
                           this.props.organisationStore.validateOrgName();
                         }}
                       />
@@ -576,7 +618,9 @@ class Settings extends React.Component {
                 >
                   <Icons.close />
                 </button>
-                <h2 className="head__title sectionTitleSmall">Delete Account</h2>
+                <h2 className="head__title sectionTitleSmall">
+                  Delete Account
+                </h2>
               </div>
               <div className="content">
                 <div className="content__copy">
@@ -584,8 +628,10 @@ class Settings extends React.Component {
                   <p>This action cannot be undone.</p>
                 </div>
                 {renderIf(
-                  this.props.authStore.personalSettingsValidationError.visible
-                  && this.props.authStore.personalSettingsValidationError.type === 'emailMatch',
+                  this.props.authStore.personalSettingsValidationError
+                    .visible &&
+                    this.props.authStore.personalSettingsValidationError
+                      .type === 'emailMatch',
                   <p className="error-text m-b-sm">
                     <em>
                       {`Error: ${this.props.authStore.personalSettingsValidationError.message}`}
@@ -595,7 +641,9 @@ class Settings extends React.Component {
                 <div className="content__form">
                   <div className="eEForm">
                     <div className="formGroup">
-                      <label htmlFor="fullNamePopupDeleteAccount">Email Address</label>
+                      <label htmlFor="fullNamePopupDeleteAccount">
+                        Email Address
+                      </label>
                       <input
                         type="text"
                         name="fullNamePopup"
@@ -603,12 +651,15 @@ class Settings extends React.Component {
                         placeholder="Enter email address"
                         value={this.props.authStore.user.confirmEmail}
                         onChange={event => {
-                          this.props.authStore.setClassProps([
-                            {
-                              name: 'confirmEmail',
-                              value: event.target.value,
-                            },
-                          ], this.props.authStore.user);
+                          this.props.authStore.setClassProps(
+                            [
+                              {
+                                name: 'confirmEmail',
+                                value: event.target.value,
+                              },
+                            ],
+                            this.props.authStore.user,
+                          );
                           this.props.authStore.validateEmailMatch();
                         }}
                       />
@@ -653,13 +704,15 @@ class Settings extends React.Component {
                 >
                   <Icons.close />
                 </button>
-                <h2 className="head__title sectionTitleSmall">Confirm Delete</h2>
+                <h2 className="head__title sectionTitleSmall">
+                  Confirm Delete
+                </h2>
               </div>
               <div className="content">
                 <div className="content__copy">
                   <p>
-                    Warning:
-                    Deleting your account will delete all organizations you’ve created!
+                    Warning: Deleting your account will delete all organizations
+                    you’ve created!
                   </p>
                 </div>
                 <div className="content__form">
@@ -691,7 +744,6 @@ class Settings extends React.Component {
         </Modal>
         {/* Delete account popup ends here */}
 
-
         {/* Error Modal */}
         <Modal
           isOpen={this.props.organisationStore.error.visible}
@@ -708,13 +760,13 @@ class Settings extends React.Component {
                 >
                   <Icons.close />
                 </button>
-                <h2 className="head__title sectionTitleSmall">An Error Occured</h2>
+                <h2 className="head__title sectionTitleSmall">
+                  An Error Occured
+                </h2>
               </div>
               <div className="content">
                 <div className="content__copy">
-                  <p>
-                    Please see the error below:
-                  </p>
+                  <p>Please see the error below:</p>
                   <p className="error-text m-b-sm">
                     <em>
                       {`Error: ${this.props.organisationStore.error.message}`}
@@ -725,7 +777,9 @@ class Settings extends React.Component {
                   <button
                     type="button"
                     className="button__primary close-btn"
-                    onClick={() => this.closeModal2('organisationStore', 'error')}
+                    onClick={() =>
+                      this.closeModal2('organisationStore', 'error')
+                    }
                   >
                     Close
                   </button>
@@ -747,17 +801,19 @@ class Settings extends React.Component {
                 <button
                   type="button"
                   className="head__close"
-                  onClick={() => this.closeModal2('authStore', 'personalSettingsActionError')}
+                  onClick={() =>
+                    this.closeModal2('authStore', 'personalSettingsActionError')
+                  }
                 >
                   <Icons.close />
                 </button>
-                <h2 className="head__title sectionTitleSmall">An Error Occured</h2>
+                <h2 className="head__title sectionTitleSmall">
+                  An Error Occured
+                </h2>
               </div>
               <div className="content">
                 <div className="content__copy">
-                  <p>
-                    Please see the error below:
-                  </p>
+                  <p>Please see the error below:</p>
                   <p className="error-text m-b-sm">
                     <em>
                       {`Error: ${this.props.authStore.personalSettingsActionError.message}`}
@@ -768,7 +824,12 @@ class Settings extends React.Component {
                   <button
                     type="button"
                     className="button__primary close-btn"
-                    onClick={() => this.closeModal2('authStore', 'personalSettingsActionError')}
+                    onClick={() =>
+                      this.closeModal2(
+                        'authStore',
+                        'personalSettingsActionError',
+                      )
+                    }
                   >
                     Close
                   </button>

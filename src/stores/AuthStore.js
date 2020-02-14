@@ -1,8 +1,4 @@
-import {
-  observable,
-  action,
-  runInAction,
-} from 'mobx';
+import { observable, action, runInAction } from 'mobx';
 import Router from 'next/router';
 import cookie from 'js-cookie';
 
@@ -14,154 +10,157 @@ import config from '../../config';
 const baseUrl = config.API_URL;
 
 export default class AuthStore {
-	@observable
-	user = {
-	  _id: '',
-	  password: '',
-	  confirmPassword: '',
-	  confirmEmail: '',
-	};
-
-	@observable
-	loginLoading = {
-	  value: false,
-	  visible: false,
-	};
-
-	@observable
-	signupLoading = {
-	  value: false,
-	  visible: false,
-	};
+  @observable
+  user = {
+    _id: '',
+    password: '',
+    confirmPassword: '',
+    confirmEmail: '',
+  };
 
   @observable
-	recoveryLoading = {
-	  value: false,
-	  visible: false,
-	};
+  loginLoading = {
+    value: false,
+    visible: false,
+  };
 
   @observable
-	resetLoading = {
-	  value: false,
-	  visible: false,
-	};
-
-	@observable
-	loginData = {
-	  email: '',
-	  password: '',
-	};
-
-	@observable
-	loginData = {
-	  email: '',
-	  password: '',
-	};
-
-	@observable
-	signupEmailOptions = {
-	  diabled: false,
-	  message: 'You cannot change your email address.',
-	};
-
-	@observable
-	signupData = {
-	  email: '',
-	  password: '',
-	  confirmPassword: '',
-	};
+  signupLoading = {
+    value: false,
+    visible: false,
+  };
 
   @observable
-	recoveryData = {
-	  email: '',
-	};
+  recoveryLoading = {
+    value: false,
+    visible: false,
+  };
+
+  @observable
+  resetLoading = {
+    value: false,
+    visible: false,
+  };
+
+  @observable
+  loginData = {
+    email: '',
+    password: '',
+  };
+
+  @observable
+  loginData = {
+    email: '',
+    password: '',
+  };
+
+  @observable
+  signupEmailOptions = {
+    diabled: false,
+    message: 'You cannot change your email address.',
+  };
+
+  @observable
+  signupData = {
+    email: '',
+    password: '',
+    confirmPassword: '',
+  };
+
+  @observable
+  recoveryData = {
+    email: '',
+  };
 
   @observable
   recoverySuccess = {
     visible: false,
     message: '',
-  }
+  };
 
   @observable
-	resetData = {
-	  password: '',
-	  confirmPassword: '',
-	};
-
-	@observable
-	signupValidationErrors = {
-	  visible: false,
-	  type: '',
-	  message: '',
-	};
-
-	@observable
-	loginValidationErrors = {
-	  visible: false,
-	  type: '',
-	  message: '',
-	};
+  resetData = {
+    password: '',
+    confirmPassword: '',
+  };
 
   @observable
-	recoveryValidationErrors = {
-	  visible: false,
-	  type: '',
-	  message: '',
-	};
+  signupValidationErrors = {
+    visible: false,
+    type: '',
+    message: '',
+  };
 
   @observable
-	resetValidationErrors = {
-	  visible: false,
-	  type: '',
-	  message: '',
-	};
-
-	@observable
-	loginErrors = {
-	  visible: false,
-	  message: '',
-	};
-
-	@observable
-	signupErrors = {
-	  visible: false,
-	  message: '',
-	};
+  loginValidationErrors = {
+    visible: false,
+    type: '',
+    message: '',
+  };
 
   @observable
-	recoveryErrors = {
-	  visible: false,
-	  message: '',
-	};
+  recoveryValidationErrors = {
+    visible: false,
+    type: '',
+    message: '',
+  };
 
   @observable
-	resetErrors = {
-	  visible: false,
-	  message: '',
-	};
+  resetValidationErrors = {
+    visible: false,
+    type: '',
+    message: '',
+  };
+
+  @observable
+  loginErrors = {
+    visible: false,
+    message: '',
+  };
+
+  @observable
+  signupErrors = {
+    visible: false,
+    message: '',
+  };
+
+  @observable
+  recoveryErrors = {
+    visible: false,
+    message: '',
+  };
+
+  @observable
+  resetErrors = {
+    visible: false,
+    message: '',
+  };
 
   @observable
   personalSettingsValidationError = {
-	  visible: false,
-	  type: '',
-	  message: '',
-  }
+    visible: false,
+    type: '',
+    message: '',
+  };
 
   @observable
   personalSettingsActionError = {
-	  visible: false,
-	  type: '',
-	  message: '',
-  }
+    visible: false,
+    type: '',
+    message: '',
+  };
 
   @observable
   success = {
-	  visible: false,
-	  message: '',
-  }
+    visible: false,
+    message: '',
+  };
 
-	@action
-  validateEmail = (type = 'signupData', errorType = 'signupValidationErrors') => {
+  @action
+  validateEmail = (
+    type = 'signupData',
+    errorType = 'signupValidationErrors',
+  ) => {
     if (this[type].email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
       this[errorType] = {
         visible: false,
@@ -176,10 +175,13 @@ export default class AuthStore {
       message: 'Invalid email address.',
     };
     return false;
-  }
+  };
 
-	@action
-  validatePassword = (type = 'signupData', errorType = 'signupValidationErrors') => {
+  @action
+  validatePassword = (
+    type = 'signupData',
+    errorType = 'signupValidationErrors',
+  ) => {
     if (this[type].password && this[type].password.length >= 6) {
       this[errorType] = {
         visible: false,
@@ -194,11 +196,17 @@ export default class AuthStore {
       message: 'Password should be equal or longer than 6 characters.',
     };
     return false;
-  }
+  };
 
-	@action
-  validatePasswordMatch = (type = 'signupData', errorType = 'signupValidationErrors') => {
-    if (this[type].password && this[type].password === this[type].confirmPassword) {
+  @action
+  validatePasswordMatch = (
+    type = 'signupData',
+    errorType = 'signupValidationErrors',
+  ) => {
+    if (
+      this[type].password &&
+      this[type].password === this[type].confirmPassword
+    ) {
       this[errorType] = {
         visible: false,
         type: '',
@@ -212,9 +220,9 @@ export default class AuthStore {
       message: 'Password do not match.',
     };
     return false;
-  }
+  };
 
-	@action
+  @action
   validateEmailMatch = () => {
     if (this.user.email === this.user.confirmEmail) {
       this.personalSettingsValidationError = {
@@ -230,7 +238,7 @@ export default class AuthStore {
       message: 'The email inputted below and your email do not match',
     };
     return false;
-  }
+  };
 
   @action
   checkInviteEmail = async () => {
@@ -241,7 +249,7 @@ export default class AuthStore {
       this.signupData.email = inviteEmail;
       this.signupEmailOptions.disabled = true;
     }
-  }
+  };
 
   @action
   checkSignedIn = async () => {
@@ -257,16 +265,12 @@ export default class AuthStore {
     if (res) {
       Router.push('/dashboard', '/dashboard');
     }
-  }
+  };
 
   @action
   recoveryUtil = async email => {
     try {
-      runInActionUtil(
-        this,
-        'recoveryLoading',
-        { value: true, visible: true },
-      );
+      runInActionUtil(this, 'recoveryLoading', { value: true, visible: true });
 
       const res = await axiosInstance.post(`${baseUrl}/recovery`, {
         email,
@@ -287,31 +291,23 @@ export default class AuthStore {
         };
       });
       // Router.push('/dashboard', '/dashboard');
+    } catch (error) {
+      runInActionUtil(this, 'recoveryErrors', {
+        visible: true,
+        message: error.response.data.message,
+      });
+    } finally {
+      runInActionUtil(this, 'recoveryLoading', {
+        value: false,
+        visible: false,
+      });
     }
-    catch (error) {
-      runInActionUtil(
-        this,
-        'recoveryErrors',
-        { visible: true, message: error.response.data.message },
-      );
-    }
-    finally {
-      runInActionUtil(
-        this,
-        'recoveryLoading',
-        { value: false, visible: false },
-      );
-    }
-  }
+  };
 
   @action
   resetUtil = async (password, token) => {
     try {
-      runInActionUtil(
-        this,
-        'resetLoading',
-        { value: true, visible: true },
-      );
+      runInActionUtil(this, 'resetLoading', { value: true, visible: true });
 
       const res = await axiosInstance.patch(`${baseUrl}/recovery/${token}`, {
         password,
@@ -328,36 +324,26 @@ export default class AuthStore {
         };
       });
       Router.push('/login', '/login');
+    } catch (error) {
+      runInActionUtil(this, 'resetErrors', {
+        visible: true,
+        message: error.response.data.message,
+      });
+    } finally {
+      runInActionUtil(this, 'resetLoading', { value: false, visible: false });
     }
-    catch (error) {
-      runInActionUtil(
-        this,
-        'resetErrors',
-        { visible: true, message: error.response.data.message },
-      );
-    }
-    finally {
-      runInActionUtil(
-        this,
-        'resetLoading',
-        { value: false, visible: false },
-      );
-    }
-  }
+  };
 
   @action
   signupUtil = async (email, password, googleId = '') => {
     try {
-      runInActionUtil(
-        this,
-        'signupLoading',
-        { value: true, visible: true },
-      );
-      const res = await axiosInstance.post(`${baseUrl}/users`, {
-        email,
-        password,
-        googleId,
-      })
+      runInActionUtil(this, 'signupLoading', { value: true, visible: true });
+      const res = await axiosInstance
+        .post(`${baseUrl}/users`, {
+          email,
+          password,
+          googleId,
+        })
         // eslint-disable-next-line consistent-return
         .then(res2 => {
           if (res2.status === 201) {
@@ -387,30 +373,23 @@ export default class AuthStore {
         };
       });
       Router.push('/dashboard', '/dashboard');
-    }
-    catch (error) {
+    } catch (error) {
       runInAction(() => {
-        this.signupErrors = { visible: true, message: error.response.data.message };
+        this.signupErrors = {
+          visible: true,
+          message: error.response.data.message,
+        };
         this.signupEmailOptions.disabled = false;
       });
+    } finally {
+      runInActionUtil(this, 'signupLoading', { value: false, visible: false });
     }
-    finally {
-      runInActionUtil(
-        this,
-        'signupLoading',
-        { value: false, visible: false },
-      );
-    }
-  }
+  };
 
   @action
   loginUtil = async (email, password) => {
     try {
-      runInActionUtil(
-        this,
-        'loginLoading',
-        { value: true, visible: true },
-      );
+      runInActionUtil(this, 'loginLoading', { value: true, visible: true });
       const res = await axiosInstance.post(`${baseUrl}/authentication`, {
         email,
         password,
@@ -429,37 +408,26 @@ export default class AuthStore {
         };
       });
       Router.push('/dashboard', '/dashboard');
+    } catch (error) {
+      runInActionUtil(this, 'loginErrors', {
+        visible: true,
+        message: error.response.data.message,
+      });
+    } finally {
+      runInActionUtil(this, 'loginLoading', { value: false, visible: false });
     }
-    catch (error) {
-      runInActionUtil(
-        this,
-        'loginErrors',
-        { visible: true, message: error.response.data.message },
-      );
-    }
-    finally {
-      runInActionUtil(
-        this,
-        'loginLoading',
-        { value: false, visible: false },
-      );
-    }
-  }
+  };
 
   @action
   login = async (e, type, profile = null) => {
     if (e) e.preventDefault();
     if (type === 'local') {
       if (
-        this.validateEmail('loginData', 'loginValidationErrors')
-        && this.validatePassword('loginData', 'loginValidationErrors')
+        this.validateEmail('loginData', 'loginValidationErrors') &&
+        this.validatePassword('loginData', 'loginValidationErrors')
       ) {
-        this.loginUtil(
-          this.loginData.email,
-          this.loginData.password,
-        );
-      }
-      else {
+        this.loginUtil(this.loginData.email, this.loginData.password);
+      } else {
         this.loginValidationErrors = {
           visible: true,
           type: 'form',
@@ -468,10 +436,7 @@ export default class AuthStore {
       }
     }
     if (type === 'googleAuth') {
-      this.loginUtil(
-        profile.email,
-        profile.googleId,
-      );
+      this.loginUtil(profile.email, profile.googleId);
     }
   };
 
@@ -480,43 +445,31 @@ export default class AuthStore {
     if (e) e.preventDefault();
     if (type === 'local') {
       if (
-        this.validateEmail()
-        && this.validatePassword()
-        && this.validatePasswordMatch()
+        this.validateEmail() &&
+        this.validatePassword() &&
+        this.validatePasswordMatch()
       ) {
-        this.signupUtil(
-          this.signupData.email,
-          this.signupData.password,
-        );
-      }
-      else {
+        this.signupUtil(this.signupData.email, this.signupData.password);
+      } else {
         this.signupValidationErrors = {
           visible: true,
           type: 'form',
-          message: 'All fields below should be filled out, and passwords must match.',
+          message:
+            'All fields below should be filled out, and passwords must match.',
         };
       }
     }
     if (type === 'googleAuth') {
-      this.signupUtil(
-        profile.email,
-        profile.googleId,
-        profile.googleId,
-      );
+      this.signupUtil(profile.email, profile.googleId, profile.googleId);
     }
   };
 
   @action
   recovery = async e => {
     if (e) e.preventDefault();
-    if (
-      this.validateEmail('recoveryData', 'recoveryValidationErrors')
-    ) {
-      this.recoveryUtil(
-        this.recoveryData.email,
-      );
-    }
-    else {
+    if (this.validateEmail('recoveryData', 'recoveryValidationErrors')) {
+      this.recoveryUtil(this.recoveryData.email);
+    } else {
       this.recoveryValidationErrors = {
         visible: true,
         type: 'form',
@@ -529,139 +482,97 @@ export default class AuthStore {
   reset = async (e, token) => {
     if (e) e.preventDefault();
     if (
-      this.validatePassword('resetData', 'resetValidationErrors')
-      && this.validatePasswordMatch('resetData', 'resetValidationErrors')
+      this.validatePassword('resetData', 'resetValidationErrors') &&
+      this.validatePasswordMatch('resetData', 'resetValidationErrors')
     ) {
-      this.resetUtil(
-        this.resetData.password,
-        token,
-      );
-    }
-    else {
+      this.resetUtil(this.resetData.password, token);
+    } else {
       this.resetValidationErrors = {
         visible: true,
         type: 'form',
-        message: 'Passwords maybe too short or passwords don\'t match',
+        message: 'Passwords maybe too short or passwords do not match',
       };
     }
   };
 
   @action
   getUserData = async () => {
-	  try {
+    try {
       if (!this.user._id) {
         const resp = await axiosInstance.get(`${baseUrl}/users`);
-        runInActionUtil(
-          this,
-          'user',
-          resp.data.data[0],
-        );
-        runInActionUtil(
-          this,
-          'personalSettingsActionError',
-          {
-            type: '',
-            visible: false,
-            message: '',
-          },
-        );
+        runInActionUtil(this, 'user', resp.data.data[0]);
+        runInActionUtil(this, 'personalSettingsActionError', {
+          type: '',
+          visible: false,
+          message: '',
+        });
       }
-	  }
-	  catch (error) {
-	    runInActionUtil(
-	      this,
-	      'personalSettingsActionError',
-	      {
-          type: 'getError',
-          visible: true,
-          message: error.response.data.message,
-        },
-	    );
-	  }
+    } catch (error) {
+      runInActionUtil(this, 'personalSettingsActionError', {
+        type: 'getError',
+        visible: true,
+        message: error.response.data.message,
+      });
+    }
   };
 
   @action
   patchUser = async () => {
-	  try {
+    try {
       if (
-        this.user._id
-        && this.validatePassword('user', 'personalSettingsActionError')
-        && this.validatePasswordMatch('user', 'personalSettingsActionError')
+        this.user._id &&
+        this.validatePassword('user', 'personalSettingsActionError') &&
+        this.validatePasswordMatch('user', 'personalSettingsActionError')
       ) {
-        const resp = await axiosInstance.patch(`${baseUrl}/users/${this.user._id}`, {
-          fullname: this.user.fullname,
-          password: this.user.password,
-        });
-        runInActionUtil(
-          this,
-          'user',
-          resp.data,
-        );
-        runInActionUtil(
-          this,
-          'success',
-          { visible: true, message: 'Your personal information has been updated.' },
-        );
-        runInActionUtil(
-          this,
-          'personalSettingsActionError',
+        const resp = await axiosInstance.patch(
+          `${baseUrl}/users/${this.user._id}`,
           {
-            type: '',
-            visible: false,
-            message: '',
+            fullname: this.user.fullname,
+            password: this.user.password,
           },
         );
-      }
-	  }
-	  catch (error) {
-	    runInActionUtil(
-	      this,
-	      'personalSettingsActionError',
-	      {
-          type: 'patchError',
+        runInActionUtil(this, 'user', resp.data);
+        runInActionUtil(this, 'success', {
           visible: true,
-          message: error.response.data.message,
-        },
-	    );
-	  }
+          message: 'Your personal information has been updated.',
+        });
+        runInActionUtil(this, 'personalSettingsActionError', {
+          type: '',
+          visible: false,
+          message: '',
+        });
+      }
+    } catch (error) {
+      runInActionUtil(this, 'personalSettingsActionError', {
+        type: 'patchError',
+        visible: true,
+        message: error.response.data.message,
+      });
+    }
   };
 
   @action
   deleteUser = async () => {
-	  try {
-      if (
-        this.user._id) {
+    try {
+      if (this.user._id) {
         await axiosInstance.delete(`${baseUrl}/users/${this.user._id}`);
         logout();
-        runInActionUtil(
-          this,
-          'user',
-          {},
-        );
-        runInActionUtil(
-          this,
-          'personalSettingsActionError',
-          {
-            type: '',
-            visible: false,
-            message: '',
-          },
-        );
+        runInActionUtil(this, 'user', {});
+        runInActionUtil(this, 'personalSettingsActionError', {
+          type: '',
+          visible: false,
+          message: '',
+        });
       }
-	  }
-	  catch (error) {
-	    runInActionUtil(
-	      this,
-	      'personalSettingsActionError',
-	      {
-          type: 'deleteError',
-          visible: true,
-          message: error.response.data.message,
-        },
-	    );
-	  }
+    } catch (error) {
+      runInActionUtil(this, 'personalSettingsActionError', {
+        type: 'deleteError',
+        visible: true,
+        message: error.response.data.message,
+      });
+    }
   };
 
-	@action
-	setClassProps = (arr, self = this) => setClassProps(arr, self);
+  @action
+  setClassProps = (arr, self = this) => setClassProps(arr, self);
 }

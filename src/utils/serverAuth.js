@@ -64,15 +64,12 @@ const withAuthSync = WrappedComponent => {
     const token = auth(ctx);
 
     // eslint-disable-next-line max-len
-    const componentProps = WrappedComponent.getInitialProps && (await WrappedComponent.getInitialProps(ctx));
+    const componentProps =
+      WrappedComponent.getInitialProps &&
+      (await WrappedComponent.getInitialProps(ctx));
     return { ...componentProps, token };
   };
   return Wrapper;
 };
 
-export {
-  login,
-  auth,
-  logout,
-  withAuthSync,
-};
+export { login, auth, logout, withAuthSync };
