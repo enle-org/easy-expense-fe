@@ -134,7 +134,7 @@ class Login extends React.Component {
               <Link href="/signup" as="/signup">
                 <a href="#">
                   <button type="button" className="button button__secondary">
-                      Sign Up
+                    Sign Up
                   </button>
                 </a>
               </Link>
@@ -182,14 +182,6 @@ class Login extends React.Component {
               cookiePolicy="single_host_origin"
             />
           </div>
-          {/* <div className="toggleAuthPage">
-            <p>
-              Don&apos;t have an account?
-              <Link href="/signup" as="/signup">
-                <a href="#"> Sign up</a>
-              </Link>
-            </p>
-          </div> */}
         </main>
         {/* Error Modal */}
         <Modal

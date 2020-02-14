@@ -1,5 +1,5 @@
 #accountNav {
-  width: 200px;
+  width: 260px;
   background: $colorWhite;
   box-shadow: 0.4rem 0 1rem rgba(0, 0, 0, 0.03);
   display: flex;
@@ -14,29 +14,44 @@
     padding-bottom: 1rem;
     margin-bottom: 0;
     padding-left: 1rem;
+    img {
+      width: 180px;
+
+    }
   }
   .menu {
     ul {
-      padding: 0;
+      padding: 2rem 0;
       list-style-type: none;
       li {
         border-left: 0.4rem solid transparent;
         &:hover, &.activeNav {
           background: $colorNav;
           cursor: pointer;
+          svg path {
+            fill: $colorPrimary
+          }
         }
         &.activeNav {
           border-left: 0.4rem solid $colorPrimary;
+          svg path {
+            fill: $colorPrimary
+          }
+        }
+        svg {
+          margin-right: 1.2rem;
         }
         a {
           text-decoration: none;
           display: flex;
           flex-direction: row;
           align-items: center;
-          padding: 1rem;
+          padding: 1.5rem;
+          font-weight: bolder;
           img {
             &:first-child {
-              margin-right: 1rem;
+              margin-right: 1.2rem;
+              width: 18px;
             }
             &.notificationCount {
               margin-left: 1rem;

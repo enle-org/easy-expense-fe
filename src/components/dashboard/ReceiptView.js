@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Nav from './Nav';
 
-export default () => (
+const ReceiptView = () => (
   <div className="accountWrapper">
     <Nav />
     <main id="receipts" className="accountWrapper__main">
@@ -20,7 +20,11 @@ export default () => (
           </a>
         </Link>
       </div>
-      <div className="body" />
+      <div className="body">
+        Receipt
+      </div>
     </main>
   </div>
 );
+
+export default ReceiptView;

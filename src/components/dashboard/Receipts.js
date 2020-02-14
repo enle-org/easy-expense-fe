@@ -6,7 +6,7 @@ const tableOverflow = {
   overflowX: 'auto',
 };
 
-export default () => (
+const Receipts = () => (
   <div className="accountWrapper">
     <Nav />
     <main id="receipts" className="accountWrapper__main">
@@ -20,7 +20,7 @@ export default () => (
       </div>
       <div className="body">
         <div className="tab-buttons">
-          <button type="button" className="active">All Receipts</button>
+          <button className="active" type="button">All Receipts</button>
           <button type="button">Unreported Receipts</button>
           <button type="button">Reported Receipts</button>
         </div>
@@ -59,7 +59,6 @@ export default () => (
                   </button>
                 </td>
               </tr>
-
               <tr>
                 <td>
                   <img src="/icons/checkmark.svg" alt="" />
@@ -91,3 +90,5 @@ export default () => (
     </main>
   </div>
 );
+
+export default Receipts;
