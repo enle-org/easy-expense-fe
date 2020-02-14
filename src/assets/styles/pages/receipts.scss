@@ -21,10 +21,10 @@
       background-color: transparent;
       color: #666666;
       outline: none;
-      font-size: 0.9rem;
-
+      font-size: 1rem;
       @include respond(phone) {
         padding: 1rem 0.2rem;
+        font-size: 0.9rem;
       }
     }
 
@@ -54,7 +54,7 @@
       border-collapse: separate;
       border-spacing: 0 0.3rem;
       width: 100%;
-      font-size: 0.9rem;
+      font-size: 1rem;
     }
   
     thead {
