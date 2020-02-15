@@ -1,6 +1,6 @@
 .u_section {
   &:not(:last-child) {
-    margin-bottom: 4rem;
+    margin-bottom: 1rem;
   }
   @include respond(phone) {
     padding-bottom: 0;
@@ -21,6 +21,8 @@
 /* Example Styles for React Tags*/
 div.ReactTags__tags {
   position: relative;
+  top: 40px;
+  left: 10px;
 }
 
 /* Styles for the input */

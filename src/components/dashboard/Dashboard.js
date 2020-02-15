@@ -103,7 +103,7 @@ class Dashboard extends React.Component {
             <header className="u_section">
               <div className="brand">
                 <Link href="/dashboard" as="/dashboard">
-                  <img src="/logo.png" alt="Easy Expense logo" />
+                  <img src="/logo.svg" alt="Easy Expense logo" />
                 </Link>
               </div>
             </header>
@@ -111,17 +111,12 @@ class Dashboard extends React.Component {
             <main className="accountWrapper__main">
               <h1 className="accountPageTitle">Dashboard</h1>
               <div className="u_section head">
-                <h2 className="pageTitle">Getting Started</h2>
-                <p>
-                  You can create an organisation and start reviewing expense
-                  reports as an expense approver or join an organization via an
-                  invite link.
-                </p>
+                <h1 className="pageTitle">Getting Started</h1>
               </div>
               <div className="body">
                 <div className="u_card m-b-xlg">
                   <h4 className="sectionTitle">Join an organization</h4>
-                  <p>Accept the invites below to join an organization.</p>
+                  <p>You’ve been invited to join the organizations below.</p>
                   <div className="eEForm eEForm__account">
                     {this.props.organisationStore.inviteData.orgID ? (
                       <div className="row with-divider">
@@ -162,7 +157,7 @@ class Dashboard extends React.Component {
                 <div className="u_section u_card m-t-md">
                   <h4 className="sectionTitle">Create an organization</h4>
                   <p>
-                    Create a new organization and invite members to start
+                    Create a new organization an invite members to start
                     reviewing and approving expenses.
                   </p>
                   <div

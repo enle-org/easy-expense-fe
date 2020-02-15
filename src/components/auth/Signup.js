@@ -65,15 +65,12 @@ class Signup extends React.Component {
         <main>
           <div className="brand">
             <Link href="/" as="/">
-              <img src="/logo.png" alt="Easy Expense logo" />
+              <img src="/logo.svg" alt="Easy Expense logo" />
             </Link>
           </div>
           <div className="pageContent">
             <h1 className="pageTitle">Sign Up</h1>
-            <p>
-              You can register as an organisation expense approver or an
-              organisation member.
-            </p>
+            <p> Create your account to get started</p>
           </div>
           {renderIf(
             this.props.authStore.signupValidationErrors.visible,

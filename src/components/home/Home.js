@@ -20,7 +20,7 @@ const Home = () => (
         <header className="u_section">
           <div className="brand">
             <Link href="/" as="/">
-              <img src="/logo.png" alt="Easy Expense logo" />
+              <img src="/logo.svg" alt="Easy Expense logo" />
             </Link>
             {/* Navigation menu not visibile on mobile device begins here */}
             <nav>
