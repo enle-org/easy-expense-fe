@@ -16,6 +16,7 @@ export default class AuthStore {
     password: '',
     confirmPassword: '',
     confirmEmail: '',
+    fullname: '',
   };
 
   @observable
@@ -251,21 +252,21 @@ export default class AuthStore {
     }
   };
 
-  @action
-  checkSignedIn = async () => {
-    const token = cookie.get('token');
-    let res;
-    if (token) {
-      res = await axiosInstance.get(`${baseUrl}/users`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-    }
-    if (res) {
-      Router.push('/dashboard', '/dashboard');
-    }
-  };
+  // @action
+  // checkSignedIn = async () => {
+  //   const token = cookie.get('token');
+  //   let res;
+  //   if (token) {
+  //     res = await axiosInstance.get(`${baseUrl}/users`, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
+  //   }
+  //   if (res) {
+  //     Router.push('/dashboard', '/dashboard');
+  //   }
+  // };
 
   @action
   recoveryUtil = async email => {
@@ -436,7 +437,7 @@ export default class AuthStore {
       }
     }
     if (type === 'googleAuth') {
-      this.loginUtil(profile.email, profile.googleId);
+      this.loginUtil(profile.email, profile.password);
     }
   };
 
@@ -460,7 +461,7 @@ export default class AuthStore {
       }
     }
     if (type === 'googleAuth') {
-      this.signupUtil(profile.email, profile.googleId, profile.googleId);
+      this.signupUtil(profile.email, profile.password, profile.googleId);
     }
   };
 

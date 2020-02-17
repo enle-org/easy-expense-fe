@@ -1,6 +1,8 @@
 import React from 'react';
 import Head from 'next/head';
+
 import Home from '../src/components/home/Home';
+import { checkAuth } from '../src/utils/helpers';
 
 const Index = () => (
   <div>
@@ -15,5 +17,7 @@ const Index = () => (
     <Home />
   </div>
 );
+
+Index.getInitialProps = async ctx => checkAuth(ctx, 'checkSignedIn');
 
 export default Index;

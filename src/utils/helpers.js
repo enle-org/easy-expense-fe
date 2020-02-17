@@ -1,7 +1,9 @@
+import React from 'react';
 import { runInAction } from 'mobx';
 import Router from 'next/router';
 import nextCookie from 'next-cookies';
 import cookie from 'js-cookie';
+import LoadingBar from 'react-top-loading-bar';
 
 import config from '../../config';
 
@@ -141,15 +143,50 @@ const getInitialProps = async (ctx, urlPart) => {
  * Redirects to login if not authenticated.
  * @param {Object} ctx - Context.
  */
-const checkAuth = async ctx => {
+const checkAuth = async (ctx, type = 'notSignedIn') => {
   const { token } = nextCookie(ctx);
 
-  if (!token) {
-    ctx.res.writeHead(302, {
-      Location: '/login',
-    });
-    ctx.res.end();
+  if (!token && type === 'checkSignedOut') {
+    if (ctx.res) {
+      ctx.res.writeHead(302, {
+        Location: '/login',
+      });
+      ctx.res.end();
+    }
   }
+
+  if (token && type === 'checkSignedIn') {
+    if (ctx.res) {
+      ctx.res.writeHead(302, {
+        Location: '/dashboard',
+      });
+      ctx.res.end();
+    }
+  }
+
+  return {};
+};
+
+const getLoader = (self, complete = false) => {
+  if (self.state.window) {
+    if (complete) {
+      return (
+        <LoadingBar
+          height={6}
+          color="#6C63FF"
+          onRef={ref => ref && ref.complete()}
+        />
+      );
+    }
+    return (
+      <LoadingBar
+        height={6}
+        color="#6C63FF"
+        onRef={ref => ref && ref.continuousStart()}
+      />
+    );
+  }
+  return <div />;
 };
 
 export {
@@ -161,4 +198,5 @@ export {
   runInActionUtil,
   getInitialProps,
   checkAuth,
+  getLoader,
 };

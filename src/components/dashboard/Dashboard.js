@@ -5,6 +5,7 @@ import { push as Menu } from 'react-burger-menu';
 import { WithContext as ReactTags } from 'react-tag-input';
 import Modal from 'react-modal';
 
+import { getLoader } from '../../utils/helpers';
 import Nav from './Nav';
 import CustomStyles from '../common/commonStyles';
 import Icons from '../common/icons';
@@ -26,6 +27,7 @@ class Dashboard extends React.Component {
     this.state = {
       members: [],
       additionError: '',
+      window: false,
     };
     this.handleDelete = this.handleDelete.bind(this);
     this.handleAddition = this.handleAddition.bind(this);
@@ -33,6 +35,7 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
+    this.setState({ window });
     this.props.organisationStore.findInvites();
   }
 
@@ -100,6 +103,9 @@ class Dashboard extends React.Component {
         </Menu>
         <div id="page-wrap">
           <div className="accountWrapper">
+            {this.props.organisationStore.loading.visible
+              ? getLoader(this)
+              : getLoader(this, true)}
             <header className="u_section">
               <div className="brand">
                 <Link href="/dashboard" as="/dashboard">

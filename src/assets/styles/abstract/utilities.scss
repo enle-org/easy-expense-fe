@@ -177,6 +177,24 @@ Note: Beware of modifying this element as it can break the animations - you shou
   text-align: center;
 }
 
+// Bootstrap overides
+.dropdown-menu.show {
+  top: -30px !important;
+  background: white;
+  width: 100%;
+  border: 0;
+}
+
+// Buttons
+.btn-full-width {
+  width: 100%;
+}
+.btn-clear {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
 // Margins and paddings
 .p-n {
   padding: 0;
