@@ -62,14 +62,14 @@ class Recovery extends React.Component {
         <main className="recoveryWrapper">
           <div className="brand">
             <Link href="/" as="/">
-              <img src="/logo.png" alt="Easy Expense logo" />
+              <img src="/logo.svg" alt="Easy Expense logo" />
             </Link>
           </div>
           <div className="pageContent">
             <h1 className="pageTitle">Password Recovery</h1>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor.
+              Enter your email address, and we’ll send you a link to reset your
+              password.
             </p>
           </div>
 

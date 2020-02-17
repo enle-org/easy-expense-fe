@@ -1,6 +1,6 @@
 .u_section {
   &:not(:last-child) {
-    margin-bottom: 4rem;
+    margin-bottom: 1rem;
   }
   @include respond(phone) {
     padding-bottom: 0;
@@ -21,6 +21,8 @@
 /* Example Styles for React Tags*/
 div.ReactTags__tags {
   position: relative;
+  top: 40px;
+  left: 10px;
 }
 
 /* Styles for the input */
@@ -173,6 +175,24 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 .text-center {
   text-align: center;
+}
+
+// Bootstrap overides
+.dropdown-menu.show {
+  top: -30px !important;
+  background: white;
+  width: 100%;
+  border: 0;
+}
+
+// Buttons
+.btn-full-width {
+  width: 100%;
+}
+.btn-clear {
+  padding: 0;
+  border: 0;
+  background: transparent;
 }
 
 // Margins and paddings

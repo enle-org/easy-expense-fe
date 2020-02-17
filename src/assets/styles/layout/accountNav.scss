@@ -10,8 +10,8 @@
     display: none;
   }
   .brand {
-    padding-top: 1.3rem;
-    padding-bottom: 1rem;
+    padding-top: 1.45rem;
+    padding-bottom: 1.4rem;
     margin-bottom: 0;
     padding-left: 1rem;
     img {
@@ -21,8 +21,9 @@
   }
   .menu {
     ul {
-      padding: 2rem 0;
+      padding: 0;
       list-style-type: none;
+      margin: 0;
       li {
         border-left: 0.4rem solid transparent;
         &:hover, &.activeNav {

@@ -13,6 +13,12 @@ export default class OrganisationStore {
   }
 
   @observable
+  loading = {
+    value: false,
+    visible: false,
+  };
+
+  @observable
   organisation = {};
 
   @observable
@@ -80,17 +86,20 @@ export default class OrganisationStore {
 
   @action
   findInvites = async () => {
+    runInActionUtil(this, 'loading', { value: true, visible: true });
     try {
       const inviteToken = localStorage.getItem('inviteToken');
       if (inviteToken) {
         const res = await axiosInstance.get(`${baseUrl}/invite/${inviteToken}`);
         runInActionUtil(this, 'inviteData', res.data.data);
       }
+      runInActionUtil(this, 'loading', { value: false, visible: false });
     } catch (error) {
       runInActionUtil(this, 'error', {
         visible: true,
         message: error.response.data.message,
       });
+      runInActionUtil(this, 'loading', { value: false, visible: false });
     }
   };
 
@@ -139,6 +148,7 @@ export default class OrganisationStore {
 
   @action
   createOrg = async Component => {
+    runInActionUtil(this, 'loading', { value: true, visible: true });
     try {
       if (this.newOrgData.name) {
         const members = Component.state.members.map(member => member.text);
@@ -158,16 +168,19 @@ export default class OrganisationStore {
       } else {
         this.error = { visible: true, message: 'Organisation name is empty.' };
       }
+      runInActionUtil(this, 'loading', { value: false, visible: false });
     } catch (error) {
       runInActionUtil(this, 'error', {
         visible: true,
         message: error.response.data.message,
       });
+      runInActionUtil(this, 'loading', { value: false, visible: false });
     }
   };
 
   @action
   getOrg = async (respData = null) => {
+    runInActionUtil(this, 'loading', { value: true, visible: true });
     try {
       const org = {};
       const resp =
@@ -186,11 +199,13 @@ export default class OrganisationStore {
       }
       const newOrg = Object.assign({}, resp.data, org);
       runInActionUtil(this, 'org', newOrg);
+      runInActionUtil(this, 'loading', { value: false, visible: false });
     } catch (error) {
       runInActionUtil(this, 'error', {
         visible: true,
         message: error.response.data.message,
       });
+      runInActionUtil(this, 'loading', { value: false, visible: false });
     }
   };
 

@@ -5,7 +5,7 @@ import { toJS } from 'mobx';
 import { WithContext as ReactTags } from 'react-tag-input';
 import Modal from 'react-modal';
 
-import { renderIf } from '../../utils/helpers';
+import { renderIf, getLoader } from '../../utils/helpers';
 import Nav from './Nav';
 import Icons from '../common/icons';
 import CustomStyles from '../common/commonStyles';
@@ -41,6 +41,7 @@ class Settings extends React.Component {
       removeMemberHold: {},
       modalIsOpen: 'true',
       additionError: '',
+      window: false,
     };
     this.handleAddition = this.handleAddition.bind(this);
     this.openModal = this.openModal.bind(this);
@@ -50,6 +51,7 @@ class Settings extends React.Component {
   }
 
   componentDidMount() {
+    this.setState({ window });
     this.props.organisationStore.getOrg();
     this.props.authStore.getUserData();
   }
@@ -144,6 +146,9 @@ class Settings extends React.Component {
     Modal.setAppElement('body');
     return (
       <div className="accountWrapper">
+        {this.props.organisationStore.loading.visible
+          ? getLoader(this, this.props.organisationStore.loading.visible)
+          : getLoader(this, this.props.organisationStore.loading.visible)}
         <Nav />
         <main className="accountWrapper__main">
           <h1 className="accountPageTitle">

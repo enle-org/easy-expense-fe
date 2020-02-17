@@ -1,6 +1,8 @@
 import React from 'react';
 import Head from 'next/head';
+
 import Login from '../src/components/auth/Login';
+import { checkAuth } from '../src/utils/helpers';
 
 const LoginPage = () => (
   <div>
@@ -15,5 +17,7 @@ const LoginPage = () => (
     <Login />
   </div>
 );
+
+LoginPage.getInitialProps = async ctx => checkAuth(ctx, 'checkSignedIn');
 
 export default LoginPage;

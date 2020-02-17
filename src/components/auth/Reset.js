@@ -43,7 +43,7 @@ class Reset extends React.Component {
         <main className="recoveryWrapper">
           <div className="brand">
             <Link href="/" as="/">
-              <img src="/logo.png" alt="Easy Expense logo" />
+              <img src="/logo.svg" alt="Easy Expense logo" />
             </Link>
           </div>
           <div className="pageContent">
