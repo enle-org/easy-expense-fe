@@ -19,6 +19,11 @@ const config = Object.freeze({
     API_URL: process.env.DEV_API_URL,
     CLIENT_URL: process.env.DEV_CLIENT_URL,
   },
+  staging: {
+    ...commonEnvs,
+    API_URL: process.env.STAGING_API_URL,
+    CLIENT_URL: process.env.STAGING_CLIENT_URL,
+  },
   production: {
     ...commonEnvs,
     API_URL: process.env.PROD_API_URL,
