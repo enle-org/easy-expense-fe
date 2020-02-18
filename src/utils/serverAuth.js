@@ -2,9 +2,15 @@ import React, { useEffect } from 'react';
 import Router from 'next/router';
 import nextCookie from 'next-cookies';
 import cookie from 'js-cookie';
+import jwt from 'jsonwebtoken';
+
+import axiosInstance from './axiosInstance';
 
 const login = ({ token }) => {
   cookie.set('token', token, { expires: 7 });
+  Object.assign(axiosInstance.defaults, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
   Router.push('/dashboard', '/dashboard');
 };
 
@@ -32,6 +38,7 @@ const logout = () => {
   cookie.remove('token');
   // to support logging out from all windows
   window.localStorage.setItem('logout', Date.now());
+  Object.assign(axiosInstance.defaults, { headers: { Authorization: null } });
   Router.push('/login', '/login');
 };
 
@@ -59,15 +66,17 @@ const withAuthSync = WrappedComponent => {
     const token = auth(ctx);
 
     // eslint-disable-next-line max-len
-    const componentProps = WrappedComponent.getInitialProps && (await WrappedComponent.getInitialProps(ctx));
+    const componentProps =
+      WrappedComponent.getInitialProps &&
+      (await WrappedComponent.getInitialProps(ctx));
     return { ...componentProps, token };
   };
   return Wrapper;
 };
 
-export {
-  login,
-  auth,
-  logout,
-  withAuthSync,
+const decodeToken = () => {
+  const token = cookie.get('token');
+  return jwt.decode(token);
 };
+
+export { login, auth, logout, withAuthSync, decodeToken };

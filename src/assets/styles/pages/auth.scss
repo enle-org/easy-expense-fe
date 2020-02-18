@@ -12,13 +12,17 @@
     background: $colorWhite;
     margin: auto;
     border-radius: $border-radius;
-    padding: 5rem;
+    padding: 2rem;
     box-sizing: border-box;
     &.recoveryWrapper {
       width: calc(100% * (2/5));
       @include tempWrapperSize;
     }
     @include tempWrapperSize;
+  }
+
+  .brand {
+    margin: 1.5rem 0rem;
   }
 
   button {
@@ -28,14 +32,13 @@
     justify-content: center;
     align-items: center;
     color: $colorWhite;
-    padding: 1.4rem;
-    font-size: 1.4rem;
+    padding: 0.9rem;
+    font-size: 0.9rem;
     border-radius: 0.2rem;
+    &.button__secondary {
+      color: $colorPrimary;
+    }
   }
-}
-
-.brand {
-  margin-bottom: 2rem;
 }
 
 .pageContent {
@@ -45,7 +48,7 @@
   }
   p {
     margin: 0;
-    font-size: 1.4rem;
+    font-size: 1rem;
     color: $colorDark3;
   }
 }
@@ -55,8 +58,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-top: 1rem;
-    margin-bottom: 2rem;
+    margin-top: 1.5rem;
     .checkBoxGroup {
       display: flex;
       flex-direction: row-reverse;
@@ -78,7 +80,7 @@
 .toggleAuthPage {
   text-align: center;
   p, a {
-    font-size: 1.4rem;
+    font-size: 0.9rem;
   }
   a {
     text-decoration: none;

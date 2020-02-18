@@ -20,40 +20,43 @@ const Home = () => (
         <header className="u_section">
           <div className="brand">
             <Link href="/" as="/">
-              <img src="/logo.png" alt="Easy Expense logo" />
+              <img src="/logo.svg" alt="Easy Expense logo" />
             </Link>
+            {/* Navigation menu not visibile on mobile device begins here */}
+            <nav>
+              <ul className="authLinks">
+                <li className="primary-link">
+                  <Link href="/signup" as="/signup">
+                    <a>Sign up</a>
+                  </Link>
+                </li>
+                <li className="secondary-link">
+                  <Link href="/login" as="/login">
+                    <a href="#">Login</a>
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+            {/* Navigation menu not visibile on mobile device ends here */}
           </div>
-          {/* Navigation menu not visibile on mobile device begins here */}
-          <nav>
-            <ul className="authLinks">
-              <li className="button button__primary authLinks__link">
-                <Link href="/signup" as="/signup">
-                  <a href="pages/website/auth/index.html">Sign up</a>
-                </Link>
-              </li>
-              <li className="authLinks__link link">
-                <Link href="/login" as="/login">
-                  <a href="#">Login</a>
-                </Link>
-              </li>
-            </ul>
-          </nav>
-          {/* Navigation menu not visibile on mobile device ends here */}
         </header>
         <main>
           <div className="hero">
             <div className="hero__left">
               <h1>Track and approve business expenses easily</h1>
               <p>
-                Easy Expense is an open-source tool designed to make it easier for
-                small businesses to track and approve business expenses. It has a
-                simple feature set focused on expense tracking, and is open-source, so
-                that companies can run and self-host.
+                Easy Expense is an open-source tool that helps small businesses
+                to track and approve business expenses. It streamlines expense
+                tracking and reporting, and is free for companies to use and
+                host.
               </p>
-              <a href="pages/website/auth/index.html" className="link link__primary">
-                Sign Up
-                <span className="icon icon__forward" />
-              </a>
+
+              <Link href="/signup" as="/signup">
+                <a className="link link__primary">
+                  Sign up
+                  <span className="icon icon__forward" />
+                </a>
+              </Link>
             </div>
             <div className="hero__right">
               <Icons.hero />
@@ -64,24 +67,20 @@ const Home = () => (
               <div className="benefits__item__image">
                 <Icons.reports />
               </div>
-              <h3>Easily capture and create expense reports.</h3>
+              <h3>Capture receipts and create expense reports.</h3>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                aliquip ex ea commodo consequat.
+                Take photos of receipts, and convert receipts to expense
+                reports.
               </p>
             </div>
             <div className="benefits__item">
               <div className="benefits__item__image">
                 <Icons.manager />
               </div>
-              <h3>Review and manage expense workflow</h3>
+              <h3>Review and approve expenses</h3>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                aliquip ex ea commodo consequat.
+                Expense approvers can review details, and use Easy Expense for
+                quick approval.
               </p>
             </div>
             <div className="benefits__item">
@@ -90,10 +89,8 @@ const Home = () => (
               </div>
               <h3>Saves employees and business owners time.</h3>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                aliquip ex ea commodo consequat.
+                No more emails and spreadsheets. This easy web app simplifes the
+                expense management process.
               </p>
             </div>
           </div>

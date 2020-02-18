@@ -9,7 +9,7 @@ import CustomStyles from '../common/commonStyles';
 
 @inject('authStore')
 @observer
-class Recovery extends React.Component {
+class Reset extends React.Component {
   constructor(props) {
     super(props);
     this.closeModal = this.closeModal.bind(this);
@@ -27,32 +27,13 @@ class Recovery extends React.Component {
           value: '',
         },
       ],
-      this.props.authStore.recoveryErrors,
-    );
-    this.props.authStore.setClassProps(
-      [
-        {
-          name: 'visible',
-          value: false,
-        },
-        {
-          name: 'message',
-          value: '',
-        },
-      ],
-      this.props.authStore.recoverySuccess,
+      this.props.authStore.resetErrors,
     );
   };
 
-  isOpen = () =>
-    this.props.authStore.recoveryErrors.visible ||
-    this.props.authStore.recoverySuccess.visible;
-
-  isSuccess = () => this.props.authStore.recoverySuccess.visible;
-
-  handleSubmit = e => {
+  handleSubmit = (e, token) => {
     e.preventDefault();
-    this.props.authStore.recovery(e);
+    this.props.authStore.reset(e, token);
   };
 
   render() {
@@ -66,62 +47,100 @@ class Recovery extends React.Component {
             </Link>
           </div>
           <div className="pageContent">
-            <h1 className="pageTitle">Password Recovery</h1>
+            <h1 className="pageTitle">Password Reset</h1>
             <p>
-              Enter your email address, and we’ll send you a link to reset your
-              password.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor.
             </p>
           </div>
 
           {renderIf(
-            this.props.authStore.recoveryValidationErrors.visible,
+            this.props.authStore.resetValidationErrors.visible,
             <p className="error-text m-b-sm">
               <em>
-                {`Error: ${this.props.authStore.recoveryValidationErrors.message}`}
+                {`Error: ${this.props.authStore.resetValidationErrors.message}`}
               </em>
             </p>,
           )}
-          <form onSubmit={this.handleSubmit} className="eEForm">
+          <form
+            onSubmit={e =>
+              this.handleSubmit(e, window.location.pathname.split('/')[2])
+            }
+            className="eEForm"
+          >
             <div className="formGroup">
-              <label htmlFor="recoveryEmail">Email</label>
+              <label htmlFor="password">Password</label>
               <input
-                type="email"
-                name="email"
-                id="recoveryEmail"
-                placeholder="Enter email"
-                value={this.props.authStore.recoveryData.email}
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Enter password"
+                value={this.props.authStore.resetData.password}
                 onChange={event => {
                   this.props.authStore.setClassProps(
                     [
                       {
-                        name: 'email',
+                        name: 'password',
                         value: event.target.value,
                       },
                     ],
-                    this.props.authStore.recoveryData,
+                    this.props.authStore.resetData,
                   );
-                  this.props.authStore.validateEmail(
-                    'recoveryData',
-                    'recoveryValidationErrors',
+                  this.props.authStore.validatePassword(
+                    'resetData',
+                    'resetValidationErrors',
+                  );
+                }}
+              />
+            </div>
+            <div className="formGroup">
+              <label htmlFor="confirmPassword">Confirm Password</label>
+              <input
+                type="password"
+                name="confirmPassword"
+                id="confirmPassword"
+                placeholder="Confirm Password"
+                value={this.props.authStore.resetData.confirmPassword}
+                onChange={event => {
+                  this.props.authStore.setClassProps(
+                    [
+                      {
+                        name: 'confirmPassword',
+                        value: event.target.value,
+                      },
+                    ],
+                    this.props.authStore.resetData,
+                  );
+                  this.props.authStore.validatePasswordMatch(
+                    'resetData',
+                    'resetValidationErrors',
                   );
                 }}
               />
             </div>
             <button
-              disabled={this.props.authStore.recoveryLoading.value}
+              disabled={this.props.authStore.resetLoading.value}
               type="submit"
               className="button button__primary"
             >
-              {this.props.authStore.recoveryLoading.value ? (
+              {this.props.authStore.resetLoading.value ? (
                 <span className="login-loader" />
               ) : (
-                'Check Email'
+                'Reset Password'
               )}
             </button>
           </form>
+          <div className="toggleAuthPage">
+            <p>
+              <Link href="/login" as="/login">
+                <a href="#">Proceed to login</a>
+              </Link>
+            </p>
+          </div>
         </main>
+        {/* Error Modal */}
         <Modal
-          isOpen={this.isOpen()}
+          isOpen={this.props.authStore.resetErrors.visible}
           onRequestClose={this.closeModal}
           style={CustomStyles.modalStyles}
         >
@@ -136,17 +155,15 @@ class Recovery extends React.Component {
                   <Icons.close />
                 </button>
                 <h2 className="head__title sectionTitleSmall">
-                  {this.isSuccess() ? 'Success' : ' An Error Occured'}
+                  An Error Occured
                 </h2>
               </div>
               <div className="content">
                 <div className="content__copy">
-                  {!this.isSuccess() && <p>Please see the error below:</p>}
-                  <p className={`${!this.isSuccess() && 'error-text'} m-b-sm`}>
+                  <p>Please see the error below:</p>
+                  <p className="error-text m-b-sm">
                     <em>
-                      {this.isSuccess()
-                        ? `Success: ${this.props.authStore.recoverySuccess.message}`
-                        : `Error: ${this.props.authStore.recoveryErrors.message}`}
+                      {`Error: ${this.props.authStore.resetErrors.message}`}
                     </em>
                   </p>
                 </div>
@@ -168,4 +185,4 @@ class Recovery extends React.Component {
   }
 }
 
-export default Recovery;
+export default Reset;

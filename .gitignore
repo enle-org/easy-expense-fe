@@ -19,6 +19,7 @@
 /.sass-cache
 .DS_Store
 .env*
+.idea/
 
 # debug
 npm-debug.log*

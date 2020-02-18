@@ -4,7 +4,7 @@ import { inject, observer } from 'mobx-react';
 import Modal from 'react-modal';
 import GoogleLogin from 'react-google-login';
 
-import { renderIf } from '../../utils/helpers';
+import { renderIf, getLoader } from '../../utils/helpers';
 import Icons from '../common/icons';
 import config from '../../../config';
 import CustomStyles from '../common/commonStyles';
@@ -14,34 +14,40 @@ import CustomStyles from '../common/commonStyles';
 class Login extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      window: false,
+    };
     this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
-    // this.props.authStore.checkSignedIn();
+    this.setState({ window });
   }
 
   closeModal() {
-    this.props.authStore.setClassProps([
-      {
-        name: 'visible',
-        value: false,
-      },
-      {
-        name: 'message',
-        value: '',
-      },
-    ], this.props.authStore.loginErrors);
+    this.props.authStore.setClassProps(
+      [
+        {
+          name: 'visible',
+          value: false,
+        },
+        {
+          name: 'message',
+          value: '',
+        },
+      ],
+      this.props.authStore.loginErrors,
+    );
   }
 
   // eslint-disable-next-line class-methods-use-this
   responseGoogle(self, response) {
-    if (response.profileObj) {
-      self.props.authStore.login(
-        null,
-        'googleAuth',
-        response.profileObj,
+    if (response.profileObj && window) {
+      response.profileObj.password = window.btoa(
+        unescape(encodeURIComponent(response.profileObj.email)),
       );
+
+      self.props.authStore.login(null, 'googleAuth', response.profileObj);
     }
   }
 
@@ -49,17 +55,20 @@ class Login extends React.Component {
     Modal.setAppElement('body');
     return (
       <div className="authWrapper authWrapper__signin">
+        {this.props.authStore.loginLoading.visible
+          ? getLoader(this)
+          : getLoader(this, true)}
         <main>
           <div className="brand">
             <Link href="/" as="/">
-              <img src="/logo.png" alt="Easy Expense logo" />
+              <img src="/logo.svg" alt="Easy Expense logo" />
             </Link>
           </div>
           <div className="pageContent">
             <h1 className="pageTitle">Login</h1>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-              tempor.
+              Login to your Easy Expense account. Don’t have an account? Sign
+              Up.
             </p>
           </div>
           {renderIf(
@@ -72,15 +81,12 @@ class Login extends React.Component {
           )}
           <form
             onSubmit={e => {
-              this.props.authStore.login(
-                e,
-                'local',
-              );
+              this.props.authStore.login(e, 'local');
             }}
             className="eEForm"
           >
             <div className="formGroup">
-              <label htmlFor="loginEmail">Email</label>
+              <label htmlFor="loginEmail">Email Address</label>
               <input
                 type="email"
                 name="email"
@@ -88,13 +94,19 @@ class Login extends React.Component {
                 placeholder="Enter email"
                 value={this.props.authStore.loginData.email}
                 onChange={event => {
-                  this.props.authStore.setClassProps([
-                    {
-                      name: 'email',
-                      value: event.target.value,
-                    },
-                  ], this.props.authStore.loginData);
-                  this.props.authStore.validateEmail('loginData', 'loginValidationErrors');
+                  this.props.authStore.setClassProps(
+                    [
+                      {
+                        name: 'email',
+                        value: event.target.value,
+                      },
+                    ],
+                    this.props.authStore.loginData,
+                  );
+                  this.props.authStore.validateEmail(
+                    'loginData',
+                    'loginValidationErrors',
+                  );
                 }}
               />
             </div>
@@ -107,13 +119,19 @@ class Login extends React.Component {
                 placeholder="Enter password"
                 value={this.props.authStore.loginData.password}
                 onChange={event => {
-                  this.props.authStore.setClassProps([
-                    {
-                      name: 'password',
-                      value: event.target.value,
-                    },
-                  ], this.props.authStore.loginData);
-                  this.props.authStore.validatePassword('loginData', 'loginValidationErrors');
+                  this.props.authStore.setClassProps(
+                    [
+                      {
+                        name: 'password',
+                        value: event.target.value,
+                      },
+                    ],
+                    this.props.authStore.loginData,
+                  );
+                  this.props.authStore.validatePassword(
+                    'loginData',
+                    'loginValidationErrors',
+                  );
                 }}
               />
             </div>
@@ -130,17 +148,26 @@ class Login extends React.Component {
                 </Link>
               </div>
             </div>
-            <button
-              disabled={this.props.authStore.loginLoading.value}
-              type="submit"
-              className="button button__primary"
-            >
-              {
-                this.props.authStore.loginLoading.value
-                  ? <span className="login-loader" />
-                  : 'Log in'
-              }
-            </button>
+            <div className="auth-buttons">
+              <Link href="/signup" as="/signup">
+                <a href="#">
+                  <button type="button" className="button button__secondary">
+                    Sign Up
+                  </button>
+                </a>
+              </Link>
+              <button
+                disabled={this.props.authStore.loginLoading.value}
+                type="submit"
+                className="button button__primary"
+              >
+                {this.props.authStore.loginLoading.value ? (
+                  <span className="login-loader" />
+                ) : (
+                  'Log in'
+                )}
+              </button>
+            </div>
           </form>
           <div className="socialSignup">
             <GoogleLogin
@@ -153,33 +180,28 @@ class Login extends React.Component {
                   className="button__google"
                 >
                   <span className="icon icon__google" />
-                  Log in with Google
+                  Continue with Google
                 </button>
               )}
               buttonText="Login"
               onSuccess={response => this.responseGoogle(this, response)}
-              onFailure={() => {
-                this.props.authStore.setClassProps([
-                  {
-                    name: 'visible',
-                    value: true,
-                  },
-                  {
-                    name: 'message',
-                    value: 'Unknown error.',
-                  },
-                ], this.props.authStore.loginErrors);
+              onFailure={e => {
+                this.props.authStore.setClassProps(
+                  [
+                    {
+                      name: 'visible',
+                      value: true,
+                    },
+                    {
+                      name: 'message',
+                      value: 'Unknown error.',
+                    },
+                  ],
+                  this.props.authStore.loginErrors,
+                );
               }}
               cookiePolicy="single_host_origin"
             />
-          </div>
-          <div className="toggleAuthPage">
-            <p>
-              Don&apos;t have an account?
-              <Link href="/signup" as="/signup">
-                <a href="#"> Sign up</a>
-              </Link>
-            </p>
           </div>
         </main>
         {/* Error Modal */}
@@ -198,13 +220,13 @@ class Login extends React.Component {
                 >
                   <Icons.close />
                 </button>
-                <h2 className="head__title sectionTitleSmall">An Error Occured</h2>
+                <h2 className="head__title sectionTitleSmall">
+                  An Error Occured
+                </h2>
               </div>
               <div className="content">
                 <div className="content__copy">
-                  <p>
-                    Pls see the error bellow:
-                  </p>
+                  <p>Please see the error below:</p>
                   <p className="error-text m-b-sm">
                     <em>
                       {`Error: ${this.props.authStore.loginErrors.message}`}
@@ -228,6 +250,5 @@ class Login extends React.Component {
     );
   }
 }
-
 
 export default Login;

@@ -1,11 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
 import { inject, observer } from 'mobx-react';
-import LoadingBar from 'react-top-loading-bar';
 import Modal from 'react-modal';
 import GoogleLogin from 'react-google-login';
 
-import { renderIf } from '../../utils/helpers';
+import { renderIf, getLoader } from '../../utils/helpers';
 import Icons from '../common/icons';
 import config from '../../../config';
 import CustomStyles from '../common/commonStyles';
@@ -15,34 +14,41 @@ import CustomStyles from '../common/commonStyles';
 class Signup extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      window: false,
+    };
     this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
-    this.props.authStore.checkSignedIn();
+    this.setState({ window });
+    this.props.authStore.checkInviteEmail();
   }
 
   closeModal() {
-    this.props.authStore.setClassProps([
-      {
-        name: 'visible',
-        value: false,
-      },
-      {
-        name: 'message',
-        value: '',
-      },
-    ], this.props.authStore.signupErrors);
+    this.props.authStore.setClassProps(
+      [
+        {
+          name: 'visible',
+          value: false,
+        },
+        {
+          name: 'message',
+          value: '',
+        },
+      ],
+      this.props.authStore.signupErrors,
+    );
   }
 
   // eslint-disable-next-line class-methods-use-this
   responseGoogle(self, response) {
-    if (response.profileObj) {
-      self.props.authStore.signup(
-        null,
-        'googleAuth',
-        response.profileObj,
+    if (response.profileObj && window) {
+      response.profileObj.password = window.btoa(
+        unescape(encodeURIComponent(response.profileObj.email)),
       );
+
+      self.props.authStore.signup(null, 'googleAuth', response.profileObj);
     }
   }
 
@@ -50,30 +56,18 @@ class Signup extends React.Component {
     Modal.setAppElement('body');
     return (
       <div className="authWrapper authWrapper__signup">
-        <LoadingBar
-          height={6}
-          color="#6C63FF"
-          onRef={ref => {
-            if (this.props.authStore.signupLoading.visible) {
-              // eslint-disable-next-line no-unused-expressions
-              this.props.authStore.signupLoading.value
-                ? ref.continuousStart()
-                : ref.complete();
-            }
-          }}
-        />
+        {this.props.authStore.signupLoading.visible
+          ? getLoader(this)
+          : getLoader(this, true)}
         <main>
           <div className="brand">
             <Link href="/" as="/">
-              <img src="/logo.png" alt="Easy Expense logo" />
+              <img src="/logo.svg" alt="Easy Expense logo" />
             </Link>
           </div>
           <div className="pageContent">
             <h1 className="pageTitle">Sign Up</h1>
-            <p>
-              You can register as an organisation expense approver or an organisation
-              member.
-            </p>
+            <p> Create your account to get started</p>
           </div>
           {renderIf(
             this.props.authStore.signupValidationErrors.visible,
@@ -83,30 +77,39 @@ class Signup extends React.Component {
               </em>
             </p>,
           )}
+          {renderIf(
+            this.props.authStore.signupEmailOptions.disabled,
+            <p className="m-t-sm m-b-sm">
+              <em>
+                {`Info: ${this.props.authStore.signupEmailOptions.message}`}
+              </em>
+            </p>,
+          )}
           <form
             onSubmit={e => {
-              this.props.authStore.signup(
-                e,
-                'local',
-              );
+              this.props.authStore.signup(e, 'local');
             }}
             className="eEForm"
           >
             <div className="formGroup">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">Email Address</label>
               <input
                 type="email"
                 name="email"
                 id="email"
                 placeholder="Enter email"
+                disabled={this.props.authStore.signupEmailOptions.disabled}
                 value={this.props.authStore.signupData.email}
                 onChange={event => {
-                  this.props.authStore.setClassProps([
-                    {
-                      name: 'email',
-                      value: event.target.value,
-                    },
-                  ], this.props.authStore.signupData);
+                  this.props.authStore.setClassProps(
+                    [
+                      {
+                        name: 'email',
+                        value: event.target.value,
+                      },
+                    ],
+                    this.props.authStore.signupData,
+                  );
                   this.props.authStore.validateEmail();
                 }}
               />
@@ -120,12 +123,15 @@ class Signup extends React.Component {
                 placeholder="Enter password"
                 value={this.props.authStore.signupData.password}
                 onChange={event => {
-                  this.props.authStore.setClassProps([
-                    {
-                      name: 'password',
-                      value: event.target.value,
-                    },
-                  ], this.props.authStore.signupData);
+                  this.props.authStore.setClassProps(
+                    [
+                      {
+                        name: 'password',
+                        value: event.target.value,
+                      },
+                    ],
+                    this.props.authStore.signupData,
+                  );
                   this.props.authStore.validatePassword();
                 }}
               />
@@ -138,27 +144,39 @@ class Signup extends React.Component {
                 id="confirmPassword"
                 placeholder="Confirm Password"
                 value={this.props.authStore.signupData.confirmPassword}
-                onChange={event => (
-                  this.props.authStore.setClassProps([
-                    {
-                      name: 'confirmPassword',
-                      value: event.target.value,
-                    },
-                  ], this.props.authStore.signupData)
-                )}
+                onChange={event =>
+                  this.props.authStore.setClassProps(
+                    [
+                      {
+                        name: 'confirmPassword',
+                        value: event.target.value,
+                      },
+                    ],
+                    this.props.authStore.signupData,
+                  )
+                }
               />
             </div>
-            <button
-              disabled={this.props.authStore.signupLoading.value}
-              type="submit"
-              className="button button__primary"
-            >
-              {
-                this.props.authStore.signupLoading.value
-                  ? <span className="login-loader" />
-                  : 'Sign up'
-              }
-            </button>
+            <div className="auth-buttons">
+              <button
+                disabled={this.props.authStore.signupLoading.value}
+                type="submit"
+                className="button button__primary"
+              >
+                {this.props.authStore.signupLoading.value ? (
+                  <span className="login-loader" />
+                ) : (
+                  'Sign up'
+                )}
+              </button>
+              <Link href="/login" as="/login">
+                <a href="#">
+                  <button type="button" className="button button__secondary">
+                    Login
+                  </button>
+                </a>
+              </Link>
+            </div>
           </form>
           <div className="socialSignup">
             <GoogleLogin
@@ -171,33 +189,27 @@ class Signup extends React.Component {
                   className="button__google"
                 >
                   <span className="icon icon__google" />
-                  Sign up with Google
+                  Continue with Google
                 </button>
               )}
-              buttonText="Login"
               onSuccess={response => this.responseGoogle(this, response)}
               onFailure={() => {
-                this.props.authStore.setClassProps([
-                  {
-                    name: 'visible',
-                    value: true,
-                  },
-                  {
-                    name: 'message',
-                    value: 'Unknown error.',
-                  },
-                ], this.props.authStore.signupErrors);
+                this.props.authStore.setClassProps(
+                  [
+                    {
+                      name: 'visible',
+                      value: true,
+                    },
+                    {
+                      name: 'message',
+                      value: 'Google Auth Error',
+                    },
+                  ],
+                  this.props.authStore.signupErrors,
+                );
               }}
               cookiePolicy="single_host_origin"
             />
-          </div>
-          <div className="toggleAuthPage">
-            <p>
-              Already have an account?
-              <Link href="/login" as="/login">
-                <a href="#"> Sign in</a>
-              </Link>
-            </p>
           </div>
         </main>
         {/* Error Modal */}
@@ -216,13 +228,13 @@ class Signup extends React.Component {
                 >
                   <Icons.close />
                 </button>
-                <h2 className="head__title sectionTitleSmall">An Error Occured</h2>
+                <h2 className="head__title sectionTitleSmall">
+                  An Error Occured
+                </h2>
               </div>
               <div className="content">
                 <div className="content__copy">
-                  <p>
-                    Pls see the error bellow:
-                  </p>
+                  <p>Please see the error below:</p>
                   <p className="error-text m-b-sm">
                     <em>
                       {`Error: ${this.props.authStore.signupErrors.message}`}

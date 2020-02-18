@@ -7,10 +7,12 @@ import config from '../config';
 import Stores from '../src/stores';
 import '../src/assets/styles/main.scss';
 
-Sentry.init({
-  dsn: config.SENTRY_DSN,
-  environment: config.ENVIRONMENT,
-});
+if (process.env.ENVIRONMENT !== 'local') {
+  Sentry.init({
+    dsn: config.SENTRY_DSN,
+    environment: config.ENVIRONMENT,
+  });
+}
 
 class MyApp extends App {
   render() {

@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: row;
   min-height: 100vh;
+
   header.u_section {
     display: none;
     @include respond(phone) {
@@ -9,12 +10,11 @@
     }
   }
   &__main {
-    margin-left: 15%;
+    margin-left: 260px;
+    margin-top: 60px;
     background: #F8F8FF;
     flex: 1;
-    padding: 4rem;
-    padding-top: 2.4rem;
-    padding-bottom: 10rem;
+    padding: 2rem;  
     form {
       > .buttonWrapper {
         @include respond(phone) {
@@ -28,13 +28,85 @@
     }
     @include respond(tabLand) {
       width: 100%;
-      margin-left: 0;
     }
     @include respond(phone) {
-      padding: 2rem;
+      margin-left: 0;
+      padding: 1rem;
+      margin-top: 60px;
     }
   }
   .pageTitle {
     font-weight: 600;
+  }
+  .sectionTitle {
+    margin-bottom: 0.25rem;
+  }
+  .sectionTitle + p {
+    color: $colorDark5;
+    margin-top: 10px;
+    margin-bottom: 30px;
+  }
+  .settingsTitle {
+    margin-bottom: 2rem;
+  }
+  .divider {
+    border-top: 1px solid $colorDark4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 10px;
+
+    p {
+      background: #F8F8FF;
+      display: inline-block;
+      color: $colorDark5;
+      text-align: center;
+      position: relative;
+      bottom: 16px;
+      padding: 5px 20px;
+      margin: 0;
+    }
+  }
+  .remove_member .ReactTags__tagInput {
+    display: none;
+  }
+  .topNav {
+    position: fixed;
+    padding: 0.8rem 1rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background: $colorWhite;
+    width: 90%; /* fallback if needed */
+    width: calc(100% - 260px);
+    top: 0;
+    right: 0;
+    .notification-area {
+      button {
+        background: transparent;
+        padding: 0.5rem;
+        margin-right: 1rem;
+      }
+    }
+    .profile-area {
+      border-left: 1px solid #dddddd;
+      display: flex;
+      align-items: center;
+      button {
+        background: transparent;
+        padding: 0.5rem;
+      }
+      .avatar {
+        width: 40px;
+        border-radius: 50%;
+        margin: 0rem 2rem;
+      }
+      p {
+        font-size: 1rem;
+        margin: 0rem;
+        margin-right: 1rem;
+        font-weight: 600;
+      }
+    }
   }
 }

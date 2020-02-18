@@ -45,7 +45,7 @@
     width: 80%;
   }
   @include respond(phone) {
-    padding: 2rem;
+    padding: 2rem 1rem;
     background: unset;
     width: 90%;
   }

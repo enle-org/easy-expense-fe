@@ -8,6 +8,8 @@ import { configure } from 'mobx';
 import AppStore from './AppStore';
 import AuthStore from './AuthStore';
 import DashboardStore from './DashboardStore';
+import OrganisationStore from './OrganisationStore';
+import ReceiptStore from './ReceiptStore';
 
 /**
  * Configuration to ensure all state changes occur via MobX actions
@@ -21,9 +23,13 @@ configure({ enforceActions: 'observed' });
 const appStore = new AppStore();
 const authStore = new AuthStore();
 const dashboardStore = new DashboardStore();
+const organisationStore = new OrganisationStore(authStore);
+const receiptStore = new ReceiptStore();
 
 export default {
   appStore,
   authStore,
   dashboardStore,
+  organisationStore,
+  receiptStore,
 };

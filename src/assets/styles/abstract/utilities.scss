@@ -1,6 +1,6 @@
 .u_section {
   &:not(:last-child) {
-    margin-bottom: 4rem;
+    margin-bottom: 1rem;
   }
   @include respond(phone) {
     padding-bottom: 0;
@@ -8,10 +8,10 @@
 }
 
 .u_card {
-  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.1);
-  border-radius: 1rem;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
   background: $colorWhite;
-  padding: 2rem 3rem;
+  padding: 2rem 1.2rem;
 }
 
 .u_fullWidth {
@@ -21,11 +21,13 @@
 /* Example Styles for React Tags*/
 div.ReactTags__tags {
   position: relative;
+  top: 40px;
+  left: 10px;
 }
 
 /* Styles for the input */
 div.ReactTags__tagInput {
-  width: 180px;
+  width: 250px;
   border-radius: 2px;
   display: inline-block;
 }
@@ -33,7 +35,7 @@ div.ReactTags__tagInput input.ReactTags__tagInputField,
 div.ReactTags__tagInput input.ReactTags__tagInputField:focus {
   height: 31px;
   margin: 0;
-  font-size: 1.8rem;
+  font-size: 1rem;
   width: 100%;
   border: 1px solid #eee;
   padding: 0 10px;
@@ -134,7 +136,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 .bm-menu {
   background: #1b1e27;
   padding: 2.5em 1.5em 0;
-  font-size: 1.15em;
+  font-size: 0.8em;
 }
 
 /* Morph shape necessary with bubble or elastic */
@@ -171,7 +173,29 @@ Note: Beware of modifying this element as it can break the animations - you shou
   background: rgba(0, 0, 0, 0.3);
 }
 
-/* Margins and paddings */
+.text-center {
+  text-align: center;
+}
+
+// Bootstrap overides
+.dropdown-menu.show {
+  top: -30px !important;
+  background: white;
+  width: 100%;
+  border: 0;
+}
+
+// Buttons
+.btn-full-width {
+  width: 100%;
+}
+.btn-clear {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+// Margins and paddings
 .p-n {
   padding: 0;
 }
@@ -244,6 +268,10 @@ Note: Beware of modifying this element as it can break the animations - you shou
   margin-right: 0;
   margin-left: 0;
 }
+.m-h-xxs {
+  margin-right: 2.5px;
+  margin-left: 2.5px;
+}
 .m-v-md {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -264,6 +292,9 @@ Note: Beware of modifying this element as it can break the animations - you shou
 }
 .m-t-lg {
   margin-top: 40px;
+}
+.m-t-xlg {
+  margin-top: 60px;
 }
 .m-r-n {
   margin-right: 0;
@@ -294,6 +325,9 @@ Note: Beware of modifying this element as it can break the animations - you shou
 }
 .m-b-lg {
   margin-bottom: 40px;
+}
+.m-b-xlg {
+  margin-bottom: 60px;
 }
 .m-l-n {
   margin-left: 0;

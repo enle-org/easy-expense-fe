@@ -2,8 +2,23 @@
   "name": "fe-nextjs-mobx",
   "version": "0.1.0",
   "private": true,
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run prettier",
+      "git add --force"
+    ],
+    "*.json": [
+      "prettier --write",
+      "git add --force"
+    ]
+  },
   "scripts": {
-    "start": "yarn build && yarn serve",
+    "start": "yarn serve",
     "dev": "npm-run-all --parallel lint-watch next-dev",
     "next-dev": "next dev",
     "build": "next build",
@@ -14,7 +29,8 @@
     "docs": "./node_modules/.bin/esdoc",
     "lint": "node_modules/.bin/esw",
     "lint-watch": "node_modules/.bin/esw --watch",
-    "lint-test": "npm-run-all --parallel lint-watch test-watch"
+    "lint-test": "npm-run-all --parallel lint-watch test-watch",
+    "prettier": "prettier --write '**/*.{js,jsx}'"
   },
   "jest": {
     "collectCoverage": true,
@@ -46,12 +62,15 @@
     "dotenv": "^8.2.0",
     "dotenv-webpack": "^1.7.0",
     "js-cookie": "^2.2.1",
+    "jsonwebtoken": "^8.5.1",
     "mobx": "^5.14.0",
     "mobx-react": "5.4.4",
+    "moment": "^2.24.0",
     "next": "9.1.1",
     "next-cookies": "^2.0.3",
     "node-sass": "^4.12.0",
     "react": "16.10.2",
+    "react-bootstrap": "^1.0.0-beta.16",
     "react-burger-menu": "^2.6.13",
     "react-dnd": "^5.0.0",
     "react-dnd-html5-backend": "^3.0.2",
@@ -59,7 +78,8 @@
     "react-google-login": "^5.0.7",
     "react-modal": "^3.11.1",
     "react-tag-input": "^6.4.2",
-    "react-top-loading-bar": "^1.2.0"
+    "react-top-loading-bar": "^1.2.0",
+    "validate.js": "^0.13.1"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
@@ -75,14 +95,18 @@
     "esdoc-standard-plugin": "^1.0.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^4.2.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
     "eslint-watch": "^5.0.1",
     "husky": "^3.1.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.7.1",
+    "lint-staged": "9.4.2",
     "npm-run-all": "^4.1.5",
-    "npm-watch": "^0.6.0"
+    "npm-watch": "^0.6.0",
+    "prettier": "^1.17.0"
   }
 }

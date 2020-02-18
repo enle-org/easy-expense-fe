@@ -7,17 +7,17 @@ import { setClassProps } from '../utils/helpers';
  * @class
  */
 export default class DashboardStore {
-	@observable
-	example = {
-	  name: 'example',
-	};
+  @observable
+  example = {
+    name: 'example',
+  };
 
-	/**
-	 * Function used to assign values to the members of
-	 *  this class from an external function or a react component.
-	 * @param {Array} arr - An array key:value pairs of class members and their values
-	 * @param {Object} self - Refers to the class itself or a member.
-	 */
-	@action
-	setClassProps = (arr, self = this) => setClassProps(arr, self);
+  /**
+   * Function used to assign values to the members of
+   *  this class from an external function or a react component.
+   * @param {Array} arr - An array key:value pairs of class members and their values
+   * @param {Object} self - Refers to the class itself or a member.
+   */
+  @action
+  setClassProps = (arr, self = this) => setClassProps(arr, self);
 }
