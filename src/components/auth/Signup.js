@@ -1,11 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
 import { inject, observer } from 'mobx-react';
-import LoadingBar from 'react-top-loading-bar';
 import Modal from 'react-modal';
 import GoogleLogin from 'react-google-login';
 
-import { renderIf } from '../../utils/helpers';
+import { renderIf, getLoader } from '../../utils/helpers';
 import Icons from '../common/icons';
 import config from '../../../config';
 import CustomStyles from '../common/commonStyles';
@@ -15,11 +14,14 @@ import CustomStyles from '../common/commonStyles';
 class Signup extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      window: false,
+    };
     this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
-    this.props.authStore.checkSignedIn();
+    this.setState({ window });
     this.props.authStore.checkInviteEmail();
   }
 
@@ -41,7 +43,11 @@ class Signup extends React.Component {
 
   // eslint-disable-next-line class-methods-use-this
   responseGoogle(self, response) {
-    if (response.profileObj) {
+    if (response.profileObj && window) {
+      response.profileObj.password = window.btoa(
+        unescape(encodeURIComponent(response.profileObj.email)),
+      );
+
       self.props.authStore.signup(null, 'googleAuth', response.profileObj);
     }
   }
@@ -50,30 +56,18 @@ class Signup extends React.Component {
     Modal.setAppElement('body');
     return (
       <div className="authWrapper authWrapper__signup">
-        <LoadingBar
-          height={6}
-          color="#6C63FF"
-          onRef={ref => {
-            if (this.props.authStore.signupLoading.visible) {
-              // eslint-disable-next-line no-unused-expressions
-              this.props.authStore.signupLoading.value
-                ? ref.continuousStart()
-                : ref.complete();
-            }
-          }}
-        />
+        {this.props.authStore.signupLoading.visible
+          ? getLoader(this)
+          : getLoader(this, true)}
         <main>
           <div className="brand">
             <Link href="/" as="/">
-              <img src="/logo.png" alt="Easy Expense logo" />
+              <img src="/logo.svg" alt="Easy Expense logo" />
             </Link>
           </div>
           <div className="pageContent">
             <h1 className="pageTitle">Sign Up</h1>
-            <p>
-              You can register as an organisation expense approver or an
-              organisation member.
-            </p>
+            <p> Create your account to get started</p>
           </div>
           {renderIf(
             this.props.authStore.signupValidationErrors.visible,
@@ -195,7 +189,7 @@ class Signup extends React.Component {
                   className="button__google"
                 >
                   <span className="icon icon__google" />
-                  Sign up with Google
+                  Continue with Google
                 </button>
               )}
               onSuccess={response => this.responseGoogle(this, response)}

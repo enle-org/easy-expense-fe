@@ -20,14 +20,14 @@ const Home = () => (
         <header className="u_section">
           <div className="brand">
             <Link href="/" as="/">
-              <img src="/logo.png" alt="Easy Expense logo" />
+              <img src="/logo.svg" alt="Easy Expense logo" />
             </Link>
             {/* Navigation menu not visibile on mobile device begins here */}
             <nav>
               <ul className="authLinks">
                 <li className="primary-link">
                   <Link href="/signup" as="/signup">
-                    <a href="pages/website/auth/index.html">Sign up</a>
+                    <a>Sign up</a>
                   </Link>
                 </li>
                 <li className="secondary-link">
@@ -50,13 +50,13 @@ const Home = () => (
                 tracking and reporting, and is free for companies to use and
                 host.
               </p>
-              <a
-                href="pages/website/auth/index.html"
-                className="link link__primary"
-              >
-                Sign Up
-                <span className="icon icon__forward" />
-              </a>
+
+              <Link href="/signup" as="/signup">
+                <a className="link link__primary">
+                  Sign up
+                  <span className="icon icon__forward" />
+                </a>
+              </Link>
             </div>
             <div className="hero__right">
               <Icons.hero />

@@ -4,7 +4,7 @@ import { inject, observer } from 'mobx-react';
 import Modal from 'react-modal';
 import GoogleLogin from 'react-google-login';
 
-import { renderIf } from '../../utils/helpers';
+import { renderIf, getLoader } from '../../utils/helpers';
 import Icons from '../common/icons';
 import config from '../../../config';
 import CustomStyles from '../common/commonStyles';
@@ -14,11 +14,14 @@ import CustomStyles from '../common/commonStyles';
 class Login extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      window: false,
+    };
     this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
-    // this.props.authStore.checkSignedIn();
+    this.setState({ window });
   }
 
   closeModal() {
@@ -39,7 +42,11 @@ class Login extends React.Component {
 
   // eslint-disable-next-line class-methods-use-this
   responseGoogle(self, response) {
-    if (response.profileObj) {
+    if (response.profileObj && window) {
+      response.profileObj.password = window.btoa(
+        unescape(encodeURIComponent(response.profileObj.email)),
+      );
+
       self.props.authStore.login(null, 'googleAuth', response.profileObj);
     }
   }
@@ -48,17 +55,20 @@ class Login extends React.Component {
     Modal.setAppElement('body');
     return (
       <div className="authWrapper authWrapper__signin">
+        {this.props.authStore.loginLoading.visible
+          ? getLoader(this)
+          : getLoader(this, true)}
         <main>
           <div className="brand">
             <Link href="/" as="/">
-              <img src="/logo.png" alt="Easy Expense logo" />
+              <img src="/logo.svg" alt="Easy Expense logo" />
             </Link>
           </div>
           <div className="pageContent">
             <h1 className="pageTitle">Login</h1>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor.
+              Login to your Easy Expense account. Don’t have an account? Sign
+              Up.
             </p>
           </div>
           {renderIf(
@@ -170,12 +180,12 @@ class Login extends React.Component {
                   className="button__google"
                 >
                   <span className="icon icon__google" />
-                  Log in with Google
+                  Continue with Google
                 </button>
               )}
               buttonText="Login"
               onSuccess={response => this.responseGoogle(this, response)}
-              onFailure={() => {
+              onFailure={e => {
                 this.props.authStore.setClassProps(
                   [
                     {
