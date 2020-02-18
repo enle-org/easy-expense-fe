@@ -73,6 +73,7 @@ class Receipts extends React.Component {
   handleReceiptDelete = () => {
     const { itemToDelete } = this.state;
     this.props.receiptStore.deleteReceipt(itemToDelete);
+    this.closeModal();
   };
 
   renderImage = receipt => {
