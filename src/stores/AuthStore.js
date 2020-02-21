@@ -1,9 +1,8 @@
 import { observable, action, runInAction } from 'mobx';
 import Router from 'next/router';
-import cookie from 'js-cookie';
 
 import { setClassProps, runInActionUtil } from '../utils/helpers';
-import { login, logout } from '../utils/serverAuth';
+import { login, logout, decodeToken, setUser } from '../utils/serverAuth';
 import axiosInstance from '../utils/axiosInstance';
 import config from '../../config';
 
@@ -397,6 +396,10 @@ export default class AuthStore {
         strategy: 'local',
       });
       await login({ token: res.data.accessToken });
+      const { data } = await axiosInstance.get(
+        `${baseUrl}/users/${decodeToken().sub}`,
+      );
+      await setUser(data);
       runInAction(() => {
         this.user = res.data.user;
         this.loginLoading = {

@@ -11,7 +11,26 @@ const login = ({ token }) => {
   Object.assign(axiosInstance.defaults, {
     headers: { Authorization: `Bearer ${token}` },
   });
-  Router.push('/dashboard', '/dashboard');
+};
+
+const setUser = async ({ fullname, email }, expiresIn = '7days') => {
+  cookie.set(
+    'user',
+    jwt.sign(
+      {
+        fullname,
+        email,
+      },
+      'key',
+      { expiresIn },
+    ),
+    { expires: 7 },
+  );
+};
+
+const getUser = () => {
+  const user = cookie.get('user');
+  return jwt.decode(user);
 };
 
 const auth = ctx => {
@@ -36,6 +55,7 @@ const auth = ctx => {
 
 const logout = () => {
   cookie.remove('token');
+  cookie.remove('user');
   // to support logging out from all windows
   window.localStorage.setItem('logout', Date.now());
   Object.assign(axiosInstance.defaults, { headers: { Authorization: null } });
@@ -79,4 +99,4 @@ const decodeToken = () => {
   return jwt.decode(token);
 };
 
-export { login, auth, logout, withAuthSync, decodeToken };
+export { login, setUser, getUser, auth, logout, withAuthSync, decodeToken };
