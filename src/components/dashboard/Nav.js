@@ -5,7 +5,7 @@ import { withRouter } from 'next/router';
 import { Dropdown } from 'react-bootstrap';
 import cookie from 'js-cookie';
 
-import { logout } from '../../utils/serverAuth';
+import { logout, getUser } from '../../utils/serverAuth';
 
 const checkActive = (router, linkName) => {
   if (router.pathname === linkName) return 'activeNav';
@@ -30,8 +30,21 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
 @inject('authStore')
 @observer
 class Nav extends React.Component {
+  state = {
+    email: '',
+    fullname: '',
+  };
+
+  componentDidMount = () => {
+    this.setState({
+      email: getUser().email,
+      fullname: getUser().fullname,
+    });
+  };
+
   render() {
     const { router } = this.props;
+    const { fullname, email } = this.state;
 
     return (
       <nav id="accountNav">
@@ -221,8 +234,18 @@ class Nav extends React.Component {
           <Dropdown className="m-r-lg">
             <Dropdown.Toggle as={CustomToggle}>
               <div className="profile-area">
-                <img src="/avatar.png" alt="" className="avatar" />
-                <p>Jessica Rabbit</p>
+                <img
+                  src={`https://ui-avatars.com/api/?background=6C63FF&color=fff&name=${
+                    fullname !== ''
+                      ? `${fullname.split(' ')[0][0]}${
+                          fullname.split(' ')[1][0]
+                        }`
+                      : email.split('@')[0][0]
+                  }`}
+                  alt=""
+                  className="avatar"
+                />
+                <p>{fullname !== '' ? fullname : email.split('@')[0]}</p>
                 <span>
                   <img src="/icons/chevron_down.svg" alt="" />
                 </span>

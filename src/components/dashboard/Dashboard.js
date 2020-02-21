@@ -37,6 +37,12 @@ class Dashboard extends React.Component {
   componentDidMount() {
     this.setState({ window });
     this.props.organisationStore.findInvites();
+
+    if (this.props.organisationStore.inviteData.orgID) {
+      this.props.organisationStore.joinOrg();
+    } else {
+      return null;
+    }
   }
 
   closeModal(type) {
@@ -125,31 +131,11 @@ class Dashboard extends React.Component {
                   <p>You’ve been invited to join the organizations below.</p>
                   <div className="eEForm eEForm__account">
                     {this.props.organisationStore.inviteData.orgID ? (
-                      <div className="row with-divider">
-                        <div className="col-sm-3">
-                          <p className="small">Organization</p>
-                          <p>
-                            {this.props.organisationStore.inviteData.orgName.toUpperCase()}
-                          </p>
-                        </div>
-                        <div className="col-sm-3">
-                          <p className="small">Invited By:</p>
-                          <p>
-                            {this.props.organisationStore.inviteData.invitedBy}
-                          </p>
-                        </div>
-                        <div className="col-sm-6">
-                          <div className="buttonWrapper">
-                            <button
-                              type="button"
-                              className="button button__primary"
-                              onClick={this.props.organisationStore.joinOrg}
-                            >
-                              Join Organization
-                            </button>
-                          </div>
-                        </div>
-                      </div>
+                      <p>
+                        You have joined the{' '}
+                        {this.props.organisationStore.inviteData.orgName.toUpperCase()}{' '}
+                        organisation
+                      </p>
                     ) : (
                       <p className="text-center">
                         <em>You don&apos;t have any invites at the moment.</em>
