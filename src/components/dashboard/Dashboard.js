@@ -27,15 +27,13 @@ class Dashboard extends React.Component {
     this.state = {
       members: [],
       additionError: '',
-      window: false,
     };
     this.handleDelete = this.handleDelete.bind(this);
     this.handleAddition = this.handleAddition.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
 
-  componentDidMount() {
-    this.setState({ window });
+  componentDidMount = () => {
     this.props.organisationStore.findInvites();
 
     if (this.props.organisationStore.inviteData.orgID) {
@@ -43,7 +41,7 @@ class Dashboard extends React.Component {
     } else {
       return null;
     }
-  }
+  };
 
   closeModal(type) {
     this.props.organisationStore.setClassProps(

@@ -523,29 +523,34 @@ export default class AuthStore {
   @action
   patchUser = async () => {
     try {
-      if (
-        this.user._id &&
-        this.validatePassword('user', 'personalSettingsActionError') &&
-        this.validatePasswordMatch('user', 'personalSettingsActionError')
-      ) {
-        const resp = await axiosInstance.patch(
-          `${baseUrl}/users/${this.user._id}`,
-          {
-            fullname: this.user.fullname,
-            password: this.user.password,
-          },
-        );
-        runInActionUtil(this, 'user', resp.data);
-        runInActionUtil(this, 'success', {
-          visible: true,
-          message: 'Your personal information has been updated.',
-        });
-        runInActionUtil(this, 'personalSettingsActionError', {
-          type: '',
-          visible: false,
-          message: '',
-        });
+      const reqData = {};
+      if (this.user.password && this.user.password.length >= 6) {
+        if (
+          this.user._id &&
+          this.validatePassword('user', 'personalSettingsActionError') &&
+          this.validatePasswordMatch('user', 'personalSettingsActionError')
+        ) {
+          reqData.fullname = this.user.fullname;
+          reqData.password = this.user.password;
+        }
+      } else {
+        reqData.fullname = this.user.fullname;
       }
+      const resp = await axiosInstance.patch(
+        `${baseUrl}/users/${this.user._id}`,
+        reqData,
+      );
+      await setUser(resp.data);
+      runInActionUtil(this, 'user', resp.data);
+      runInActionUtil(this, 'success', {
+        visible: true,
+        message: 'Your personal information has been updated.',
+      });
+      runInActionUtil(this, 'personalSettingsActionError', {
+        type: '',
+        visible: false,
+        message: '',
+      });
     } catch (error) {
       runInActionUtil(this, 'personalSettingsActionError', {
         type: 'patchError',
