@@ -93,6 +93,7 @@ class Receipts extends React.Component {
     this.props.receiptStore.getAllReceipts();
     const receipts = toJS(this.props.receiptStore.receipts);
     Modal.setAppElement('body');
+    // console.log(decodeToken());
 
     const { isModalOpen } = this.state;
 
@@ -135,15 +136,30 @@ class Receipts extends React.Component {
                     receipts.map(receipt => {
                       return (
                         <tr className="t-row" key={receipt._id}>
-                          <td onClick={() => this.renderImage(receipt)}>
-                            <img src="/icons/checkmark.svg" alt="" />
+                          <td>
+                            <button
+                              type="button"
+                              onClick={() => this.renderImage(receipt)}
+                            >
+                              <img src="/icons/checkmark.svg" alt="checkmark" />
+                            </button>
                             {/* <img src="/icons/question_mark.svg" alt="" /> */}
                           </td>
-                          <td onClick={() => this.renderImage(receipt)}>
-                            {receipt.title}
+                          <td>
+                            <button
+                              type="button"
+                              onClick={() => this.renderImage(receipt)}
+                            >
+                              {receipt.title}
+                            </button>
                           </td>
-                          <td onClick={() => this.renderImage(receipt)}>
-                            {moment(receipt.createdAt).format('DD MMMM YYYY')}
+                          <td>
+                            <button
+                              type="button"
+                              onClick={() => this.renderImage(receipt)}
+                            >
+                              {moment(receipt.createdAt).format('DD MMMM YYYY')}
+                            </button>
                           </td>
                           <td>
                             <button

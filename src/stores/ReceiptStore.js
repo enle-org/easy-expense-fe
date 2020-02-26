@@ -1,5 +1,4 @@
-import { observable, action, runInAction } from 'mobx';
-import { toJS } from 'mobx';
+import { observable, action, runInAction, toJS } from 'mobx';
 
 import { setClassProps, runInActionUtil } from '../utils/helpers';
 import axiosInstance from '../utils/axiosInstance';
